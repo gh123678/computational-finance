@@ -17,6 +17,7 @@ class Config:
     dividend_tax: float = .20
     participation: float = .005
     industry_cap: float = .25
+    zero_trading_costs: bool = False
 
     def __post_init__(self):
         if not 0 <= self.cash_buffer < 1 or not 0 < self.participation <= 1 or not 0 < self.industry_cap <= 1:
@@ -26,6 +27,8 @@ class Config:
         date = pd.Timestamp(date)
         if not pd.Timestamp('2015-08-01') <= date <= pd.Timestamp('2025-12-31'):
             raise ValueError('Fee table restricted to historical research through 2025')
+        if self.zero_trading_costs:
+            return FeeSchedule(0., 0., 0., 0., 0.)
         return FeeSchedule(self.commission, self.minimum_commission,
                            .001 if date < pd.Timestamp('2023-08-28') else .0005,
                            .00002 if date < pd.Timestamp('2022-04-29') else .00001,
@@ -33,7 +36,7 @@ class Config:
 
 
 def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=None,
-             industries=None, config=Config(), rebalance_dates=None):
+             industries=None, config=Config(), rebalance_dates=None, rights=()):
     """targets has execution_date, signal_date, ts_code, target_weight.
 
     ADV capacity comes from sessions preceding execution. A target group means
@@ -79,6 +82,11 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
         action_dates.setdefault(action.code, []).append(action.ex)
         if calendar[0] <= action.record <= calendar[-1] and action.record not in calendar:
             raise ValueError('Record date is not in the exchange calendar')
+    rights_entitlements = {}
+    for issue in rights:
+        if pd.isna(issue.record) or pd.isna(issue.ex) or issue.record >= issue.ex or not issue.source:
+            raise ValueError('Rights issue requires verified chronological dates')
+        action_dates.setdefault(issue.code, []).append(issue.ex)
     ledger = Ledger(config.initial_cash, config.dividend_tax)
     nav, fills, holdings = [], [], []
     last_adj = {}
@@ -95,6 +103,14 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
             last_adj[code] = (date, quote['adj_factor'])
         before_cash = ledger.cash
         ledger.morning(date, actions)
+        for issue in rights:
+            if issue.ex == date and rights_entitlements.get(issue, 0):
+                if issue.code not in daily:
+                    raise ValueError('Held rights issue needs observed ex-date valuation')
+                ledger.events.append(dict(date=date, code=issue.code, event='rights_not_subscribed',
+                                          entitled_shares=rights_entitlements[issue], source=issue.source))
+                # No cash paid, no new shares credited. Raw market prices retain
+                # the dilution loss; an adjusted return must not erase it.
         recorded_cash_flow += ledger.cash - before_cash
         for code, delist_date in delistings.items():
             if pd.notna(delist_date) and date >= delist_date:
@@ -141,15 +157,19 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
                     if not math.isclose(delta_cash, signed * fill.shares * fill.price - fill.fee, abs_tol=1e-7):
                         raise AssertionError('Trade cash does not reconcile')
                     slip = 0. if not fill.shares else fill.shares * (fill.price - raw_open) * (-signed)
+                    role = 'entry' if side == 'buy' and held == 0 else 'exit' if side == 'sell' and weights.get(code, 0.) == 0 else 'resize'
                     fills.append(dict(date=date, ts_code=code, side=side, requested=int(abs(difference)),
                                       shares=fill.shares, raw_open=raw_open, price=fill.price,
                                       fee=fill.fee, slippage_cost=slip, status=fill.status, reason=fill.reason,
-                                      cash_after=ledger.cash))
+                                      cash_after=ledger.cash, role=role, notional=fill.shares * fill.price))
                     day_fees += fill.fee
                     turnover_value += fill.shares * fill.price
                     slippage_cost += slip
         ledger.mark({c: q['close'] for c, q in daily.items()})
         ledger.record(date, actions)
+        for issue in rights:
+            if issue.record == date:
+                rights_entitlements[issue] = ledger.positions[issue.code]
         parts = ledger.components()
         if not math.isclose(parts['cash'], config.initial_cash + recorded_cash_flow, abs_tol=1e-6):
             raise AssertionError('Daily cash flow reconciliation failed')
@@ -177,8 +197,8 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
                 corporate_events=pd.DataFrame(ledger.events))
 
 
-def summarize(nav, orders, first_execution):
-    start = nav.index[nav.date.eq(first_execution)][0]
+def summarize(nav, orders, first_execution, evaluation_start=None):
+    start = nav.index[nav.date.ge(pd.Timestamp(evaluation_start))][0] if evaluation_start else nav.index[nav.date.eq(first_execution)][0]
     if start == 0:
         raise ValueError('Need a pre-execution NAV observation')
     frame = nav.iloc[start-1:].copy()
@@ -186,11 +206,20 @@ def summarize(nav, orders, first_execution):
     returns = equity.pct_change().dropna()
     drawdown = 1 - equity / equity.cummax()
     trades = orders.loc[orders.shares.gt(0)] if not orders.empty else orders
-    return dict(total_return=float(equity.iloc[-1] / equity.iloc[0] - 1), max_drawdown=float(drawdown.max()),
+    result = dict(total_return=float(equity.iloc[-1] / equity.iloc[0] - 1), max_drawdown=float(drawdown.max()),
                 sessions=len(returns), start=frame.date.iloc[0].strftime('%Y-%m-%d'), end=frame.date.iloc[-1].strftime('%Y-%m-%d'),
                 final_equity=float(equity.iloc[-1]), total_fees=float(frame.fees.sum()),
                 total_slippage=float(frame.slippage_cost.sum()), gross_turnover=float(frame.turnover.sum()),
                 filled_orders=len(trades), rejected_orders=int(orders.status.eq('rejected').sum()) if not orders.empty else 0,
                 industry_breach_days=int(frame.industry_target_breached.sum()),
                 stale_valuation_days=int(frame.stale_value.gt(0).sum()),
-                annualized_metrics_withheld='Short engineering window; no annualized performance claim.')
+                average_cash_weight=float((frame.cash / frame.equity).iloc[1:].mean()),
+                average_positions=float(frame.position_count.iloc[1:].mean()))
+    if len(returns) >= 126:
+        volatility = float(returns.std(ddof=1) * np.sqrt(252))
+        result.update(annualized_return=float((equity.iloc[-1] / equity.iloc[0]) ** (252 / len(returns)) - 1),
+                      annualized_volatility=volatility,
+                      sharpe_rf0=float(returns.mean() * 252 / volatility) if volatility > 0 else None)
+    else:
+        result['annualized_metrics_withheld'] = 'Short engineering window; no annualized performance claim.'
+    return result

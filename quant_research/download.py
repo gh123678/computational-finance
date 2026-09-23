@@ -2,20 +2,21 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
+import argparse
 import pandas as pd
 from .data import ROOT, TushareClient, load_token, DataError
 from .audit import table
+from .datasets import DATASETS, dataset_config
 
-START, END = '20201001', '20201231'
-
-
-def main():
-    client = TushareClient(load_token())
-    out = ROOT / 'data' / 'development_2020q4'
+def main(dataset='development_2020q4', interval=1.3):
+    spec = dataset_config(dataset)
+    start, end = spec['start'], spec['end']
+    client = TushareClient(load_token(), interval=interval)
+    out = ROOT / 'data' / dataset
     out.mkdir(parents=True, exist_ok=True)
-    cal = table(client.query('trade_cal', {'exchange': 'SSE', 'start_date': '20100101', 'end_date': END}))
+    cal = table(client.query('trade_cal', {'exchange': 'SSE', 'start_date': '20100101', 'end_date': end}))
     cal.to_csv(out / 'calendar.csv', index=False)
-    dates = sorted(cal.loc[cal.is_open.eq(1) & cal.cal_date.between(START, END), 'cal_date'])
+    dates = sorted(cal.loc[cal.is_open.eq(1) & cal.cal_date.between(start, end), 'cal_date'])
 
     def day(date):
         result = {}
@@ -42,13 +43,21 @@ def main():
                 raise DataError(f'{date}/{api}: duplicate rows')
         return date, result
 
-    results = []
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        futures = [pool.submit(day, date) for date in dates]
+    results, failures = [], []
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        futures = {pool.submit(day, date): date for date in dates}
         for f in as_completed(futures):
-            date, result = f.result()
+            try:
+                date, result = f.result()
+            except DataError as exc:
+                failures.append(dict(date=futures[f], error=str(exc)))
+                print(f'{futures[f]} failed: {exc}; other dates continue and remain cached', flush=True)
+                continue
             results.append((date, result))
             print(f'{len(results)}/{len(dates)} dates complete: {date}, {len(result["daily"])} daily bars', flush=True)
+    if failures:
+        (out / 'download_failures.json').write_text(json.dumps(failures, indent=2), encoding='utf-8')
+        raise DataError(f'{len(failures)} dates failed; rerun to resume cached downloads. See download_failures.json')
     results.sort(key=lambda pair: pair[0])
     hashes = {}
     for api in ['daily', 'adj_factor', 'stk_limit', 'suspend_d', 'dividend']:
@@ -56,11 +65,11 @@ def main():
         path = out / f'{api}.csv'
         frame.to_csv(path, index=False)
         hashes[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
-    benchmark = table(client.query('index_daily', {'ts_code': '000300.SH', 'start_date': START, 'end_date': END}))
+    benchmark = table(client.query('index_daily', {'ts_code': '000300.SH', 'start_date': start, 'end_date': end}))
     benchmark.to_csv(out / 'benchmark.csv', index=False)
     hashes['benchmark.csv'] = hashlib.sha256((out / 'benchmark.csv').read_bytes()).hexdigest()
     hashes['calendar.csv'] = hashlib.sha256((out / 'calendar.csv').read_bytes()).hexdigest()
-    manifest = dict(start=START, end=END, sessions=len(dates), files_sha256=hashes,
+    manifest = dict(**spec, dataset=dataset, sessions=len(dates), files_sha256=hashes,
                     scope='All daily API equities; strategy subsequently filters historical main-board A shares.',
                     corporate_action_query='Dividend records queried by realized ex-date in this window.')
     (out / 'manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
@@ -68,4 +77,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset', choices=DATASETS, default='development_2020q4')
+    parser.add_argument('--interval', type=float, default=1.3, help='Seconds between API starts; obey account limits')
+    args = parser.parse_args()
+    if args.interval < .4:
+        parser.error('This downloader requires at least 0.4 seconds between requests')
+    main(args.dataset, args.interval)

@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 from quant_research.accounting import Action
-from quant_research.backtest import simulate, Config
+from quant_research.backtest import simulate, Config, summarize
 
 
 def fixture():
@@ -84,3 +84,26 @@ def test_blocked_sale_retains_the_position_and_records_rejection():
     result = simulate(bars, dates, targets, rebalance_dates=[dates[2], dates[4]])
     assert result['nav'].iloc[4].stock_value > 0
     assert result['orders'].iloc[-1].reason == 'price_limit'
+
+
+def test_evaluation_includes_cash_days_before_first_weekly_execution():
+    dates, bars, targets = fixture()
+    result = simulate(bars, dates, targets)
+    summary = summarize(result['nav'], result['orders'], dates[2], evaluation_start=str(dates[1].date()))
+    assert summary['sessions'] == len(dates)-1
+    assert summary['start'] == str(dates[0].date())
+    assert summary['total_return'] == pytest.approx(result['nav'].iloc[-1].equity / 1_000_000 - 1)
+
+
+def test_non_subscription_keeps_rights_dilution_loss_and_original_shares():
+    from quant_research.rights import RightsIssue
+    dates, bars, targets = fixture()
+    bars.loc[3:, ['open', 'close']] = 8.
+    bars.loc[3:, 'adj_factor'] = 1.25
+    issue = RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer')
+    config = Config(initial_cash=10000, zero_trading_costs=True)
+    result = simulate(bars, dates, targets, config=config, rights=[issue])
+    assert result['nav'].iloc[-1].equity == 9000
+    assert result['nav'].iloc[-1]['cash'] == 5000
+    assert result['holdings'].iloc[-1].shares == 500
+    assert result['corporate_events'].event.tolist() == ['rights_not_subscribed']
