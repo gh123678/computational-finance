@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 import shutil
 import time
+import threading
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 from urllib.error import URLError
@@ -51,6 +52,7 @@ class TushareClient:
         self.cache = cache or ROOT / 'data' / 'raw'
         self.interval = interval
         self._last_request = 0.0
+        self._throttle_lock = threading.Lock()
 
     def query(self, api: str, params: dict, fields: str = '', *, refresh=False) -> dict:
         public = {'api_name': api, 'params': params, 'fields': fields}
@@ -65,8 +67,9 @@ class TushareClient:
             return payload
         body = json.dumps(dict(public, token=self._token)).encode()
         for attempt in range(3):
-            time.sleep(max(0, self.interval - (time.monotonic() - self._last_request)))
-            self._last_request = time.monotonic()
+            with self._throttle_lock:
+                time.sleep(max(0, self.interval - (time.monotonic() - self._last_request)))
+                self._last_request = time.monotonic()
             try:
                 request = Request('https://api.tushare.pro', data=body,
                                   headers={'Content-Type': 'application/json'}, method='POST')
