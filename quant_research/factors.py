@@ -81,6 +81,35 @@ def select_targets(scores: pd.DataFrame, count=20, cash_buffer=0.02, industry_ca
     return pd.DataFrame(selected, columns=[*scores.columns, 'target_weight'])
 
 
+def select_buffered_targets(scores: pd.DataFrame, previous_codes=(), count=20, exit_rank=40,
+                            cash_buffer=0.02, industry_cap=0.25) -> pd.DataFrame:
+    """Keep prior targets inside a fixed rank buffer, then fill by score."""
+    if not isinstance(exit_rank, int) or isinstance(exit_rank, bool) or exit_rank < count:
+        raise ValueError('Exit rank must be an integer no smaller than portfolio size')
+    required = {'trade_date', 'ts_code', 'industry', 'score'}
+    if not required.issubset(scores) or scores['trade_date'].nunique() > 1 or scores.ts_code.duplicated().any():
+        raise ValueError('Supply one valid unique cross-section')
+    weight = (1 - cash_buffer) / count
+    eligible = scores.replace([np.inf, -np.inf], np.nan).dropna(subset=['score', 'industry']).copy()
+    eligible = eligible.loc[eligible.industry.astype(str).str.strip().ne('')]
+    eligible = eligible.sort_values(['score', 'ts_code'], ascending=[False, True])
+    eligible['rank'] = np.arange(1, len(eligible) + 1)
+    prior = set(previous_codes)
+    retained = eligible.loc[eligible.ts_code.isin(prior) & eligible['rank'].le(exit_rank)]
+    candidates = pd.concat([retained, eligible.loc[~eligible.ts_code.isin(retained.ts_code)]], ignore_index=True)
+    selected, industry_weights = [], {}
+    for row in candidates.to_dict('records'):
+        exposure = industry_weights.get(row['industry'], 0.) + weight
+        if exposure > industry_cap + 1e-12:
+            continue
+        row['target_weight'] = weight
+        selected.append(row)
+        industry_weights[row['industry']] = exposure
+        if len(selected) == count:
+            break
+    return pd.DataFrame(selected, columns=[*scores.columns, 'target_weight'])
+
+
 def weekly_schedule(calendar: pd.DatetimeIndex) -> pd.DataFrame:
     """Last session of each complete ISO week -> next week's first session.
 

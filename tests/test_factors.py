@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
-from quant_research.factors import compute_factors, rank_scores, select_targets, weekly_schedule, FACTORS
+from quant_research.factors import compute_factors, rank_scores, select_targets, select_buffered_targets, weekly_schedule, FACTORS
 
 
 def bars(n=45):
@@ -65,6 +65,26 @@ def test_industry_cap_leaves_cash():
     targets = select_targets(frame)
     assert len(targets) == 5
     assert targets.target_weight.sum() == pytest.approx(.245)
+
+
+def test_rank_buffer_retains_prior_names_and_respects_industry_cap():
+    frame = pd.DataFrame({'trade_date': ['2020-01-01'] * 8,
+                          'ts_code': list('ABCDEFGH'),
+                          'industry': ['x', 'x', 'y', 'y', 'z', 'z', 'w', 'w'],
+                          'score': [8, 7, 6, 5, 4, 3, 2, 1]})
+    result = select_buffered_targets(frame, previous_codes=['D', 'F'], count=4,
+                                     exit_rank=6, cash_buffer=0, industry_cap=.5)
+    assert result.ts_code.tolist() == ['D', 'F', 'A', 'B']
+    assert result.groupby('industry').target_weight.sum().max() <= .5
+
+
+def test_rank_buffer_drops_prior_name_outside_exit_rank():
+    frame = pd.DataFrame({'trade_date': ['2020-01-01'] * 5,
+                          'ts_code': list('ABCDE'), 'industry': list('abcde'),
+                          'score': [5, 4, 3, 2, 1]})
+    result = select_buffered_targets(frame, previous_codes=['E'], count=2,
+                                     exit_rank=4, cash_buffer=0, industry_cap=1)
+    assert result.ts_code.tolist() == ['A', 'B']
 
 
 def test_holiday_delays_execution_not_signal():

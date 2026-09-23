@@ -1,5 +1,5 @@
 import pandas as pd
-from quant_research.adjustment_audit import audit_adjustments
+from quant_research.adjustment_audit import audit_adjustments, quarantine_factors
 from quant_research.rights import RightsIssue
 
 
@@ -10,3 +10,15 @@ def test_event_in_quote_gap_is_explained_but_unrelated_change_is_exposed():
     rights = [RightsIssue('A', pd.Timestamp('20200103'), pd.Timestamp('20200106'), 'source')]
     result = audit_adjustments(bars, [], rights)
     assert result.ts_code.tolist() == ['B']
+
+
+def test_quarantine_covers_exact_price_lookback_without_mutating_input():
+    calendar = pd.bdate_range('2020-01-01', periods=25)
+    factors = pd.DataFrame({'trade_date': calendar, 'ts_code': 'A',
+                            'momentum20': 1., 'reversal5': 1., 'lowvol20': 1., 'adv20_cny': 1.})
+    issues = pd.DataFrame({'trade_date': [calendar[2]], 'ts_code': ['A']})
+    result, count = quarantine_factors(factors, issues, calendar, window=20)
+    assert count == 20
+    assert result.loc[2:21, ['momentum20', 'reversal5', 'lowvol20']].isna().all().all()
+    assert result.loc[22, 'momentum20'] == 1
+    assert factors.momentum20.notna().all()

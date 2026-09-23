@@ -5,7 +5,8 @@ import pandas as pd
 
 root = Path('output/development_2020')
 summary = json.loads((root / 'summary.json').read_text(encoding='utf-8'))
-assert len(summary['experiments']) == 8
+assert len(summary['experiments']) == 9
+factors = pd.read_csv(root / 'factors.csv', parse_dates=['trade_date'])
 checks = []
 for item in summary['experiments']:
     folder = root / item['strategy']
@@ -14,6 +15,8 @@ for item in summary['experiments']:
     holdings = pd.read_csv(folder / 'holdings.csv')
     monthly = pd.read_csv(folder / 'monthly_returns.csv')
     costs = pd.read_csv(folder / 'cost_attribution.csv')
+    targets = pd.read_csv(folder / 'historical_targets.csv', parse_dates=['signal_date'])
+    assert targets[['momentum20', 'reversal5', 'lowvol20']].notna().all().all()
     error = (nav.equity - nav[['cash', 'stock_value', 'bonus_value', 'receivable']].sum(axis=1)).abs().max()
     assert error < 1e-6
     assert nav.cash.min() >= 0 and holdings.shares.min() >= 0 and holdings.pending_shares.min() >= 0

@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 import numpy as np
 import pandas as pd
 from .data import ROOT
-from .factors import FACTORS, compute_factors, rank_scores, select_targets, weekly_schedule
+from .factors import FACTORS, compute_factors, rank_scores, select_targets, select_buffered_targets, weekly_schedule
 from .universe import historical_universe
 from .accounting import normalize_actions
 from .backtest import Config, simulate, summarize
@@ -14,7 +14,7 @@ from .datasets import DATASETS, dataset_config
 from .attribution import cost_breakdown, monthly_returns
 from .corporate_corrections import correct_actions
 from .rights import verified_rights
-from .adjustment_audit import audit_adjustments
+from .adjustment_audit import audit_adjustments, quarantine_factors
 
 
 def read_market(root, name):
@@ -85,6 +85,7 @@ def main(dataset='development_2020q4'):
     price_input = bars.loc[bars.vol.gt(0)].copy()
     price_input['trade_date'] = price_input.trade_date.dt.strftime('%Y%m%d')
     factors = compute_factors(price_input, calendar)
+    factors, quarantined_factor_rows = quarantine_factors(factors, adjustment_issues, calendar)
     factors.to_csv(output / 'factors.csv', index=False)
     schedule = weekly_schedule(calendar)
     snapshots, coverage, industry_maps = {}, [], {}
@@ -112,15 +113,18 @@ def main(dataset='development_2020q4'):
                       ('liquidity_control', ['adv20_cny'], 10), ('combined_slip30', FACTORS, 30),
                       ('combined_slip50', FACTORS, 50)]
     if dataset == 'development_2020':
-        configurations.append(('combined_zero_cost', FACTORS, 0))
+        configurations.extend([('combined_zero_cost', FACTORS, 0),
+                               ('combined_rank_buffer40', FACTORS, 10)])
     results, curves = [], {}
     for label, columns, slippage in configurations:
-        plans = []
+        plans, previous_codes = [], set()
         for row in active_schedule.itertuples(index=False):
             frame = rank_scores(snapshots[row.signal_date], columns=columns)
-            target = select_targets(frame)
+            target = (select_buffered_targets(frame, previous_codes, exit_rank=40)
+                      if label == 'combined_rank_buffer40' else select_targets(frame))
             target['signal_date'], target['execution_date'] = row.signal_date, row.execution_date
             plans.append(target)
+            previous_codes = set(target.ts_code)
         targets = pd.concat(plans, ignore_index=True)
         config = Config(slippage_bps=slippage, zero_trading_costs=label == 'combined_zero_cost')
         run = simulate(bars, calendar, targets, actions, suspension_set, delistings, industry_maps, config,
@@ -151,6 +155,7 @@ def main(dataset='development_2020q4'):
     summary = dict(data_manifest=manifest, dataset=dataset, title=spec['title'], initial_capital=1_000_000, experiments=results,
                    actions_in_dataset=len(actions), corporate_action_corrections=corrections,
                    unexplained_adjustments=len(adjustment_issues),
+                   quarantined_factor_rows=quarantined_factor_rows,
                    unexplained_adjustment_dates=adjustment_issues.trade_date.dt.strftime('%Y-%m-%d').value_counts().to_dict(),
                    rights_policy='No subscription: no cash or shares credited; raw-price dilution losses remain. Not a live recommendation.',
                    bars=len(bars), assets=int(bars.ts_code.nunique()),
@@ -170,7 +175,8 @@ def render_report(output, summary, curves, benchmark, ic, groups):
     labels = {'combined': '三因子等权', 'momentum20': '20 日动量', 'reversal5': '5 日反转',
               'lowvol20': '20 日低波动', 'liquidity_control': '高流动性对照',
               'combined_slip30': '三因子/30bp 滑点', 'combined_slip50': '三因子/50bp 滑点',
-              'combined_zero_cost': '三因子/零交易成本诊断'}
+              'combined_zero_cost': '三因子/零交易成本诊断',
+              'combined_rank_buffer40': '三因子/排名缓冲 40'}
     start = pd.Timestamp(summary['experiments'][0]['start'])
     fig, ax = plt.subplots(figsize=(11, 5.8))
     for label, curve in curves.items():
@@ -201,6 +207,11 @@ def render_report(output, summary, curves, benchmark, ic, groups):
     zero = next((item for item in summary['experiments'] if item['strategy'] == 'combined_zero_cost'), None)
     if zero:
         lines += ['', f"零交易成本诊断中，三因子组合收益为 {zero['total_return']:.2%}；常规成本下为 {combined['total_return']:.2%}，相差 {(zero['total_return']-combined['total_return'])*100:.2f} 个百分点。零成本不代表实盘收益，固定红利税与拒单规则仍保留；该差额也包含资金规模、整数股及后续成交路径变化，不能等同于简单加回手续费。", '']
+    buffered = next((item for item in summary['experiments'] if item['strategy'] == 'combined_rank_buffer40'), None)
+    if buffered:
+        regular_cost = combined['total_fees'] + combined['total_slippage']
+        buffered_cost = buffered['total_fees'] + buffered['total_slippage']
+        lines += ['', f"排名缓冲候选收益为 {buffered['total_return']:.2%}、最大回撤 {buffered['max_drawdown']:.2%}，成交 {buffered['filled_orders']} 笔，累计换手指标 {buffered['gross_turnover']:.2f}；原组合分别为 {combined['total_return']:.2%}、{combined['max_drawdown']:.2%}、{combined['filled_orders']} 笔和 {combined['gross_turnover']:.2f}。费用及滑点从 {regular_cost:,.2f} 元降至 {buffered_cost:,.2f} 元。该候选按事前登记的退出排名 40 运行，没有扫描阈值。", '']
     lines += ['', f"同期沪深 300 **价格指数**变动为 {reference.iloc[-1] / reference.iloc[0] - 1:.2%}，不含股息再投资和交易成本，与股票组合口径不同。", '',
               '![开发期净值比较](equity_comparison.png)', '', '## 如何解读', '',
               '策略均采用同一历史状态、上市年龄与流动性过滤，20 只等权目标、每周调仓、2% 现金缓冲及 25% 行业目标上限。高流动性对照按此前 20 日成交额排序，同样选 20 只、使用相同成交和成本规则。', '',
@@ -238,7 +249,7 @@ def render_report(output, summary, curves, benchmark, ic, groups):
         lines += ['', '有一项公告核验修正：002260.SZ 在 2020-09-25 的重整转增不向原股东分配，也不作除权，故不作为普通股东送转事件。原始数据保留，修正及原始字段见 corporate_action_corrections.json。这不删除该股票行情，也不按结果修改股票池。',
                   '[公司 2020-074 号公告](https://static.cninfo.com.cn/finalpage/2020-09-19/1208460598.PDF)。']
     lines += ['', '## 限制和下一步', '',
-              f"- 全股票池发现 {summary['unexplained_adjustments']} 条尚未由已核验事件登记解释的复权因子变化（见 unexplained_adjustments.csv）。未影响当时持仓不等于不会影响因子排名；这些数据质量疑点尚未消除，本报告属于诊断结果。若影响持仓账本，程序仍会中止。",
+              f"- 全股票池发现 {summary['unexplained_adjustments']} 条尚未由已核验事件登记解释的复权因子变化（见 unexplained_adjustments.csv），对应 {summary['quarantined_factor_rows']} 个股票日被隔离出价格因子截面。隔离覆盖异常日起 20 个交易日；原始行情未修改。若未知变化影响持仓账本，程序仍会中止。",
               '- 名称区间不完整，未知 ST 状态股票被排除；行业区间可能有历史修订，未验证当时发布版本。',
               '- 日线不能还原开盘排队、盘中停牌和手动成交；采用保守拒单及事前成交额容量近似。',
               '- 行业约束施加于目标，价格漂移或拒单后可能超限；每日实际最大行业权重及未知行业权重单独记录。',
