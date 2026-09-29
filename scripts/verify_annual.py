@@ -25,7 +25,7 @@ def verify(dataset):
     columns = ['momentum20', 'reversal5', 'lowvol20']
     expected_strategies = {'combined', *columns, 'liquidity_control', 'combined_slip30',
                            'combined_slip50', 'combined_zero_cost', 'combined_rank_buffer40',
-                           'combined_biweekly', 'combined_biweekly_zero_cost'}
+                           'combined_biweekly', 'combined_biweekly_zero_cost', 'combined_biweekly_slip30'}
     assert {x['strategy'] for x in summary['experiments']} == expected_strategies
     assert len(summary['experiments']) == len(expected_strategies)
     checks = []

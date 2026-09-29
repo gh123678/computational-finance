@@ -139,8 +139,10 @@ def main(dataset='development_2020q4'):
         configurations.extend([('combined_zero_cost', FACTORS, 0),
                                ('combined_rank_buffer40', FACTORS, 10),
                                ('combined_biweekly', FACTORS, 10),
-                               ('combined_biweekly_zero_cost', FACTORS, 0)])
-    buffered_labels = {'combined_rank_buffer40', 'combined_biweekly', 'combined_biweekly_zero_cost'}
+                               ('combined_biweekly_zero_cost', FACTORS, 0),
+                               ('combined_biweekly_slip30', FACTORS, 30)])
+    buffered_labels = {'combined_rank_buffer40', 'combined_biweekly', 'combined_biweekly_zero_cost',
+                       'combined_biweekly_slip30'}
     active_biweekly = biweekly_schedule(calendar).loc[lambda s: s.execution_date >= first_execution]
     results, curves = [], {}
     for label, columns, slippage in configurations:
@@ -215,7 +217,8 @@ def render_report(output, summary, curves, benchmark, ic, groups):
               'combined_zero_cost': '三因子/零交易成本诊断',
               'combined_rank_buffer40': '三因子/排名缓冲 40',
               'combined_biweekly': '三因子/双周调仓+缓冲 40',
-              'combined_biweekly_zero_cost': '三因子/双周零成本诊断'}
+              'combined_biweekly_zero_cost': '三因子/双周零成本诊断',
+              'combined_biweekly_slip30': '三因子/双周/30bp 滑点'}
     start = pd.Timestamp(summary['experiments'][0]['start'])
     fig, ax = plt.subplots(figsize=(11, 5.8))
     for label, curve in curves.items():
