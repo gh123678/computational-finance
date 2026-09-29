@@ -171,6 +171,7 @@ def main(dataset='development_2020q4'):
         summary['stock_settlements'] = int(run['corporate_events'].event.eq('stock_settlement').sum()) if not run['corporate_events'].empty else 0
         summary['delisting_writeoffs'] = int(run['corporate_events'].event.eq('delisting_zero_recovery').sum()) if not run['corporate_events'].empty else 0
         summary['rights_not_subscribed'] = int(run['corporate_events'].event.eq('rights_not_subscribed').sum()) if not run['corporate_events'].empty else 0
+        summary['rights_subscribed'] = int(run['corporate_events'].event.eq('rights_subscribed').sum()) if not run['corporate_events'].empty else 0
         results.append(summary)
         curves[label] = run['nav'].set_index('date').equity
         evaluated = run['nav'].loc[run['nav'].date >= pd.Timestamp(summary['start'])].set_index('date').equity
@@ -261,7 +262,7 @@ def render_report(output, summary, curves, benchmark, ic, groups):
               '分价位向不利方向取整使低价股票的实际滑点可能明显高于名义基点。单股目标金额不足购买一手时保留现金，因此实际持股可能少于 20 只，对照组也遵循该规则。', '',
               '2016—2020 年开发期情景为佣金万三、每笔最低 5 元，卖出印花税千一、双边过户费十万分之二。佣金是研究假设，未取得用户交割单。现金红利和送股应税面值按固定 20% 税率预留，面值按每股 1 元情景；资本公积转增不计该项税。该简化未实现逐笔持有期差别税率及真实追缴时间。', '',
               '登记日记录权利；除权日确认应收现金和未上市红股；派息/上市日期到达后才转成现金/可卖股数。停牌估值沿用前值并在公司行动时调整参考价；退市按股票价值零回收情景处理。未解释的复权变化若影响持仓，会终止回测。', '',
-              '配股采用明确的“不认购”研究情景：不扣认购款，不增加股份，原始股价中的摊薄损失保留；实际触发记为 rights_not_subscribed。该情景不代表合理的实盘操作，后续需加入配股日历、现金安排和认购决策。仅对已有一手来源核验的事件开放识别，其他未知变化仍会中止回测。', '',
+              '配股自 2026-09-29 起按条款登记区分：经公告取证的配股价、实际配售比例与获配上市日登记后，除权日按获配股数扣认购款（获配 = 登记日持股 × 实际比例向下取整），获配股份计入待上市股份、上市日转为持仓，记 rights_subscribed；现金不足或无条款的已核验事件维持“不认购”情景，记 rights_not_subscribed。仅对已有一手来源核验的事件开放识别，其他未知变化仍会中止回测。', '',
               '因子 IC 与分组收益采用下周首日复权开盘至再下一周首日复权开盘，属于未扣费诊断标签，不等同于可成交收益。缺少退出价格的样本不补零，见 n 列。', '',
               '## 因子诊断', '', '| 因子 | 周期数 | 平均 IC | 平均 Rank IC |', '|---|---:|---:|---:|']
     for factor, frame in ic.groupby('factor'):

@@ -108,10 +108,27 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
             if issue.ex == date and rights_entitlements.get(issue, 0):
                 if issue.code not in daily:
                     raise ValueError('Held rights issue needs observed ex-date valuation')
-                ledger.events.append(dict(date=date, code=issue.code, event='rights_not_subscribed',
-                                          entitled_shares=rights_entitlements[issue], source=issue.source))
-                # No cash paid, no new shares credited. Raw market prices retain
-                # the dilution loss; an adjusted return must not erase it.
+                entitled = rights_entitlements[issue]
+                if issue.price is not None:
+                    allotted = math.floor(entitled * issue.ratio + 1e-8)
+                    cost = round(allotted * issue.price, 2)
+                    if allotted and ledger.cash >= cost - 1e-8:
+                        ledger.cash = round(ledger.cash - cost, 2)
+                        ledger.pending.append(dict(code=issue.code, cash=0., shares=allotted,
+                                                   cash_pay=pd.NaT, stock_pay=issue.list_date))
+                        ledger.events.append(dict(date=date, code=issue.code, event='rights_subscribed',
+                                                  entitled_shares=entitled, allotted_shares=allotted,
+                                                  price=issue.price, ratio=issue.ratio, cost=cost,
+                                                  list_date=str(issue.list_date.date()), source=issue.source))
+                    else:
+                        ledger.events.append(dict(date=date, code=issue.code, event='rights_not_subscribed',
+                                                  entitled_shares=entitled, reason='insufficient_cash',
+                                                  source=issue.source))
+                else:
+                    ledger.events.append(dict(date=date, code=issue.code, event='rights_not_subscribed',
+                                              entitled_shares=entitled, source=issue.source))
+                    # No cash paid, no new shares credited. Raw market prices retain
+                    # the dilution loss; an adjusted return must not erase it.
         recorded_cash_flow += ledger.cash - before_cash
         for code, delist_date in delistings.items():
             if pd.notna(delist_date) and date >= delist_date:

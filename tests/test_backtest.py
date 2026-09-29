@@ -114,3 +114,50 @@ def test_non_subscription_keeps_rights_dilution_loss_and_original_shares():
     assert result['nav'].iloc[-1]['cash'] == 5000
     assert result['holdings'].iloc[-1].shares == 500
     assert result['corporate_events'].event.tolist() == ['rights_not_subscribed']
+
+
+def test_rights_subscription_pays_on_ex_and_lists_on_listing_date():
+    from quant_research.rights import RightsIssue
+    dates, bars, targets = fixture()
+    bars.loc[3:, ['open', 'close']] = 8.
+    bars.loc[3:, 'adj_factor'] = 1.25
+    issue = RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer',
+                        price=5., ratio=.3, list_date=dates[5])
+    config = Config(initial_cash=10000, zero_trading_costs=True)
+    result = simulate(bars, dates, targets, config=config, rights=[issue])
+    events = result['corporate_events']
+    assert events.event.tolist() == ['rights_subscribed', 'stock_settlement']
+    subscribed = events.iloc[0]
+    assert subscribed.entitled_shares == 500 and subscribed.allotted_shares == 150
+    assert subscribed.cost == 750
+    nav = result['nav'].set_index('date')
+    # Entitlement value 150 x (8 - 5) = 450 over the no-subscription scenario.
+    assert nav.loc[dates[-1], 'equity'] == 9450
+    assert nav.loc[dates[-1], 'cash'] == 4250
+    assert result['holdings'].iloc[-1].shares == 650
+    assert nav.loc[dates[4], 'bonus_value'] == 150 * 8
+
+
+def test_rights_subscription_skipped_when_cash_insufficient():
+    from quant_research.rights import RightsIssue
+    dates, bars, targets = fixture()
+    bars.loc[3:, ['open', 'close']] = 8.
+    bars.loc[3:, 'adj_factor'] = 1.25
+    issue = RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer',
+                        price=40., ratio=.3, list_date=dates[5])
+    config = Config(initial_cash=10000, zero_trading_costs=True)
+    result = simulate(bars, dates, targets, config=config, rights=[issue])
+    events = result['corporate_events']
+    assert events.event.tolist() == ['rights_not_subscribed']
+    assert events.iloc[0].reason == 'insufficient_cash'
+    assert result['nav'].iloc[-1].equity == 9000
+
+
+def test_rights_terms_require_all_fields():
+    from quant_research.rights import RightsIssue
+    dates, bars, targets = fixture()
+    with pytest.raises(ValueError, match='price, ratio and list_date together'):
+        RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer', price=5.)
+    with pytest.raises(ValueError, match='must follow the ex-date'):
+        RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer',
+                    price=5., ratio=.3, list_date=dates[2])

@@ -1,5 +1,12 @@
-"""Verified rights issues under an explicit no-subscription research scenario."""
+"""Verified rights issues under an explicit no-subscription research scenario.
+
+Issues with registered terms (price/ratio/list_date) are subscribed per the
+2026-09-29 design (docs/superpowers/specs/2026-09-29-rights-subscription-design.md):
+cash is paid on the ex-date and allotted shares list on list_date. Issues without
+terms keep the no-subscription scenario.
+"""
 from dataclasses import dataclass
+import math
 import pandas as pd
 
 
@@ -9,6 +16,20 @@ class RightsIssue:
     record: pd.Timestamp
     ex: pd.Timestamp
     source: str
+    price: float = None       # subscription price per share, CNY
+    ratio: float = None       # allotted shares per held share (realized ratio)
+    list_date: pd.Timestamp = None  # listing date of allotted shares
+
+    def __post_init__(self):
+        if any(v is not None for v in (self.price, self.ratio, self.list_date)):
+            if not (self.price is not None and self.ratio is not None and self.list_date is not None):
+                raise ValueError('Rights terms require price, ratio and list_date together')
+            if not (math.isfinite(self.price) and self.price > 0):
+                raise ValueError('Invalid rights subscription price')
+            if not (math.isfinite(self.ratio) and self.ratio > 0):
+                raise ValueError('Invalid rights ratio')
+            if self.list_date <= self.ex:
+                raise ValueError('Rights listing date must follow the ex-date')
 
 
 SSE_SOURCE = 'https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061073/files/3434d1799d1145dc826c16c34bd097bf.pdf'
@@ -16,7 +37,7 @@ SSE_2018_SOURCE = 'https://www.sse.com.cn/aboutus/publication/factbook/documents
 SSE_2017_SOURCE = 'https://www.sse.com.cn/aboutus/publication/factbook/documents/c/10170564/files/300a2dcef0f0452794683bd1bfbf65b0.pdf'
 
 
-def verified_rights():
+def _verified_rights():
     # Dates document realized accounting events, never an eligibility filter.
     rows = [('600008.SH', '20200918', '20200929'),
             ('600419.SH', '20200103', '20200114'),
@@ -77,3 +98,27 @@ def verified_rights():
         ('002788.SZ', '20200908', '20200917', 'http://disc.static.szse.cn/download/disc/disk02/finalpage/2020-09-04/0e805cd9-e4ac-431b-8bfa-29c80e76f1e8.PDF'),
     ]
     return result + [RightsIssue(c, pd.Timestamp(r), pd.Timestamp(e), source) for c, r, e, source in extra]
+
+
+# Subscription terms registered 2026-09-29 from primary announcements (subscribe-on-registration
+# design; all other issues keep the no-subscription scenario):
+# ('600999.SH', '20200709'): 招商证券 A 股配股，价格 7.46 元/股，10 配 3，认购率 99.26% 未触发
+#   缩配，获配 = 登记日持股 × 0.3 向下取整（发行结果公告 2020-075）；获配股份 2020-07-31 上市
+#   （上市公告书 2020-076）。
+# ('000977.SZ', '20200310'): 浪潮信息配股，价格 12.92 元/股；公告披露实际配股比例相当于
+#   每 10 股配售 1.177945 股（拟 10 配 1.2，认购不足等比缩配，发行结果公告 1207383380）；
+#   获配股份 2020-03-27 上市（上市公告书 2020-020）。
+TERMS = {
+    ('600999.SH', '20200709'): (7.46, 0.3, '20200731'),
+    ('000977.SZ', '20200310'): (12.92, 0.1177945, '20200327'),
+}
+
+
+def verified_rights():
+    issues = _verified_rights()
+    keyed = {(i.code, i.record.strftime('%Y%m%d')): i for i in issues}
+    for (code, record), (price, ratio, list_date) in TERMS.items():
+        issue = keyed[(code, record)]
+        keyed[(code, record)] = RightsIssue(issue.code, issue.record, issue.ex, issue.source,
+                                            price=price, ratio=ratio, list_date=pd.Timestamp(list_date))
+    return list(keyed.values())
