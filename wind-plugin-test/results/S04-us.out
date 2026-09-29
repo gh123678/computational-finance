@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_stock_price_indicators fetched for 1 ticker(s)\",\\n  \"data_preview\": \"中文简称,最新成交价,涨跌幅,wind_code\\\\n苹果(APPLE),341.070,1.53,AAPL.O\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_price_indicators_25276_1790571832742.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

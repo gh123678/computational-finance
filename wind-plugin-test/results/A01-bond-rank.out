@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "NETWORK_ERROR",
+    "agent_action": "[{'type': 'text', 'text': \"API_CALL_ERROR - Wind inner payload is not valid JSON: Expecting value: line 1 column 1 (char 0). Payload snippet: '没找到数据'\"} (server=analytics_data, tool=get_financial_data, api_name=wind_get_financial_data, via agent-gw)] 网络/后端错误。detail 中有具体原因和 HTTP 状态码，分两种情况处理：1) 网络连接失败（detail 含 DNS/超时/代理/ECONNREFUSED）：检查本机网络和联网权限，修复后原样重试同一请求；2) 后端 HTTP 5xx（detail 含 HTTP 500/502/503/504）：先按当前 server_type 对应领域契约文件（references/<domain>.md，按 server_type 选择）当前工具段落核对 params key/value（必填、日期、枚举、单标的、indexes），入参有错只修该错重试一次；入参无误则稍后原样重试。不得改业务参数或路由。保持同一 server_type+tool_name。"
+  }
+}

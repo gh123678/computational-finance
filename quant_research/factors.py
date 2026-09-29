@@ -121,3 +121,14 @@ def weekly_schedule(calendar: pd.DatetimeIndex) -> pd.DataFrame:
     weeks = list(zip(iso.year, iso.week))
     pairs = [(calendar[i-1], calendar[i]) for i in range(1, len(calendar)) if weeks[i] != weeks[i-1]]
     return pd.DataFrame(pairs, columns=['signal_date', 'execution_date'])
+
+
+def biweekly_schedule(calendar: pd.DatetimeIndex) -> pd.DataFrame:
+    """Every second complete week retained as a rebalance week.
+
+    2026-09-29 pre-registered with the turnover-reduction design
+    (docs/superpowers/specs/2026-09-29-biweekly-design.md): keep weeks 1, 3, 5, ...
+    of the weekly schedule (rows 0, 2, 4, ...); skipped weeks hold positions.
+    """
+    schedule = weekly_schedule(calendar)
+    return schedule.iloc[::2].reset_index(drop=True)

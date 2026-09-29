@@ -1,8 +1,20 @@
 # A 股周频多因子研究
 
+最新（2026-09-29 二）：双周调仓降换手方案完成开发与一次性确认。开发期五年（2016–2020）门槛双过：双周 combined 基准成本 4/5 年为正（+2.53 / +0.44 / -43.03 / +20.58 / +7.84%，周频仅 0/5 为正），平均成本侵蚀 11.12pp ≤ 12pp，年换手约 94 倍降到约 44 倍。2024–2025 一次性确认：+4.07% / +11.88%（周频 +1.27% / +12.72%），侵蚀降至约 11.3–11.7pp，账务核验全部通过；2018 年仍深亏，净效果两年基本打平、回撤略降，仍非实盘条件。见 [双周方案设计与结果](docs/superpowers/specs/2026-09-29-biweekly-design.md)。
+
+最新（2026-09-29）：2024—2025 样本外验证完成。用冻结参数在封存窗口（`out_of_sample_2024` / `out_of_sample_2025`）跑完整九组实验，账务核验全部通过：基准成本 combined 收益 +1.27%（2024，最大回撤 24.47%）与 +12.72%（2025，最大回撤 10.60%），优于开发期五年全部负收益；零成本口径 +24.80% / +37.27%，信号有效性在封存数据上复现。但成本侵蚀约 23—25 个百分点，滑点 30 bps 情景即转负，尚不具备实盘条件。样本期公司行动歧义条目已逐一经公告取证登记更正。详见 [样本外结果](docs/2026-09-29-out-of-sample-results.md)。
+
+2026-09-28：修正历史股票池对 `namechange` 的错误解释。该表是曾用名事件区间，不是连续名称主表；现在仅按形成日前已公告的活动 ST/PT 区间排除股票。五个年度 45 组已重跑并通过账务核验，三因子收益依次为 -9.27%、-12.53%、-44.18%、-9.67%、-1.81%。逐日 ST 真值接口需要 3000 积分，当前 2000 积分账户无法独立复核全部风险警示事件。连续账户和样本外验证尚未完成，当前版本未达到实盘条件。见 [股票池审计](docs/2026-09-28-universe-history-audit.md) 与 [公司行动核验](docs/2026-09-28-corporate-action-review.md)。
+
+2026-09-27 更新：2017 年九组实验及账务核验完成，主策略 -10.20%、最大回撤 14.33%；五项复权变化仍隔离待核验。当前进度见 [2017 研究记录](docs/2017-development-results.md) 和 [逐年对照](output/development_comparison/report.md)。下方较早记录保留当时实验背景。
+
+## Project 1 修订报告（2026-09-25）
+
+最新报告为 [Project 1 v3](docs/2026-09-25-project1-report-v3.pdf)，配套 [复现说明与字段字典](docs/project1-reproduction.md)。本次修正未来标签缺失后的因子分组逻辑，补齐诊断与形成日长表，保持已有交易账本不变。修订诊断位于 `output/project1_revision/`，由 `scripts/rebuild_project1_diagnostics.py` 重建；PDF 由 `scripts/build_project1_report.py` 生成。原版报告保留供比较。
+
 面向 100 万元资金、每周集中操作一次的股票策略研究。策略方向已经确认：动量、反转、低波动，约 20 只股票，不加杠杆。
 
-**已完成 2020 全年、九组开发期诊断实验，当前版本未达到实盘条件。尚无多年和样本外收益证据；未解释复权变化已隔离出因子截面，但原因仍待核验。**
+**已完成 2016—2020 五个独立年度、每年九组开发期诊断实验，当前版本未达到实盘条件。2018 年在零交易成本下仍亏损 30.46%，尚无样本外收益证据。**
 
 ## 已实现
 
@@ -23,7 +35,7 @@
 
 ```powershell
 python -m pip install -r requirements.txt
-python -m pytest -q
+python -m pytest tests -q
 python -m quant_research.probe
 python -m quant_research.audit
 python -m quant_research.pilot
@@ -32,6 +44,14 @@ python -m quant_research.research
 python -m quant_research.download --dataset development_2020 --interval 0.4
 python -m quant_research.research --dataset development_2020
 python scripts/verify_2020.py
+python -m quant_research.download --dataset development_2019 --interval 0.4 --workers 12
+python -m quant_research.research --dataset development_2019
+python -m quant_research.download --dataset development_2018 --interval 0.4 --workers 12
+python -m quant_research.research --dataset development_2018
+python scripts/verify_annual.py --dataset development_2018
+python scripts/verify_annual.py --dataset development_2019
+python scripts/verify_annual.py --dataset development_2020
+python scripts/compare_development_years.py
 ```
 
 `probe` 某接口无权限时返回非零退出码，并保留逐项报告。`audit` 必须先于 `pilot` 运行。原始数据有缓存，再次运行审计与样本优先复用缓存；`probe` 总是重新访问接口。
@@ -58,7 +78,7 @@ python scripts/verify_2020.py
 ## 尚未完成的实盘研究环节
 
 1. 历史 ST 替代数据的完整性验证；行业区间的当时可得性验证。
-2. 核清年度数据中的 150 条未解释复权变化（145 条集中在 2020-01-02），再扩大历史时期。相关 3000 个股票日已从价格因子截面隔离，不能替代原因核验。
+2. 年度数据的 150 条复权异常已于 2026-09-24 全部定性：5 条为一手公告确认的配股除权（已按不认购情景补登记，九组结果不变），其余 145 条集中在 2020-01-02，经 iFinD 原始价格与复权序列交叉核验为数据商复权因子跨年 artifact（更换数据源不能消除）。相关 2900 个股票日仍按事前规则隔离；新增 `return_consistency_check` 逐日监控复权与原始收益背离。之后可扩大历史时期。
 3. 核验实际成交模型、公司行动特殊情形与券商佣金。退市零回收、固定 20% 红利税、配股不认购均为情景；配股现金安排尚未实现。已记录实际行业超限和旧价估值天数。
 4. 开发/验证/样本外实验，基准对比、IC 分组、压力测试与报告。
 5. 前向模拟下单记录和实际执行偏差评估。
@@ -66,3 +86,13 @@ python scripts/verify_2020.py
 `execution.py` 是单笔执行函数，`accounting.py` 管理公司行动，`backtest.py` 组合成日频账本，`research.py` 串联全流程。佣金和红利税仍为研究情景；历史印花税和过户费按生效日期切换。`factors.py` 的选股函数要求调用方先完成当时股票池过滤；行业上限约束的是目标权重，不能保证成交后权重。未识别的持仓复权变化会使回测失败，不用复权价格冒充真实股数交易。
 
 设计细节见 `docs/superpowers/specs/2026-09-23-weekly-equity-design.md`。
+
+## 2019 年扩展（2026-09-24）
+
+已补齐 2018 年 11 月至 2019 年末的 286 个交易日，并完成 2019 年 244 个交易日的九组独立资金实验。三因子扣费收益 -7.67%、最大回撤 30.85%；零交易成本情景收益 15.76%。排名缓冲收益 -5.79%，费用及滑点仅下降 4.45%，高换手问题跨年持续。见 [逐年对照](output/development_comparison/report.md) 与 [2019 研究记录](docs/2019-development-results.md)。
+
+`development_2016` 至 `development_2020` 均已完成全量下载、统一口径回测和年度核验。年度实验各自以 100 万元起步，不代表连续多年账户。2024—2025 年仍封存。通用年度核验检查真实交易日、因子来源、现金股数、净值恒等式、月收益及成本；对照脚本只收录核验摘要与结果摘要一致的年份。
+
+## 2018 年扩展（2026-09-25）
+
+完成 2017 年 11 月至 2018 年末的 286 个交易日下载，以及 2018 年 243 个交易日的九组独立资金实验。三因子收益 -43.59%、最大回撤 44.97%；零交易成本收益 -29.96%；排名缓冲收益 -43.16%，成本下降 7.27%。11 项配股由发行人公告或上交所年鉴核验，另修正一项不属于原股东分配的重整转增、一段可逆的数据商复权因子错误和一项历史证券代码映射。修正后未解释重大复权变化与涨跌停缺口均为 0。见 [2018 研究记录](docs/2018-development-results.md) 与 [公司行动核验](docs/2018-corporate-action-audit.md)。

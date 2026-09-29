@@ -1,0 +1,1555 @@
+{
+  "scope": "Lightweight submission; full-market price snapshots and large factor intermediates omitted. See README.md.",
+  "files": [
+    {
+      "path": "data/audit/industry_history.csv",
+      "bytes": 847625,
+      "sha256": "57ae85f9a224f85110722824124e468fe897f4b5a80ca91ed63af9350027b4e5"
+    },
+    {
+      "path": "data/audit/name_history.csv",
+      "bytes": 767827,
+      "sha256": "cb03e9338d13e3cb54b238e29a8bca459bd335f2b3760fffe4a3cf12b9d8b7f1"
+    },
+    {
+      "path": "data/audit/universe.csv",
+      "bytes": 166876,
+      "sha256": "3fd078815d8feb9619100771614bf07baa088f28853865dc62b7a2729319426a"
+    },
+    {
+      "path": "data/development_2018/benchmark.csv",
+      "bytes": 31853,
+      "sha256": "7977581ce292911837ab9c7c52567571620a376f83cc454ccaf44497992a4f7b"
+    },
+    {
+      "path": "data/development_2018/calendar.csv",
+      "bytes": 82216,
+      "sha256": "8e14a633f6b4a1af7684e91f90de7424560193a7aa7fcf50f79ecc88707a8dd4"
+    },
+    {
+      "path": "data/development_2018/manifest.json",
+      "bytes": 1118,
+      "sha256": "d30341194c6f37eb606dac5d8230d8ec9511ae831f0d1e4aa7e7d0655444f627"
+    },
+    {
+      "path": "data/development_2019/benchmark.csv",
+      "bytes": 31876,
+      "sha256": "3fedd099da1070be84e16a1768c2331f17f9fa05dc3b6b898150bf749a9aa306"
+    },
+    {
+      "path": "data/development_2019/calendar.csv",
+      "bytes": 91341,
+      "sha256": "9812b3b87cf248ac12bd4d6663843e996ab47fee9665bb6cfd0b2ec7e233af1e"
+    },
+    {
+      "path": "data/development_2019/manifest.json",
+      "bytes": 1118,
+      "sha256": "68f34b82d406fc84ee194536f0b3431faf72c4b0c521d3d38d198f6a97a48974"
+    },
+    {
+      "path": "data/development_2020/benchmark.csv",
+      "bytes": 32024,
+      "sha256": "bd370495fea24fc82b6ff57e30b592c1513ba697b471c80bda4655b8c7839a27"
+    },
+    {
+      "path": "data/development_2020/calendar.csv",
+      "bytes": 100491,
+      "sha256": "3bbed687a3ac70b49286458efeef0d497733bd1d7b64181cc46995c3c593ca12"
+    },
+    {
+      "path": "data/development_2020/manifest.json",
+      "bytes": 1075,
+      "sha256": "64fef43d35e5b636021172abc58ac5989a39b9247244ee982f44f7a5735dec6f"
+    },
+    {
+      "path": "data/sample/bars.csv",
+      "bytes": 12935,
+      "sha256": "8b903b7d8c7464fd80f4c26cbf5fdc6d2b6c3faaa57bdf630482877898c62fc4"
+    },
+    {
+      "path": "data/sample/calendar.csv",
+      "bytes": 612,
+      "sha256": "50571fc02e3b1fb00153da282f079aafdb347fee4a7825e5ff99eee734b69a91"
+    },
+    {
+      "path": "data/sample/expected_factors.csv",
+      "bytes": 24146,
+      "sha256": "0bbab47f8c6f001653d26c8c1f0f3baceae3f022060bd16f965ca29fb37ab43f"
+    },
+    {
+      "path": "data/sample/sample_info.json",
+      "bytes": 510,
+      "sha256": "e108cd1686a027aea6ec2940e147a716c235c13bddbec51d144b7b5fd4aa5e9e"
+    },
+    {
+      "path": "docs/2018-corporate-action-audit.md",
+      "bytes": 3990,
+      "sha256": "c803b95053aab9c0101d6a0de4b1ae4666005471ce72e108879824050995abcf"
+    },
+    {
+      "path": "docs/2018-development-results.md",
+      "bytes": 3042,
+      "sha256": "51ab566c9703d3c827df53f2c517cf800e6a9bbfe8e1c2ba853e4828eb152e25"
+    },
+    {
+      "path": "docs/2019-corporate-action-audit.md",
+      "bytes": 2780,
+      "sha256": "36e66c30727857a9ccde6c2d04d2ef704fe725c19734534cd25dabf4d6d1e154"
+    },
+    {
+      "path": "docs/2019-development-results.md",
+      "bytes": 2756,
+      "sha256": "68ff0a5ab427bdf8a623688c7a207b799e59ffffe2272c0e42fa658eaf27b366"
+    },
+    {
+      "path": "docs/2026-09-23-annual-experiment-plan.md",
+      "bytes": 1960,
+      "sha256": "5b2f314b24f914184bab2e99ce4ed49569a00ea197c31d8a18a3c58e4b1106b4"
+    },
+    {
+      "path": "docs/2026-09-23-annual-results.md",
+      "bytes": 6230,
+      "sha256": "aebe18686548adc547d24738d62d8a672463e236eb663de5b72f31488ca7825f"
+    },
+    {
+      "path": "docs/2026-09-23-backtest-implementation.md",
+      "bytes": 4097,
+      "sha256": "eb525e2d2f681e4d50dcba3ec2013684003b4f55e999d02bf76fd30a981972ef"
+    },
+    {
+      "path": "docs/2026-09-23-data-quarantine-and-turnover-plan.md",
+      "bytes": 2093,
+      "sha256": "5c7499955f66b4d2d07e0ae1ec6905db5842cbc5f7b28b212e42e8f96322d734"
+    },
+    {
+      "path": "docs/2026-09-23-data-readiness.md",
+      "bytes": 3592,
+      "sha256": "12551534993daf5f540ae1fd308703c31085630a831918dd749f6efd1e19ca10"
+    },
+    {
+      "path": "docs/2026-09-25-project1-report-v3.pdf",
+      "bytes": 734249,
+      "sha256": "2574269a15ed0c2d70bb16f9c9e4e0cbb62bee4cd997eb6a43823672c6906285"
+    },
+    {
+      "path": "docs/project1-reproduction.md",
+      "bytes": 5238,
+      "sha256": "5e623ef04d5577ebe47580edf4128bc7d416d69a7e2710368fce5729ac0d1733"
+    },
+    {
+      "path": "docs/research-progress.md",
+      "bytes": 3293,
+      "sha256": "6c5cf1e85959b204aeb1183acd6e5eb58050949d6f301590bb7a01c270faadc9"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-09-23-weekly-equity-design.md",
+      "bytes": 6077,
+      "sha256": "45a7baafe7de750ddb48574cb2a9935fc656ee6445045ee05e83a01eedc217de"
+    },
+    {
+      "path": "output/development_2018/combined/corporate_events.csv",
+      "bytes": 1897,
+      "sha256": "543a759f7f378a93925da8bf3c86deea0a705b0501a8a7468de7b10b99e04bd9"
+    },
+    {
+      "path": "output/development_2018/combined/cost_attribution.csv",
+      "bytes": 313,
+      "sha256": "b153cdd3ce87c75814f18ac2674b31e694479529706f7537ba7bad6423533c10"
+    },
+    {
+      "path": "output/development_2018/combined/historical_targets.csv",
+      "bytes": 158975,
+      "sha256": "6cd473229716e017c0189fbee9f8ce3c8061826135d6402014b2d001044fbd71"
+    },
+    {
+      "path": "output/development_2018/combined/holdings.csv",
+      "bytes": 366317,
+      "sha256": "bf5734b80e4bd4f8070afe6e9da5caa256e48a97bd4864d75e2334230cb8018b"
+    },
+    {
+      "path": "output/development_2018/combined/monthly_returns.csv",
+      "bytes": 376,
+      "sha256": "72284f49cb46d3c01214aeb61607fbfdec35a6aedb9bca71b60b32d8a8018943"
+    },
+    {
+      "path": "output/development_2018/combined/nav.csv",
+      "bytes": 31425,
+      "sha256": "503bdb926272f82f48d72b1fe6fd9252b022e3c76e67b31a4e6a8b6ee715d906"
+    },
+    {
+      "path": "output/development_2018/combined/orders.csv",
+      "bytes": 200989,
+      "sha256": "a04fcd37005c4fb462ec6449275824650340822b7667a9a6b4cb59b5be72e65f"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/corporate_events.csv",
+      "bytes": 2012,
+      "sha256": "3abda9bea74a019e210fc83ddc3e7cc900c3915622e6be4605e23625a2d61682"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/cost_attribution.csv",
+      "bytes": 316,
+      "sha256": "491bc6673ae1166dd64e9c6c2d10a4d1637cdd690556df92192fe2ebf0d126c7"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/historical_targets.csv",
+      "bytes": 158959,
+      "sha256": "4ebf241b5558b7776762f2e147e586282cd4ef96186cf2d622e2d2257dd7862c"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/holdings.csv",
+      "bytes": 367446,
+      "sha256": "0db5c5be7783091fceba2063349d55f6c4dbdb5ec85d1da91d148d6a43fbbb35"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/monthly_returns.csv",
+      "bytes": 378,
+      "sha256": "feda50d67d94e80f8c3598a7f2260cef306e937566a68fb05a04f2d0a5604a58"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/nav.csv",
+      "bytes": 31356,
+      "sha256": "70557e774ffd8067ad36f0699ee50eb91b91705e223483580b3c901d14ca0239"
+    },
+    {
+      "path": "output/development_2018/combined_rank_buffer40/orders.csv",
+      "bytes": 192648,
+      "sha256": "1fe4aa027a00d68798e12915b8f5397b94743ffd558f5ae026339e48256390dd"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/corporate_events.csv",
+      "bytes": 1895,
+      "sha256": "a22d39ce910a4fefb48423486bd2823d3415e02df183129b40af95488f81b83c"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/cost_attribution.csv",
+      "bytes": 306,
+      "sha256": "c79d7e9461dbce2e172ee487d89ca4600c319e2faa8f4b6fbe06dfba2b511c7d"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/historical_targets.csv",
+      "bytes": 158975,
+      "sha256": "6cd473229716e017c0189fbee9f8ce3c8061826135d6402014b2d001044fbd71"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/holdings.csv",
+      "bytes": 366427,
+      "sha256": "ce4a86d6352cdbe8ca8ee0a2b67d71318c8b00954ebeb21bfff77a1e34e91617"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/monthly_returns.csv",
+      "bytes": 374,
+      "sha256": "82833a54ca6c197764e2ee38e9836f01c06257ee2bc586dc44d81c0b5793022e"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/nav.csv",
+      "bytes": 31330,
+      "sha256": "7beaacc88dba70b1cbdddc6505268e1b6a481e20d818a00fd556a0eedd667d9b"
+    },
+    {
+      "path": "output/development_2018/combined_slip30/orders.csv",
+      "bytes": 200937,
+      "sha256": "bacdc583f29521e13e3001ffe9618ae06b9bb3b8f7f7f2610ab2be9a924f5b0d"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/corporate_events.csv",
+      "bytes": 1878,
+      "sha256": "e8c939f6090b33800ca51abf47862a3dbaf61e4522d8f0bcbfd832d314b60149"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/cost_attribution.csv",
+      "bytes": 315,
+      "sha256": "8534024accd31fd7d428088596e0a32a6b0a1b2826690db943889edb1ced3038"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/historical_targets.csv",
+      "bytes": 158975,
+      "sha256": "6cd473229716e017c0189fbee9f8ce3c8061826135d6402014b2d001044fbd71"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/holdings.csv",
+      "bytes": 363425,
+      "sha256": "d836c2de6bb7798dec34611f2d31593554e37dd3fc80ea1d770145bf773fa279"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/monthly_returns.csv",
+      "bytes": 373,
+      "sha256": "b45d93d0c9f29bffd163d06aeec14b31dd5e2bcc22e5dfc0014f2991faa0822b"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/nav.csv",
+      "bytes": 31309,
+      "sha256": "ef466f4cc9510d371a8bf16395dacf6009e1fa7de9593bc2f44fedc31360c0d9"
+    },
+    {
+      "path": "output/development_2018/combined_slip50/orders.csv",
+      "bytes": 200056,
+      "sha256": "b5afc315a1ac31214f2af4317079e9235b204920c9f94e2244f2d5ea5d8db496"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/corporate_events.csv",
+      "bytes": 2001,
+      "sha256": "b96d5a01068aa8e7657a6e23587aacae8f45298d035bdb74db28ccd86ff45dfc"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/cost_attribution.csv",
+      "bytes": 169,
+      "sha256": "ec849d6a4d324415bcf81dc9a7a71e0f6157d303fcf2748be4298064c7919b06"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/historical_targets.csv",
+      "bytes": 158975,
+      "sha256": "6cd473229716e017c0189fbee9f8ce3c8061826135d6402014b2d001044fbd71"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/holdings.csv",
+      "bytes": 370353,
+      "sha256": "d848e059afeb13f7c38cf0821e8e95179389abc63f6e24272708d9ada19cc401"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/monthly_returns.csv",
+      "bytes": 374,
+      "sha256": "3f692d0feb5b5e7819f65c355108a5b697b9ea9f9425fd135cc9d01d570951d9"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/nav.csv",
+      "bytes": 30195,
+      "sha256": "a15a5a0e4c0989dd3d48c38b3bc7e71fe81919993993f7eb5e01c05f6c955dd3"
+    },
+    {
+      "path": "output/development_2018/combined_zero_cost/orders.csv",
+      "bytes": 172338,
+      "sha256": "9285435b77b51f7f285749bf522efa24aaa395c4f0d543b9f3f43706b54474ae"
+    },
+    {
+      "path": "output/development_2018/corporate_action_corrections.json",
+      "bytes": 1850,
+      "sha256": "848acab8be5a56207f4e4d3aff1647112322b8c8f18c70f6e044c9e96532872f"
+    },
+    {
+      "path": "output/development_2018/coverage.csv",
+      "bytes": 2009,
+      "sha256": "0fd1a4e64a35b6179e2ffc36466678809ca0af28906ebfd369dc329984f4b6c1"
+    },
+    {
+      "path": "output/development_2018/equity_comparison.png",
+      "bytes": 294154,
+      "sha256": "5bc28c9c16f3a38125b45f4ba2b34f126ce2276e7571bf7a1e998fafaacce5d0"
+    },
+    {
+      "path": "output/development_2018/execution_data_coverage.csv",
+      "bytes": 5481,
+      "sha256": "7dd2dbc213c45bf2612de803aee2b56a92b5a5de13ca8aa726e3df2dcae4a9b9"
+    },
+    {
+      "path": "output/development_2018/factor_groups.csv",
+      "bytes": 36897,
+      "sha256": "2664135374481370fba38cb12b95e6bea3ff3fe482e622f5d3d988c6144e4069"
+    },
+    {
+      "path": "output/development_2018/factor_ic.csv",
+      "bytes": 13527,
+      "sha256": "bce7bff4ca445e85d0e6afac1bb36b95c1b7e7231981852abf564c69a8ece0df"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/corporate_events.csv",
+      "bytes": 2336,
+      "sha256": "618a46dedae3c5726c002ea4a52c98bea6e9a8a2d9391872550c5b8cbf90015f"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/cost_attribution.csv",
+      "bytes": 315,
+      "sha256": "061e52c30c824b0b0f1279413239c3f488dbcef0ba1d019e8d8bf026872e0b2a"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/historical_targets.csv",
+      "bytes": 159850,
+      "sha256": "e0ff1960ed21863354f73eaf46e8dd068cad220c8c5849394e5e8e23fdfb5f69"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/holdings.csv",
+      "bytes": 346039,
+      "sha256": "6397cd696ce38d59ac400f7bd2972043df62a290bad6321563f929d89d7f7b11"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/monthly_returns.csv",
+      "bytes": 376,
+      "sha256": "30a54c0a924e81a33a1ce21b73e2b3f487b5a03d42b653b4eae489cbd99b982c"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/nav.csv",
+      "bytes": 29607,
+      "sha256": "ce9151530084d94a1b317ce545554fda29d0bca937e87ff55c1e6186f0cea4f7"
+    },
+    {
+      "path": "output/development_2018/liquidity_control/orders.csv",
+      "bytes": 74173,
+      "sha256": "7f7da5eb73c7e6f9b72d57e6ac3c72a879cf6a73dcd64a8d07d07bc7f4652860"
+    },
+    {
+      "path": "output/development_2018/lowvol20/corporate_events.csv",
+      "bytes": 2225,
+      "sha256": "9c03e73c3b1f533f63993ffa1a9206dd0b3b36b7731e6a3e23687651c34f6cd0"
+    },
+    {
+      "path": "output/development_2018/lowvol20/cost_attribution.csv",
+      "bytes": 317,
+      "sha256": "363a7fa026a9c203b582ac25d93a716c3848c441097df300ae0c0bb037bc6772"
+    },
+    {
+      "path": "output/development_2018/lowvol20/historical_targets.csv",
+      "bytes": 159560,
+      "sha256": "744ec65247d1830d2ab5ba01464f2e3b7d3242b9d15d116bc23fea8c3208eb78"
+    },
+    {
+      "path": "output/development_2018/lowvol20/holdings.csv",
+      "bytes": 378655,
+      "sha256": "57eb07fbdbc52b3da46563dacda1005e0cc381ba02261850020098eff8a686b6"
+    },
+    {
+      "path": "output/development_2018/lowvol20/monthly_returns.csv",
+      "bytes": 376,
+      "sha256": "b0f14e0b2e9ba33ee37b731bf112668413e08dd33f2753a3c86d4c2bf9c775e7"
+    },
+    {
+      "path": "output/development_2018/lowvol20/nav.csv",
+      "bytes": 30303,
+      "sha256": "f422dc2a92e9cc348857e3bc0026ad0f94bc9ed53eb206c6db49697d0162207f"
+    },
+    {
+      "path": "output/development_2018/lowvol20/orders.csv",
+      "bytes": 138970,
+      "sha256": "c8bba2890b37292f65cf64c2aa2b09f1b0b90a87eb1f46393e77f91fc07939ae"
+    },
+    {
+      "path": "output/development_2018/momentum20/corporate_events.csv",
+      "bytes": 1690,
+      "sha256": "683d1f5828fa2ff54dbe783590e87ca4a46532e5f95b2f2df3ce646b516e332a"
+    },
+    {
+      "path": "output/development_2018/momentum20/cost_attribution.csv",
+      "bytes": 317,
+      "sha256": "9c40d613f82806ac3c5f43c4179d2043c8dfab2a8ab231097943c250de582292"
+    },
+    {
+      "path": "output/development_2018/momentum20/historical_targets.csv",
+      "bytes": 157531,
+      "sha256": "48839384bb51df11cd324617b3b49fdae0b9b3d6ba12a9224b3aeeb9bb625a9d"
+    },
+    {
+      "path": "output/development_2018/momentum20/holdings.csv",
+      "bytes": 361823,
+      "sha256": "66d9b5b63ca4f4865aef9f2936badad21531a61b17bf8552ad6e07211f624597"
+    },
+    {
+      "path": "output/development_2018/momentum20/monthly_returns.csv",
+      "bytes": 369,
+      "sha256": "4edd35bcbc2e1086a16b8c4c33c04168022b6fe02ab2a448052232ab38bb7879"
+    },
+    {
+      "path": "output/development_2018/momentum20/nav.csv",
+      "bytes": 29172,
+      "sha256": "2948057c7b98a9391ee3d078cab8eecd79ba6fbca0fee5d1f8e5303eb1a51ac9"
+    },
+    {
+      "path": "output/development_2018/momentum20/orders.csv",
+      "bytes": 160202,
+      "sha256": "b6e51bd2ee6fe59206b13fdedc0e31aa93d28b1a19336713bf6f7970269b6a20"
+    },
+    {
+      "path": "output/development_2018/monthly_comparison.csv",
+      "bytes": 1437,
+      "sha256": "b8bc2a012f8a8331baf8bae20801653af9f2e04467118faacc9bb39087c20f79"
+    },
+    {
+      "path": "output/development_2018/report.md",
+      "bytes": 9302,
+      "sha256": "ee50ef0eda13aff9aba115921059de22fe1828e371bd0f0505b761f4467ecfc6"
+    },
+    {
+      "path": "output/development_2018/return_consistency.csv",
+      "bytes": 86,
+      "sha256": "83f6f7f0ead57e1dea5d7f82a2d5c18fc7acf418b1c99abeeda381f096c409b8"
+    },
+    {
+      "path": "output/development_2018/reversal5/corporate_events.csv",
+      "bytes": 1782,
+      "sha256": "25ae3c9b4878ee0a4e52023042adb2025db2ea5d37073537bdac936c9fb490c0"
+    },
+    {
+      "path": "output/development_2018/reversal5/cost_attribution.csv",
+      "bytes": 308,
+      "sha256": "24f48770e987ac2696e8765b5e8e760ff6cd45d6512096cc61dbcd2de1529950"
+    },
+    {
+      "path": "output/development_2018/reversal5/historical_targets.csv",
+      "bytes": 157438,
+      "sha256": "dd137ee8fa194a2a7d486a8f16c1b90c5d268f2c51a8124289c7f6f9d99c8154"
+    },
+    {
+      "path": "output/development_2018/reversal5/holdings.csv",
+      "bytes": 365170,
+      "sha256": "9b8ba98c9010723b5b57f81ddc2f98eb4e47bdc6c63ef5a344e2f9ec634889f0"
+    },
+    {
+      "path": "output/development_2018/reversal5/monthly_returns.csv",
+      "bytes": 374,
+      "sha256": "55ea5629f51a5158a54c62b6ecf8afa0c975484ba60fa5bd429f295fd07be2b6"
+    },
+    {
+      "path": "output/development_2018/reversal5/nav.csv",
+      "bytes": 29525,
+      "sha256": "6561a0e94b45d7ce7f1ccd514965ea17739056c52ae9a9955df890b1e64f86df"
+    },
+    {
+      "path": "output/development_2018/reversal5/orders.csv",
+      "bytes": 201938,
+      "sha256": "006c3ef39ed6e9c436513a6d118873764cc4c24c9238af1d1a79abebbcdf4b89"
+    },
+    {
+      "path": "output/development_2018/summary.json",
+      "bytes": 24112,
+      "sha256": "e54dcfe0a395ad69d4c4bf13936a16e71b06dad8c27a2b1739692c715ecd8ba2"
+    },
+    {
+      "path": "output/development_2018/unexplained_adjustments.csv",
+      "bytes": 58,
+      "sha256": "ce7314f602f8058352db5d37c6fdf3758ff5ce8b2319caefbecf5fa7d7c0a588"
+    },
+    {
+      "path": "output/development_2018/verification.json",
+      "bytes": 1567,
+      "sha256": "7ae394f7adae28268029ed34e6eb14820a60310315cef264360b77953ef70af3"
+    },
+    {
+      "path": "output/development_2019/combined/corporate_events.csv",
+      "bytes": 2555,
+      "sha256": "a3d8399bec8a797a340287d6ab41295a6c3c0adb35227aaf23a5c017c4dd69f3"
+    },
+    {
+      "path": "output/development_2019/combined/cost_attribution.csv",
+      "bytes": 312,
+      "sha256": "531bb36aff1eb5e34419d7c0bb7bae05643da2623bda4318c05160f5d1d574d9"
+    },
+    {
+      "path": "output/development_2019/combined/historical_targets.csv",
+      "bytes": 162133,
+      "sha256": "95f03bbd10e6c578432fb369acf17daceb5bdb40c0bee53e34d182391ee434a1"
+    },
+    {
+      "path": "output/development_2019/combined/holdings.csv",
+      "bytes": 359544,
+      "sha256": "11063d007626d6183bc5c535ed13cc320e8f64e5639bc487676e6fb500686635"
+    },
+    {
+      "path": "output/development_2019/combined/monthly_returns.csv",
+      "bytes": 374,
+      "sha256": "23d63332b1223e6f76a1396d64650e8a251e37e917ff3611e680d473717876e3"
+    },
+    {
+      "path": "output/development_2019/combined/nav.csv",
+      "bytes": 29208,
+      "sha256": "d23a7ffdd063057a882b14065ad3739e0827595335c10802df4a0ad04d872324"
+    },
+    {
+      "path": "output/development_2019/combined/orders.csv",
+      "bytes": 204456,
+      "sha256": "fd7dce821f7d097cb85c6563d204f34060f51329d2af6bc5518db4690e943d81"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/corporate_events.csv",
+      "bytes": 2555,
+      "sha256": "0f76c683c915fab35b26644cbeb4a5464a47900ff6e820452d91a96a89e3603f"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/cost_attribution.csv",
+      "bytes": 316,
+      "sha256": "5f94afbe12d6526d10b337add3379fc9efae21131e0dacd64c384b7a282b5c44"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/historical_targets.csv",
+      "bytes": 162107,
+      "sha256": "906bfc517d5a90dd4caa32d4ab18b5783888a5db0bb1cab6ab05adc677cd3942"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/holdings.csv",
+      "bytes": 359604,
+      "sha256": "a21ec8ee6cb3575560c6122eb9738809dd3a3661bc24307235907f073f390ce0"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/monthly_returns.csv",
+      "bytes": 372,
+      "sha256": "6fdaf2b2e2dd3b1a989ed6850fe16f324681adace142b80c4b446b80fb57e145"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/nav.csv",
+      "bytes": 29305,
+      "sha256": "5e4d1b950180f32573b2b0ef90a195f8213465f96ad305c8f94d57f11ac6e0b7"
+    },
+    {
+      "path": "output/development_2019/combined_rank_buffer40/orders.csv",
+      "bytes": 198568,
+      "sha256": "868a574ecd85887d9fcdb1f54c05cce5e871cd458829b347bc1ac86465a85490"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/corporate_events.csv",
+      "bytes": 2551,
+      "sha256": "fb076753b554f1a9c95ed6a54ecd4744ab44880cef0d6ced6e831b74d9216485"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/cost_attribution.csv",
+      "bytes": 315,
+      "sha256": "0ecfd6cfb804bd9393e0139f7821965b619b5e29b60a6375dac0467bccbacd16"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/historical_targets.csv",
+      "bytes": 162133,
+      "sha256": "95f03bbd10e6c578432fb369acf17daceb5bdb40c0bee53e34d182391ee434a1"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/holdings.csv",
+      "bytes": 357913,
+      "sha256": "665fc15f9c4d09105a3c02f9a290994909ec658a3a5b3f09fc352b5fbfabdec0"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/monthly_returns.csv",
+      "bytes": 372,
+      "sha256": "5733dea1d81d6ec58340d9a13c986ce49ace9a3c19689f56ff439fadafacf453"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/nav.csv",
+      "bytes": 29142,
+      "sha256": "bd5ff61914bd05c59b6e9d879efa1b159475c391e32b560d82e14a03797ea192"
+    },
+    {
+      "path": "output/development_2019/combined_slip30/orders.csv",
+      "bytes": 204584,
+      "sha256": "7294e697f3143aa5f3fd8b7180ca82277baadfe7412b81e8585d05c20e7fe919"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/corporate_events.csv",
+      "bytes": 2531,
+      "sha256": "b319d4aca252e43d3770d22b8b7b6f5f79c2467e283a80abf6eafbd0ce36bb37"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/cost_attribution.csv",
+      "bytes": 319,
+      "sha256": "5a7f978f6e69061794b81d4eeb527db236be3676f060f3eb6da583a3f6d153b5"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/historical_targets.csv",
+      "bytes": 162133,
+      "sha256": "95f03bbd10e6c578432fb369acf17daceb5bdb40c0bee53e34d182391ee434a1"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/holdings.csv",
+      "bytes": 358921,
+      "sha256": "881ff3f37312150239e300545ffb3c497bf9bb4849241428d45c3a5197e27520"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/monthly_returns.csv",
+      "bytes": 371,
+      "sha256": "3a2b31cdcc2f38de569076998843ad7d6bda06a5d315bc87c39a77686b9caae9"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/nav.csv",
+      "bytes": 29135,
+      "sha256": "4ba2fccafdc89247ead25b9a4c4b4a398c301c5a1c139aead6853a3a07900d34"
+    },
+    {
+      "path": "output/development_2019/combined_slip50/orders.csv",
+      "bytes": 204451,
+      "sha256": "ee91b9ead3e40e7a6e0809a82a2f29c1c5a51ede1d86f66eb5f166a6ea525fe0"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/corporate_events.csv",
+      "bytes": 2538,
+      "sha256": "cc632bb75aef471577bfc2e73f4e28a3a1c9990c4a32b24ce30611cefd8f0725"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/cost_attribution.csv",
+      "bytes": 169,
+      "sha256": "03bf81844e9c62a1914b9e58e591ee108ec55294062421a8f4541304514129d1"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/historical_targets.csv",
+      "bytes": 162133,
+      "sha256": "95f03bbd10e6c578432fb369acf17daceb5bdb40c0bee53e34d182391ee434a1"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/holdings.csv",
+      "bytes": 362143,
+      "sha256": "db7d65db174922a4322552e0a9a63f44f530bc00010e7734b199f50485608f7c"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/monthly_returns.csv",
+      "bytes": 377,
+      "sha256": "399602cce293ec523a22024234f592980fc5baae32fda85b72594bedbd3ce52c"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/nav.csv",
+      "bytes": 27989,
+      "sha256": "9da5d063e0fe80c7c69d218b82bb3c5324301bd82e441d47a3a6b9c417d23ea4"
+    },
+    {
+      "path": "output/development_2019/combined_zero_cost/orders.csv",
+      "bytes": 175103,
+      "sha256": "03ff79caa54eaafe942fb14f0d40fbf2e83582be8eb0735aa1d99b31b9bf9136"
+    },
+    {
+      "path": "output/development_2019/corporate_action_corrections.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "output/development_2019/coverage.csv",
+      "bytes": 2042,
+      "sha256": "601de801d62bb780309f9893ec87fc14ae3e13351f2f25b020516cda6d97fa91"
+    },
+    {
+      "path": "output/development_2019/equity_comparison.png",
+      "bytes": 302937,
+      "sha256": "229137f7844cff39d51ae20130599aba511f060c8caf6cf5a0fbbff0298a189e"
+    },
+    {
+      "path": "output/development_2019/execution_data_coverage.csv",
+      "bytes": 5481,
+      "sha256": "298ea55e58a5874a2e7a6c33de1d75e2b60a16f3ee1e388d7fc5359f0fdc3fc3"
+    },
+    {
+      "path": "output/development_2019/factor_groups.csv",
+      "bytes": 37613,
+      "sha256": "96e3886c40f5abae0394152d0ff91d2ecab5dd292ed58e12fcbf0e0db6354c03"
+    },
+    {
+      "path": "output/development_2019/factor_ic.csv",
+      "bytes": 13794,
+      "sha256": "2450c180c46af1c92515902835add22545ec8930be558f4e5925473f1035f94b"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/corporate_events.csv",
+      "bytes": 1814,
+      "sha256": "a124c35eec988976bb40e82544e3aa968a5390e4e50858eb3793392df2408514"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/cost_attribution.csv",
+      "bytes": 313,
+      "sha256": "5c9a45d21e8d1e8bcc5cfbe85cc1952b5df7cd4c6ced164a863514b45320542f"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/historical_targets.csv",
+      "bytes": 162819,
+      "sha256": "66c05413434a989ae6b97131491d2e6026ce76fd17e6d71615a006db995487a0"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/holdings.csv",
+      "bytes": 344719,
+      "sha256": "b32582fcb91648d2718928118545f88fcb3432f1196f39a7d136524aa406ca26"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/monthly_returns.csv",
+      "bytes": 373,
+      "sha256": "f41910ff3a4db69903213646706ded266d0fd0ebc35ddb2248e1b311ba92020b"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/nav.csv",
+      "bytes": 29532,
+      "sha256": "a02afa07ed560da5e1f31649172c05bce0dba7015bde433147c74c8f7d117a96"
+    },
+    {
+      "path": "output/development_2019/liquidity_control/orders.csv",
+      "bytes": 82595,
+      "sha256": "1b4a33ea551edf54c6bf74b4290591a6f12035448878c5f950a8b78ecc7346e3"
+    },
+    {
+      "path": "output/development_2019/lowvol20/corporate_events.csv",
+      "bytes": 2300,
+      "sha256": "55b330acac47fc39b03e0cc4db6996e1d896b98cade54766da96681e59f30a4a"
+    },
+    {
+      "path": "output/development_2019/lowvol20/cost_attribution.csv",
+      "bytes": 303,
+      "sha256": "fc0502464f2c3b850612a8c1e85749ce759eb47b28f23f80fad3038173f4114a"
+    },
+    {
+      "path": "output/development_2019/lowvol20/historical_targets.csv",
+      "bytes": 162323,
+      "sha256": "4eb23208b1e501443322e028577051e6bd72c58a3868747576723ef95a4cdb0f"
+    },
+    {
+      "path": "output/development_2019/lowvol20/holdings.csv",
+      "bytes": 360656,
+      "sha256": "68c8a59f29d3f09e42eaf9c561a89ca7955a37a4b02b3616ab17282a70517117"
+    },
+    {
+      "path": "output/development_2019/lowvol20/monthly_returns.csv",
+      "bytes": 373,
+      "sha256": "6b2452dc3ee8f59479bf5f31a25ad662b7258f4bf344c9ce87e7b2202836fc5b"
+    },
+    {
+      "path": "output/development_2019/lowvol20/nav.csv",
+      "bytes": 29374,
+      "sha256": "2d34f0848271a53a4720932ce77eb2121566a63de88529b576f5d3d1272e01b7"
+    },
+    {
+      "path": "output/development_2019/lowvol20/orders.csv",
+      "bytes": 118113,
+      "sha256": "8a140aab0453a7963df05bc6dff458a8bc3a1df29b8820b79a1ef9f947aaf572"
+    },
+    {
+      "path": "output/development_2019/momentum20/corporate_events.csv",
+      "bytes": 1447,
+      "sha256": "7b644d20582a29d0fc6989af5e3112e3249ef6dad841a10e1cb91475a21cae78"
+    },
+    {
+      "path": "output/development_2019/momentum20/cost_attribution.csv",
+      "bytes": 316,
+      "sha256": "fcbe5b89b623119d82682ac22ebf26f64b4e0b10ca92f030db4597603ea83d5f"
+    },
+    {
+      "path": "output/development_2019/momentum20/historical_targets.csv",
+      "bytes": 160295,
+      "sha256": "f76607f9c2ea97d514db1c66d67ea04922a3e27e82631c84c10a5c2bf27663f7"
+    },
+    {
+      "path": "output/development_2019/momentum20/holdings.csv",
+      "bytes": 349636,
+      "sha256": "5b7c897747ac853ca210ab3454e92d03b226f19357c37ad7a516f8d0c54c9000"
+    },
+    {
+      "path": "output/development_2019/momentum20/monthly_returns.csv",
+      "bytes": 368,
+      "sha256": "1a1626273afec56bf974d004b33f004588a806fb4b42274f628e1f2584c07b63"
+    },
+    {
+      "path": "output/development_2019/momentum20/nav.csv",
+      "bytes": 29008,
+      "sha256": "bc793949d7f52f67637ac5519d504825f26477d7497b9af06558895592cfe7be"
+    },
+    {
+      "path": "output/development_2019/momentum20/orders.csv",
+      "bytes": 151433,
+      "sha256": "58e3f43e47957ab2836ccac0d99036e0ba45d2c5e7ab5976569f3da3ce68b6d3"
+    },
+    {
+      "path": "output/development_2019/monthly_comparison.csv",
+      "bytes": 1426,
+      "sha256": "67f38bdf8ea49caa921ca36392ff11ba1c576b726e4cf37d474adc5458c3a699"
+    },
+    {
+      "path": "output/development_2019/report.md",
+      "bytes": 8845,
+      "sha256": "7d85cd869abc15a2dab4a8032df5d2cf7a6daccaac4344207d8dc7f06b4a4764"
+    },
+    {
+      "path": "output/development_2019/return_consistency.csv",
+      "bytes": 724,
+      "sha256": "9ec1140bd38906d1194ca0ef7ab08074707763f1cab9a3df4129aeafe83a12d4"
+    },
+    {
+      "path": "output/development_2019/reversal5/corporate_events.csv",
+      "bytes": 1239,
+      "sha256": "062975d8dd69acd5035e6545a21ffd763c5c78e804caece6b3cec578d72ab22d"
+    },
+    {
+      "path": "output/development_2019/reversal5/cost_attribution.csv",
+      "bytes": 315,
+      "sha256": "cbd3e9dc784d873e1bcf8cfab0b3c92ce261e7f0f8212821c988c424046df75e"
+    },
+    {
+      "path": "output/development_2019/reversal5/historical_targets.csv",
+      "bytes": 160544,
+      "sha256": "0a0d95d3f3f964efe3bcff94031e8343e412f823dea1e87f855b64c5c06dd702"
+    },
+    {
+      "path": "output/development_2019/reversal5/holdings.csv",
+      "bytes": 360758,
+      "sha256": "387b00298c9777bce047c4c15b48151085d5c36fdbd3987c1738a90cbff36733"
+    },
+    {
+      "path": "output/development_2019/reversal5/monthly_returns.csv",
+      "bytes": 372,
+      "sha256": "7b4bb87891a4bfbd9f66273ec2f00f8d031621d7e90488ae50b30f259e8deb0e"
+    },
+    {
+      "path": "output/development_2019/reversal5/nav.csv",
+      "bytes": 28533,
+      "sha256": "55565c515d6f6c01d315ae1a97d33f004626d33556b1e40489eba8ea7b97b661"
+    },
+    {
+      "path": "output/development_2019/reversal5/orders.csv",
+      "bytes": 207377,
+      "sha256": "ccc7764c7d3809f20037ee31aa5a6d026e461de8b5a65bc144d651f3797cff8d"
+    },
+    {
+      "path": "output/development_2019/summary.json",
+      "bytes": 22272,
+      "sha256": "787827732c40dfd6c1e2792e91a5a333d8c48e5e260452db648916419856bc61"
+    },
+    {
+      "path": "output/development_2019/unexplained_adjustments.csv",
+      "bytes": 470,
+      "sha256": "7c97d060c764014e0e3563a0f2839c50f16b5d479de316df9bdd7b184e41fc0c"
+    },
+    {
+      "path": "output/development_2019/verification.json",
+      "bytes": 1552,
+      "sha256": "d676dda620fc2a6afac9e176439633670ddffe99a4313e055dcd36d0bcdc6406"
+    },
+    {
+      "path": "output/development_2020/combined/corporate_events.csv",
+      "bytes": 2115,
+      "sha256": "bdb028549214cd8e756d931d4e62eb9687ecb956c11f9914c5fb423e46eaa7c0"
+    },
+    {
+      "path": "output/development_2020/combined/cost_attribution.csv",
+      "bytes": 314,
+      "sha256": "773928a6e408bfde34485999bd9c9381594abb8f216f60fa13338408d6cd8182"
+    },
+    {
+      "path": "output/development_2020/combined/historical_targets.csv",
+      "bytes": 158982,
+      "sha256": "724d1493fa93532c6536c6d26d250b3c4b324e58ffd5923d14f4c697a834dd4c"
+    },
+    {
+      "path": "output/development_2020/combined/holdings.csv",
+      "bytes": 355430,
+      "sha256": "94bbe0b188d12c2d70ad8bf82c1786367893233a20397ccbcb98c613cd8a6aab"
+    },
+    {
+      "path": "output/development_2020/combined/monthly_returns.csv",
+      "bytes": 371,
+      "sha256": "30f7c5960b30f3cc3d1688b75e3d88190e95937a83dd42422645c2fd98fc7fed"
+    },
+    {
+      "path": "output/development_2020/combined/nav.csv",
+      "bytes": 29199,
+      "sha256": "bb970d3558b3ff732c6459fe6cb1588e555c8d41330a54e1ee2e443a10cded1f"
+    },
+    {
+      "path": "output/development_2020/combined/orders.csv",
+      "bytes": 201184,
+      "sha256": "d9f44adab2e0c1c6f44f602ddb7df6607dc735a04ef7049ffb0b6e41b7b1677a"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/corporate_events.csv",
+      "bytes": 2221,
+      "sha256": "b83ac8c068e30867066f72d3d8f63bb303a5fbed45ac9a8b83c0a2e79549bb2f"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/cost_attribution.csv",
+      "bytes": 328,
+      "sha256": "d0aade5b0feedd7228866f6c238e1f715b2690bf5d3476291d14c01603c1ea1e"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/historical_targets.csv",
+      "bytes": 159064,
+      "sha256": "c9cbc87809bf98a75829d0d78f725f8d7275fdf308a7f4b4963425477c111b54"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/holdings.csv",
+      "bytes": 355302,
+      "sha256": "7cac97f157166f2354f3af50eb45dac1b263e400bffb021d5ca933080819bee9"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/monthly_returns.csv",
+      "bytes": 369,
+      "sha256": "7afb32263a554b5e24be8de0c616c2e2554896bc0eb8bfce1f1fc5dced4299e8"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/nav.csv",
+      "bytes": 29213,
+      "sha256": "e0d2001cd988ac573e1a89cf6e942dc7cf963a0141b3c40e5e05ef9d87792a38"
+    },
+    {
+      "path": "output/development_2020/combined_rank_buffer40/orders.csv",
+      "bytes": 195398,
+      "sha256": "1db180cb101a916d29ee940071e604559676a56680df6d9bf208ee6126a003fe"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/corporate_events.csv",
+      "bytes": 2126,
+      "sha256": "c32f7de27eaeb3cb9b57c4e4000ef81b2cae5ddc660e3bcb51783634c93a1cec"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/cost_attribution.csv",
+      "bytes": 318,
+      "sha256": "a946a8ec7703706f1e3074ea77b5d22f92b2fd976741cca504d2ef9ca2361c98"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/historical_targets.csv",
+      "bytes": 158982,
+      "sha256": "724d1493fa93532c6536c6d26d250b3c4b324e58ffd5923d14f4c697a834dd4c"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/holdings.csv",
+      "bytes": 353530,
+      "sha256": "4d5e476b45f6560a48dde24cabd97b55ef6b7837cfb15b3fff36b89c21e6669c"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/monthly_returns.csv",
+      "bytes": 376,
+      "sha256": "ee663b639688fd9bc53ebbe2d7b1e35cd3016d797846f556b80fe094713cf007"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/nav.csv",
+      "bytes": 28966,
+      "sha256": "3db16370d70f60e50b6b6a1e3bbb613ea628439cd44c263fbb5b02f9fb09028b"
+    },
+    {
+      "path": "output/development_2020/combined_slip30/orders.csv",
+      "bytes": 200813,
+      "sha256": "1178edd4f018b5fff39857bbcb0e22455589f1f4781150e705ca3144a38f2cff"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/corporate_events.csv",
+      "bytes": 2113,
+      "sha256": "209a54789c8e4dc7bd08bfa0c63ebbaafe3ea3b678fb1a9b1c8f9940e4425005"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/cost_attribution.csv",
+      "bytes": 319,
+      "sha256": "6b402328533a1cd11374da3b2be61bda13516e78e7dc517ea09cfdfb130adf40"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/historical_targets.csv",
+      "bytes": 158982,
+      "sha256": "724d1493fa93532c6536c6d26d250b3c4b324e58ffd5923d14f4c697a834dd4c"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/holdings.csv",
+      "bytes": 351559,
+      "sha256": "5f450dc8dfeeb4c071beb1acdc2c474e4c7b9088f782711ea7926440bd43feec"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/monthly_returns.csv",
+      "bytes": 375,
+      "sha256": "3a05b1d20353bcc87304eb391612a0e8278f0a413f87215a70e62f22ca4cc1a7"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/nav.csv",
+      "bytes": 28931,
+      "sha256": "48741682ac13dcfa67181bfaa01a44985cc6f8a1c842035b61736394da6fe285"
+    },
+    {
+      "path": "output/development_2020/combined_slip50/orders.csv",
+      "bytes": 199034,
+      "sha256": "aa150050d9e3a6db6e5638e29970b1861a652a8389dfdde8af7a5ba63ae56729"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/corporate_events.csv",
+      "bytes": 2106,
+      "sha256": "33ba6025de45057fd7a996c71dfda63d1352a215fff3cf4fcda3b20242f56683"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/cost_attribution.csv",
+      "bytes": 169,
+      "sha256": "35124a917115145a80d0c84b84da7f84f75efd3422bdde60b322c6d60e0bc896"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/historical_targets.csv",
+      "bytes": 158982,
+      "sha256": "724d1493fa93532c6536c6d26d250b3c4b324e58ffd5923d14f4c697a834dd4c"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/holdings.csv",
+      "bytes": 357078,
+      "sha256": "abcca412ae7d2330f895feb8693b123ce393c5ebc694f31347ba5cc8092423d8"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/monthly_returns.csv",
+      "bytes": 371,
+      "sha256": "1e9ca262d753998a02f8a79de8c6ac296d8515f6d02ea3fd6788bb15f0cd2fa1"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/nav.csv",
+      "bytes": 27780,
+      "sha256": "626903672f328cb896509c305656b21333a116e47c1d7f6a1301699c99e83d4f"
+    },
+    {
+      "path": "output/development_2020/combined_zero_cost/orders.csv",
+      "bytes": 171658,
+      "sha256": "1e52379582882b1c0c127a812126c3201dddfbc144f15ded08bac9c088eb9299"
+    },
+    {
+      "path": "output/development_2020/corporate_action_corrections.json",
+      "bytes": 775,
+      "sha256": "313b87c55b62430d96700765e81700c79194bafa8ce858514d74d24f9fdfb9a9"
+    },
+    {
+      "path": "output/development_2020/coverage.csv",
+      "bytes": 2042,
+      "sha256": "66bb379f78c88991d4c8563fe00224418daa6730dd9bc1de763d35cd346a30ce"
+    },
+    {
+      "path": "output/development_2020/equity_comparison.png",
+      "bytes": 297045,
+      "sha256": "ebd70dbbc4180c6b386fa135bd5f473797e259730a62030337d937b0847e6760"
+    },
+    {
+      "path": "output/development_2020/execution_data_coverage.csv",
+      "bytes": 5481,
+      "sha256": "b10f30512d70888c904ff402a2a6d21325798b7e7226dd966fe2bd7d68330e60"
+    },
+    {
+      "path": "output/development_2020/factor_groups.csv",
+      "bytes": 36871,
+      "sha256": "142143a364df68ffb9ecf38d09a27d9ce5873fcb66ed112b4e540a2c5c17cac4"
+    },
+    {
+      "path": "output/development_2020/factor_ic.csv",
+      "bytes": 13558,
+      "sha256": "8022e5f70f5da920c531b1b0d2f0300de5661afb6f3006eaa426215f9d9ac3ac"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/corporate_events.csv",
+      "bytes": 2950,
+      "sha256": "7117b5d61024e4ab4287f29c031bb9db50d1a6d043c2e98016d58d8e1f804775"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/cost_attribution.csv",
+      "bytes": 313,
+      "sha256": "fce2ce8446735d6e46cd1d48b550425bfc022cc84ecbea5dd9bd14816017f7a8"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/historical_targets.csv",
+      "bytes": 159380,
+      "sha256": "c7af329e503055de8fea1e5b88545d14c2321df73b4ad2c14d47cc3344dad6f3"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/holdings.csv",
+      "bytes": 337384,
+      "sha256": "b31fadcfda7703b622ae3375a7d95bd6e2dbe43f06d2096deddcf1c57985fd96"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/monthly_returns.csv",
+      "bytes": 367,
+      "sha256": "477bda99b4937a326ee73cbd84c7eefb4509f8a4edcccd1675b42209545dd201"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/nav.csv",
+      "bytes": 29807,
+      "sha256": "a52dc0190bdc4d7c12f45157cc796903e1a846e0aa349d6eb07bdd2795022832"
+    },
+    {
+      "path": "output/development_2020/liquidity_control/orders.csv",
+      "bytes": 74376,
+      "sha256": "14bc1633e938ae07e005f6ae32ab7eff3ede8f0acdd3eb2d7907d72b28ae4f0b"
+    },
+    {
+      "path": "output/development_2020/lowvol20/corporate_events.csv",
+      "bytes": 2306,
+      "sha256": "58a1052807ac79361013d509ecbd55439eacf8d7d284deb7bf5b1eacd70efaff"
+    },
+    {
+      "path": "output/development_2020/lowvol20/cost_attribution.csv",
+      "bytes": 315,
+      "sha256": "d39908d0474a38ade47d488482367b227163f231e1301054b8e95646c7d45b42"
+    },
+    {
+      "path": "output/development_2020/lowvol20/historical_targets.csv",
+      "bytes": 159235,
+      "sha256": "cb1199847c9de1fd10ee1693893df0838aa4bba195fb7f99cbc2870776a9d139"
+    },
+    {
+      "path": "output/development_2020/lowvol20/holdings.csv",
+      "bytes": 352012,
+      "sha256": "f0707fefdfd4e54bce7ff8e80bec7a62765eb902b36d3feebe87bb0052f96ccf"
+    },
+    {
+      "path": "output/development_2020/lowvol20/monthly_returns.csv",
+      "bytes": 376,
+      "sha256": "22635a06d757488ae9632d582cbfe86db29c8a34a231bf61585ec553e9dde671"
+    },
+    {
+      "path": "output/development_2020/lowvol20/nav.csv",
+      "bytes": 28311,
+      "sha256": "35be9bad81137a2efb92da9a3f375ba7b286dbaddbfaf60524a0b2fc87c941d5"
+    },
+    {
+      "path": "output/development_2020/lowvol20/orders.csv",
+      "bytes": 116688,
+      "sha256": "2f7aed40485f244d331cb5470882011c680fa4e11f3fa93a77fcc59c572d0c2b"
+    },
+    {
+      "path": "output/development_2020/momentum20/corporate_events.csv",
+      "bytes": 1844,
+      "sha256": "1af4a7dd9faea477d2d442022f72f29d778ef93b4953510f2425bb8e9b69d8ad"
+    },
+    {
+      "path": "output/development_2020/momentum20/cost_attribution.csv",
+      "bytes": 318,
+      "sha256": "75ec9ac885983dcc10265b2fe422e8ce702886f862eae0312150608019c8faa2"
+    },
+    {
+      "path": "output/development_2020/momentum20/historical_targets.csv",
+      "bytes": 157057,
+      "sha256": "e2d8ea025f88044ae9f89cff29e2d5cab218d1d2337a0c8509f978d7fb0ac5d2"
+    },
+    {
+      "path": "output/development_2020/momentum20/holdings.csv",
+      "bytes": 348341,
+      "sha256": "982e6d0372335a5fde512b7781b71a4a5cd2fb5c1f027309f5aaa3a275788d63"
+    },
+    {
+      "path": "output/development_2020/momentum20/monthly_returns.csv",
+      "bytes": 370,
+      "sha256": "fc469beb3cccb57a1795fa03c6725453eb41661ac6a8dc6a2acfc52434a661a6"
+    },
+    {
+      "path": "output/development_2020/momentum20/nav.csv",
+      "bytes": 28926,
+      "sha256": "ee1c339bd330d2c2f56cc27ac58cc2e5101f33519c56206a4ed5b43dd0c10d29"
+    },
+    {
+      "path": "output/development_2020/momentum20/orders.csv",
+      "bytes": 148314,
+      "sha256": "fcb43c2973f7a8ce4a9924410279d5779391236862a83dddbda8905eab878834"
+    },
+    {
+      "path": "output/development_2020/monthly_comparison.csv",
+      "bytes": 1423,
+      "sha256": "0fefd8c354ad3b968da9eaad85ed223bf66f7d4adf90bcd9715fd142f07d21b7"
+    },
+    {
+      "path": "output/development_2020/report.md",
+      "bytes": 9220,
+      "sha256": "0b8a57d94065a8adeb2d0cbd877a22d88bd72a51999f56440a6ae50b14a13781"
+    },
+    {
+      "path": "output/development_2020/return_consistency.csv",
+      "bytes": 296,
+      "sha256": "9ece8dd626d5d8bbdde52acce9d083ef03e99e9f0344120fd1e80ac700644788"
+    },
+    {
+      "path": "output/development_2020/reversal5/corporate_events.csv",
+      "bytes": 1359,
+      "sha256": "6a662fbe5db7a8a0709523ff3f8f8223e9e117a009c8421ee49bf3a52d4625ba"
+    },
+    {
+      "path": "output/development_2020/reversal5/cost_attribution.csv",
+      "bytes": 314,
+      "sha256": "8b5de9852ddc5a706a927f26237e43d3fb169aa3ee2eb48b7f20e2933e0c4e5b"
+    },
+    {
+      "path": "output/development_2020/reversal5/historical_targets.csv",
+      "bytes": 157493,
+      "sha256": "9d81dd84da2c2a929a3c3d56193945c298025a29726a9206418af42e373ff66d"
+    },
+    {
+      "path": "output/development_2020/reversal5/holdings.csv",
+      "bytes": 358778,
+      "sha256": "c459429668affc7c807843a078ea05f529ac5ce5dbfb3274f5657b4b115ae93a"
+    },
+    {
+      "path": "output/development_2020/reversal5/monthly_returns.csv",
+      "bytes": 373,
+      "sha256": "ab3c02796d34106534de3c6eaea25afbee86a1cbbc41378f7ddf34207836aa18"
+    },
+    {
+      "path": "output/development_2020/reversal5/nav.csv",
+      "bytes": 28406,
+      "sha256": "fb2778ef1d2fdc58f90cad2c3b8a53a0d614d16a29790f1ee0910137866157d5"
+    },
+    {
+      "path": "output/development_2020/reversal5/orders.csv",
+      "bytes": 202261,
+      "sha256": "070ee2af660c4800307803356ec765a3edca75a708fc8eb8cc6554194bfb0318"
+    },
+    {
+      "path": "output/development_2020/summary.json",
+      "bytes": 23008,
+      "sha256": "5869feb58e1d7d679f583e6fad3205f9d941dc39b9a746830916b3ce65cfedba"
+    },
+    {
+      "path": "output/development_2020/unexplained_adjustments.csv",
+      "bytes": 8962,
+      "sha256": "4e13570466ee97c6347bc28eec77418a0f3bdc5b0b316a1121834f3cfe7ec648"
+    },
+    {
+      "path": "output/development_2020/verification.json",
+      "bytes": 1571,
+      "sha256": "12d312ed651ab83df02e2c8833d3baf2b684fbeb0313ad8991a350e3017a9d4b"
+    },
+    {
+      "path": "output/development_comparison/report.md",
+      "bytes": 1054,
+      "sha256": "9a153e642b2262f1a51719f22d9a2349b7de1eca87ed533e1d707e1595542e8b"
+    },
+    {
+      "path": "output/development_comparison/sources.json",
+      "bytes": 618,
+      "sha256": "3a4a0f2a7630810ce53ff7c0793b63bf8f02213ff100815df2b562a8340b5c6e"
+    },
+    {
+      "path": "output/project1_revision/2018/factor_coverage.csv",
+      "bytes": 8499,
+      "sha256": "f7fb2a5921170558114ac550d5b2b455dd537a00fbc1853c46aeb093dad3d00e"
+    },
+    {
+      "path": "output/project1_revision/2018/factor_groups.csv",
+      "bytes": 39891,
+      "sha256": "372f44530fe88ee1056c482a1a608cc04aa1b1e616a189afa50987c7f16fbc55"
+    },
+    {
+      "path": "output/project1_revision/2018/factor_ic.csv",
+      "bytes": 17136,
+      "sha256": "93f4d1664ab968e4c53a7c5209d13c9d5f4c50250a310fe2442a81e37a43c111"
+    },
+    {
+      "path": "output/project1_revision/2018/quality.json",
+      "bytes": 217,
+      "sha256": "64eaeb9f247b7b52dc044281164193eaab0aa9e93327ee2c3dc264ac12f1a04e"
+    },
+    {
+      "path": "output/project1_revision/2019/factor_coverage.csv",
+      "bytes": 8768,
+      "sha256": "69727909cff2155591f58112c2a881b13ba09e3fb9330618b7e0ff2a7f4bff08"
+    },
+    {
+      "path": "output/project1_revision/2019/factor_groups.csv",
+      "bytes": 40689,
+      "sha256": "c09c9fb8e6edc2ac2908186bf8940eff17eefb6142337d529b774e545da5ebb2"
+    },
+    {
+      "path": "output/project1_revision/2019/factor_ic.csv",
+      "bytes": 17337,
+      "sha256": "3ee15c1be0a2078bf7816c2f46e701cdd95fc4d15561b0973fe508aa10f4d0bf"
+    },
+    {
+      "path": "output/project1_revision/2019/quality.json",
+      "bytes": 221,
+      "sha256": "af5c20a47d3336c3c557fe74d01cf6af99cb7f308d57434003d07287ba36d905"
+    },
+    {
+      "path": "output/project1_revision/2020/factor_coverage.csv",
+      "bytes": 8602,
+      "sha256": "43b770e5a664dd03ba567e28883841c47270f99f050ccf567051d526cee86b56"
+    },
+    {
+      "path": "output/project1_revision/2020/factor_groups.csv",
+      "bytes": 39887,
+      "sha256": "2b5eba3bbf1589940347c856240d403041785f3ea9b58035ae331419ab103375"
+    },
+    {
+      "path": "output/project1_revision/2020/factor_ic.csv",
+      "bytes": 16930,
+      "sha256": "8b4c17694a46d4af1224065e6ffd8f6919c0fc958c5cddfb3726a25f97e5ca5a"
+    },
+    {
+      "path": "output/project1_revision/2020/quality.json",
+      "bytes": 221,
+      "sha256": "639d8abc63defef3324f9ce6fe7298dc0dd2ab0dcc1c5ae80ab16422a3b937f3"
+    },
+    {
+      "path": "output/project1_revision/manifest.json",
+      "bytes": 3184,
+      "sha256": "d5540b0c2fc3dbe6eea8560c21ca286dee08c01759f3c4f2c10bb7dae6821905"
+    },
+    {
+      "path": "output/sample/factors.csv",
+      "bytes": 24146,
+      "sha256": "0bbab47f8c6f001653d26c8c1f0f3baceae3f022060bd16f965ca29fb37ab43f"
+    },
+    {
+      "path": "quant_research/__init__.py",
+      "bytes": 72,
+      "sha256": "f05500f50548f7f2cce18d376f56f52e7301655dc81685f36026cb8fdcc347d9"
+    },
+    {
+      "path": "quant_research/accounting.py",
+      "bytes": 7512,
+      "sha256": "7d4e4d0437758a3ea880ce43844759627d4a816419e94d5b6c99c00380640840"
+    },
+    {
+      "path": "quant_research/adjustment_audit.py",
+      "bytes": 3686,
+      "sha256": "fd4d044848d30ee96f092a520b82c29f65769b54fc87260e29f6cf274a6ca3a5"
+    },
+    {
+      "path": "quant_research/attribution.py",
+      "bytes": 992,
+      "sha256": "304cb7e7710fb4bb00d5544073ed00450aba669acf542b198a6422a37ffb87a9"
+    },
+    {
+      "path": "quant_research/audit.py",
+      "bytes": 3448,
+      "sha256": "708ab7d187fde82866f7a878de87ea11fe1184e93cf2f4d82fe5c28182f72719"
+    },
+    {
+      "path": "quant_research/backtest.py",
+      "bytes": 14366,
+      "sha256": "5606abd57ea564744f67bce7454ab9a2f210dce9d39c5e0d0feae37e9b1de4ce"
+    },
+    {
+      "path": "quant_research/corporate_corrections.py",
+      "bytes": 6314,
+      "sha256": "20e043527697e264a1909b909054f10b38d343536c4e06c142b658294d5d6145"
+    },
+    {
+      "path": "quant_research/data.py",
+      "bytes": 5995,
+      "sha256": "e9d7dfa4f7a431a291259383b1f47624b0195297ba437ef7362efb671323ba0d"
+    },
+    {
+      "path": "quant_research/datasets.py",
+      "bytes": 879,
+      "sha256": "c7643f2d1bb004882c5355648980c4b3990f41eb6e8d41610e8cc7e31475cd0c"
+    },
+    {
+      "path": "quant_research/download.py",
+      "bytes": 4854,
+      "sha256": "867e8ba2474aa10f8e68e2126fe2b93601987b2e1eed1c5458c3d908437820e5"
+    },
+    {
+      "path": "quant_research/execution.py",
+      "bytes": 4218,
+      "sha256": "e5263e73277c40abb74185609d21451d47dc69dad91e01a64a15c4d6ec28bbfd"
+    },
+    {
+      "path": "quant_research/factors.py",
+      "bytes": 6880,
+      "sha256": "19a2fb5d365c9a2f01ba456da09b3c3b2af41c2796521bb65636dcac240bae32"
+    },
+    {
+      "path": "quant_research/pilot.py",
+      "bytes": 5660,
+      "sha256": "a2d6af2f579224232b4f61a5293196cf08e5a68b4e2cc83851b6312a48eaad27"
+    },
+    {
+      "path": "quant_research/probe.py",
+      "bytes": 2367,
+      "sha256": "5592b56c1678e608c3e87ef06496841d2ec7c316ce76d8167b167aecc2bc9216"
+    },
+    {
+      "path": "quant_research/research.py",
+      "bytes": 25616,
+      "sha256": "98a56155293b22b1c80819211225e18e81d89fc61919ee395719d8e3cbcfbf72"
+    },
+    {
+      "path": "quant_research/rights.py",
+      "bytes": 4192,
+      "sha256": "f73644a701d2dd407f2d9b270135676e571ae45c5d9df8fefd5e624fbf0167d0"
+    },
+    {
+      "path": "quant_research/universe.py",
+      "bytes": 1611,
+      "sha256": "572101c1e98929112ce724305f579c1befdfbb4124f06785b8bb7f4fb8a5ea87"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4340,
+      "sha256": "103dd6fa713c280a441403f3d5a4c7e5bd683a4a92e1d375e90d1b0ff27414c8"
+    },
+    {
+      "path": "requirements-report.txt",
+      "bytes": 44,
+      "sha256": "46f9f53359086cf9379f24431b56fb3db3d41250d49c492bd6493b42f3e9984c"
+    },
+    {
+      "path": "requirements-tested.txt",
+      "bytes": 116,
+      "sha256": "ae5c149c5f0eef939f53a35e823d4829056d129bf17fc5c49e6b08054fe9bbcb"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 50,
+      "sha256": "dd38ddb277ec54942d2dbea40d4fd9a73b103486fa671dba2832edc954f5c559"
+    },
+    {
+      "path": "scripts/build_project1_report.py",
+      "bytes": 29008,
+      "sha256": "2eae49a31de3ed05c3b6a6e485b478d309361555e99dc2630fceda546310bb08"
+    },
+    {
+      "path": "scripts/compare_development_years.py",
+      "bytes": 2714,
+      "sha256": "135a731ab1655cb3e0c9f942d713a8eb9214178c4dd669a785c42cbb05017935"
+    },
+    {
+      "path": "scripts/rebuild_project1_diagnostics.py",
+      "bytes": 6374,
+      "sha256": "1295a1e9642e30a5483c1293967e9e77e0daf80f02b1bb986ef4664b072cef82"
+    },
+    {
+      "path": "scripts/run_submission_sample.py",
+      "bytes": 1010,
+      "sha256": "2e4d7e655039348f5e3270e5dd995fbf4db7291eb67581116a38fa2cffaaf7a7"
+    },
+    {
+      "path": "scripts/verify_2020.py",
+      "bytes": 2125,
+      "sha256": "7908bfa50092dafed25b70549bf5d1e59ad11d5412e3353cc7f5b07fc454cc60"
+    },
+    {
+      "path": "scripts/verify_annual.py",
+      "bytes": 4096,
+      "sha256": "e96b8f48a0b211b9344d1c9ea9a33e649940051acf4dcc1dee73c3e8d315a0fc"
+    },
+    {
+      "path": "tests/test_accounting.py",
+      "bytes": 2253,
+      "sha256": "3a9a77003b7bfcc6159cbf200a4bea9d9a3c7a18784b844f04c64285968c4167"
+    },
+    {
+      "path": "tests/test_adjustment_audit.py",
+      "bytes": 3043,
+      "sha256": "a9bb3b61590897337e6ff5ece32e0ab6e19a234e1fa02ec99451fb3b3735ece2"
+    },
+    {
+      "path": "tests/test_attribution.py",
+      "bytes": 973,
+      "sha256": "11d20bf3e9c2b840e2fb774b9315f8b6aeb92feb96d758132952e615b14616ae"
+    },
+    {
+      "path": "tests/test_backtest.py",
+      "bytes": 5172,
+      "sha256": "475f5444b4f6956de69aa59e40e509943f8e0c2889e71d537f57f223264c63e2"
+    },
+    {
+      "path": "tests/test_cache.py",
+      "bytes": 1310,
+      "sha256": "c54036410b3ab3143ce6a40496dcd7414cb8392af154f6640ebbf71839fe5378"
+    },
+    {
+      "path": "tests/test_corporate_corrections.py",
+      "bytes": 3541,
+      "sha256": "360335dfc44a42d212af70e612aba0801e5f137f8d8cec20d154a4c0da9231a4"
+    },
+    {
+      "path": "tests/test_data.py",
+      "bytes": 1194,
+      "sha256": "89d218e372683b7266609e8bf777587a4af2a8af2133af0c79f99795324a1daa"
+    },
+    {
+      "path": "tests/test_datasets.py",
+      "bytes": 1153,
+      "sha256": "401c7ced99065e7a44c0952b54f7ec74468995730d2d6d72ac49cd5d449b18e2"
+    },
+    {
+      "path": "tests/test_diagnostics.py",
+      "bytes": 1922,
+      "sha256": "4ede109bdbf5362dc4f8b5624e324a523f1aad081ff0ece1539f6143346c4912"
+    },
+    {
+      "path": "tests/test_execution.py",
+      "bytes": 1784,
+      "sha256": "15c2919c45a67ddcebb23e567ee950af041af67c53e38c82f4248c229fb408f1"
+    },
+    {
+      "path": "tests/test_factors.py",
+      "bytes": 3989,
+      "sha256": "078d165216120a74c6c5dbd6f6560b512276bc65029508d6599a0e0a602abb37"
+    },
+    {
+      "path": "tests/test_universe.py",
+      "bytes": 883,
+      "sha256": "88605d3711efa103a6ad254b6a055449f2cf1e74e4ee0b32798d676a13775117"
+    },
+    {
+      "path": "原项目说明.md",
+      "bytes": 8955,
+      "sha256": "9467d17abd41a46adf345912c52c8e21e39db2f412d4230127bb227c66c05314"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "server_type": "stock_data",
+  "tool": "get_stock_price_indicators",
+  "is_success": "wind, Wind get_stock_price_indicators fetched for 1 ticker(s)",
+  "data_preview": "中文简称,最新成交价,wind_code\n贵州茅台,1243.88,600519.SH\n",
+  "notice": "All the data have been provided and can be used directly. And above table saved to C:\\Users\\Admin\\.cache\\wind-allskill\\csv\\wind_get_stock_price_indicators_32164_1790595056339.csv.If the user has the need for analysis, you can use pandas to read the file."
+}

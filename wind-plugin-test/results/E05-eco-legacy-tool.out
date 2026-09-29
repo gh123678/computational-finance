@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "ROUTE_ERROR",
+    "agent_action": "[工具名 \"get_economic_data\" 不属于 server_type \"economic_data\"。] 路由错误：server_type 或 tool_name 不合法。detail 中列出了可用选项。1) 根据 detail 中的可用列表，结合 SKILL.md 范围表重选合法的 server_type；2) 读取该 server_type 对应领域的契约文件（references/<domain>.md，按 server_type 选择）的工具列表，重选合法的 tool_name；3) 保持用户原始数据意图，不要直接 fallback 到 analytics_data。"
+  }
+}

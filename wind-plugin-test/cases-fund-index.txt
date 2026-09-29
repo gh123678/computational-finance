@@ -1,0 +1,17 @@
+# id|server|tool|params_json
+F01-etf-snapshot|fund_data|get_fund_price_indicators|{"windcode":"588200.SH","indexes":"中文简称,最新成交价,IOPV,贴水率"}
+F02-etf-kline|fund_data|get_fund_kline|{"windcode":"588200.SH","begin_date":"20260901","end_date":"20260926"}
+F03-otc-snapshot|fund_data|get_fund_price_indicators|{"windcode":"000001.OF","indexes":"最新净值,累计净值"}
+F04-fund-info|fund_data|get_fund_info|{"question":"华夏成长混合(000001.OF)基金档案"}
+F05-fund-perf|fund_data|get_fund_performance|{"question":"000001.OF近1年业绩排名"}
+F06-fund-holdings|fund_data|get_fund_holdings|{"question":"000001.OF最新一期重仓股"}
+F07-search-funds|fund_data|search_funds|{"question":"筛选股票型基金中近一年收益率超20%的产品"}
+F08-fund-company|fund_data|get_fund_company_info|{"question":"华夏基金管理公司档案"}
+F09-fund-quote|fund_data|get_fund_quote|{"windcode":"588200.SH"}
+I01-idx-snapshot|index_data|get_index_price_indicators|{"windcode":"000300.SH","indexes":"中文简称,最新成交价,涨跌幅,上涨家数,下跌家数"}
+I02-idx-kline|index_data|get_index_kline|{"windcode":"000300.SH","begin_date":"20260901","end_date":"20260926"}
+I03-idx-basicinfo|index_data|get_index_basicinfo|{"question":"沪深300指数档案"}
+I04-idx-fundamentals|index_data|get_index_fundamentals|{"question":"沪深300PE/PB历史分位"}
+I05-hsi|index_data|get_index_price_indicators|{"windcode":"HSI.HI","indexes":"中文简称,最新成交价,涨跌幅"}
+I06-idx-quote|index_data|get_index_quote|{"windcode":"000300.SH"}
+I07-idx-technicals|index_data|get_index_technicals|{"question":"中证500的MACD和RSI"}

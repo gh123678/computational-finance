@@ -6,15 +6,16 @@ from dataclasses import asdict, replace
 import numpy as np
 import pandas as pd
 from .data import ROOT
-from .factors import FACTORS, compute_factors, rank_scores, select_targets, select_buffered_targets, weekly_schedule
+from .factors import (FACTORS, compute_factors, rank_scores, select_targets, select_buffered_targets,
+                      weekly_schedule, biweekly_schedule)
 from .universe import historical_universe
 from .accounting import normalize_actions
 from .backtest import Config, simulate, summarize
 from .datasets import DATASETS, dataset_config
 from .attribution import cost_breakdown, monthly_returns
-from .corporate_corrections import correct_actions
+from .corporate_corrections import correct_actions, correct_adjustments, correct_limit_code_aliases
 from .rights import verified_rights
-from .adjustment_audit import audit_adjustments, quarantine_factors
+from .adjustment_audit import audit_adjustments, quarantine_factors, return_consistency_check
 
 
 def read_market(root, name):
@@ -34,18 +35,24 @@ def diagnostics(snapshots, bars, schedule):
         entry, exit_date = row.execution_date, executions[index+1]
         frame = snapshots[row.signal_date].copy()
         frame['forward_return'] = [quotes.get((exit_date, c), np.nan) / quotes.get((entry, c), np.nan) - 1 for c in frame.ts_code]
-        frame = frame.replace([np.inf, -np.inf], np.nan).dropna(subset=['forward_return', *FACTORS])
-        if len(frame) < 10:
-            continue
+        frame = frame.replace([np.inf, -np.inf], np.nan)
         for factor in FACTORS:
-            ic = frame[factor].corr(frame.forward_return) if len(frame) >= 10 else np.nan
-            rank_ic = frame[factor].rank().corr(frame.forward_return.rank()) if len(frame) >= 10 else np.nan
+            formed = frame.dropna(subset=[factor]).copy()
+            # Group membership is fixed using formation-date information only.
+            formed['bucket'] = np.ceil(formed[factor].rank(method='average', pct=True) * 5).clip(1, 5)
+            valid = formed.dropna(subset=['forward_return'])
+            sufficient = len(valid) >= 10 and valid[factor].nunique() > 1 and valid.forward_return.nunique() > 1
+            ic = valid[factor].corr(valid.forward_return) if sufficient else np.nan
+            rank_ic = valid[factor].rank(method='average').corr(valid.forward_return.rank(method='average')) if sufficient else np.nan
             rows.append(dict(signal_date=row.signal_date, entry=entry, exit=exit_date, factor=factor,
-                             n=len(frame), ic=ic, rank_ic=rank_ic))
-            bucket = np.ceil(frame[factor].rank(method='average', pct=True) * 5).clip(1, 5)
-            for group, subset in frame.groupby(bucket):
-                groups.append(dict(signal_date=row.signal_date, factor=factor, group=int(group),
-                                   n=len(subset), mean_forward_return=float(subset.forward_return.mean())))
+                             n=len(valid), n_formed=len(formed), label_coverage=len(valid)/len(formed) if len(formed) else np.nan,
+                             ic=ic, rank_ic=rank_ic))
+            for group in range(1, 6):
+                original = formed.loc[formed.bucket.eq(group)]
+                subset = original.dropna(subset=['forward_return'])
+                groups.append(dict(signal_date=row.signal_date, factor=factor, group=group,
+                                   n_formed=len(original), n=len(subset),
+                                   mean_forward_return=float(subset.forward_return.mean()) if len(subset) >= 2 else np.nan))
     return pd.DataFrame(rows), pd.DataFrame(groups)
 
 
@@ -70,15 +77,31 @@ def main(dataset='development_2020q4'):
     bars = read_market(root, 'daily')
     bars = bars.loc[bars.ts_code.isin(metadata.ts_code) & bars.ts_code.str.match(r'^(60\d{4}\.SH|00\d{4}\.SZ)$')].copy()
     bars = bars.merge(read_market(root, 'adj_factor'), on=['trade_date', 'ts_code'], validate='one_to_one')
-    bars = bars.merge(read_market(root, 'stk_limit'), on=['trade_date', 'ts_code'], how='left', validate='one_to_one')
+    limits, limit_corrections = correct_limit_code_aliases(read_market(root, 'stk_limit'))
+    bars = bars.merge(limits, on=['trade_date', 'ts_code'], how='left', validate='one_to_one')
     if bars.adj_factor.isna().any():
         raise ValueError('Missing adjustment factors')
+    limit_missing = bars[['up_limit', 'down_limit']].isna().any(axis=1)
+    execution_coverage = bars.assign(missing_limit=limit_missing).groupby('trade_date').agg(
+        quoted_assets=('ts_code', 'size'), missing_limit_assets=('missing_limit', 'sum'))
+    execution_coverage.to_csv(output / 'execution_data_coverage.csv')
     dividends = pd.read_csv(root / 'dividend.csv', dtype=str)
     dividends, corrections = correct_actions(dividends)
+    corrections = limit_corrections + corrections
+    bars, adjustment_corrections = correct_adjustments(bars)
+    corrections.extend(adjustment_corrections)
     (output / 'corporate_action_corrections.json').write_text(json.dumps(corrections, ensure_ascii=False, indent=2), encoding='utf-8')
-    actions = normalize_actions(dividends, set(metadata.ts_code))
+    # Annual simulations start entirely in cash and can only buy quoted assets.
+    # Preserve out-of-window events for review, without inventing settlements.
+    quoted_codes = set(bars.ts_code)
+    unquoted_actions = dividends.loc[dividends.ts_code.isin(metadata.ts_code) &
+                                    ~dividends.ts_code.isin(quoted_codes)].copy()
+    unquoted_actions.to_csv(output / 'unquoted_asset_actions.csv', index=False)
+    actions = normalize_actions(dividends, quoted_codes)
     adjustment_issues = audit_adjustments(bars, actions, verified_rights())
     adjustment_issues.to_csv(output / 'unexplained_adjustments.csv', index=False)
+    consistency_issues = return_consistency_check(bars, actions, verified_rights())
+    consistency_issues.to_csv(output / 'return_consistency.csv', index=False)
     suspensions = read_market(root, 'suspend_d')
     suspension_set = set(suspensions.loc[suspensions.suspend_type.eq('S'), ['trade_date', 'ts_code']].itertuples(index=False, name=None))
     delistings = dict(zip(metadata.ts_code, pd.to_datetime(metadata.delist_date, format='%Y%m%d')))
@@ -112,23 +135,29 @@ def main(dataset='development_2020q4'):
                       ('reversal5', ['reversal5'], 10), ('lowvol20', ['lowvol20'], 10),
                       ('liquidity_control', ['adv20_cny'], 10), ('combined_slip30', FACTORS, 30),
                       ('combined_slip50', FACTORS, 50)]
-    if dataset == 'development_2020':
+    if spec['evaluation_start'] is not None:
         configurations.extend([('combined_zero_cost', FACTORS, 0),
-                               ('combined_rank_buffer40', FACTORS, 10)])
+                               ('combined_rank_buffer40', FACTORS, 10),
+                               ('combined_biweekly', FACTORS, 10),
+                               ('combined_biweekly_zero_cost', FACTORS, 0)])
+    buffered_labels = {'combined_rank_buffer40', 'combined_biweekly', 'combined_biweekly_zero_cost'}
+    active_biweekly = biweekly_schedule(calendar).loc[lambda s: s.execution_date >= first_execution]
     results, curves = [], {}
     for label, columns, slippage in configurations:
+        exp_schedule = active_biweekly if 'biweekly' in label else active_schedule
         plans, previous_codes = [], set()
-        for row in active_schedule.itertuples(index=False):
+        for row in exp_schedule.itertuples(index=False):
             frame = rank_scores(snapshots[row.signal_date], columns=columns)
             target = (select_buffered_targets(frame, previous_codes, exit_rank=40)
-                      if label == 'combined_rank_buffer40' else select_targets(frame))
+                      if label in buffered_labels else select_targets(frame))
             target['signal_date'], target['execution_date'] = row.signal_date, row.execution_date
             plans.append(target)
             previous_codes = set(target.ts_code)
         targets = pd.concat(plans, ignore_index=True)
-        config = Config(slippage_bps=slippage, zero_trading_costs=label == 'combined_zero_cost')
+        config = Config(slippage_bps=slippage,
+                        zero_trading_costs=label in ('combined_zero_cost', 'combined_biweekly_zero_cost'))
         run = simulate(bars, calendar, targets, actions, suspension_set, delistings, industry_maps, config,
-                       rebalance_dates=active_schedule.execution_date.tolist(), rights=verified_rights())
+                       rebalance_dates=exp_schedule.execution_date.tolist(), rights=verified_rights())
         folder = output / label
         folder.mkdir(exist_ok=True)
         targets.to_csv(folder / 'historical_targets.csv', index=False)
@@ -151,6 +180,10 @@ def main(dataset='development_2020q4'):
     ic, groups = diagnostics(snapshots, bars, active_schedule)
     ic.to_csv(output / 'factor_ic.csv', index=False)
     groups.to_csv(output / 'factor_groups.csv', index=False)
+    formation_long = pd.concat(snapshots.values(), ignore_index=True).melt(
+        id_vars=['trade_date', 'ts_code'], value_vars=FACTORS, var_name='factor', value_name='value'
+    ).rename(columns={'trade_date': 'date', 'ts_code': 'asset'})
+    formation_long.to_csv(output / 'formation_factors_long.csv', index=False)
     pd.DataFrame(coverage).to_csv(output / 'coverage.csv', index=False)
     summary = dict(data_manifest=manifest, dataset=dataset, title=spec['title'], initial_capital=1_000_000, experiments=results,
                    actions_in_dataset=len(actions), corporate_action_corrections=corrections,
@@ -159,8 +192,12 @@ def main(dataset='development_2020q4'):
                    unexplained_adjustment_dates=adjustment_issues.trade_date.dt.strftime('%Y-%m-%d').value_counts().to_dict(),
                    rights_policy='No subscription: no cash or shares credited; raw-price dilution losses remain. Not a live recommendation.',
                    bars=len(bars), assets=int(bars.ts_code.nunique()),
+                   missing_price_limit_rows=int(limit_missing.sum()),
                    factor_ic_observations=len(ic), first_execution=str(first_execution.date()),
-                   status='Development-window engineering study. No out-of-sample evidence or live recommendation.',
+                   status=('Frozen-parameter out-of-sample test on a sealed period. Parameters and corrections '
+                           'were fixed before this run; still not a live recommendation.'
+                           if dataset.startswith('out_of_sample')
+                           else 'Development-window engineering study. No out-of-sample evidence or live recommendation.'),
                    metadata_sha256={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT / 'data/audit').glob('*.csv')},
                    source_sha256={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT / 'quant_research').glob('*.py')})
     (output / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -176,7 +213,9 @@ def render_report(output, summary, curves, benchmark, ic, groups):
               'lowvol20': '20 日低波动', 'liquidity_control': '高流动性对照',
               'combined_slip30': '三因子/30bp 滑点', 'combined_slip50': '三因子/50bp 滑点',
               'combined_zero_cost': '三因子/零交易成本诊断',
-              'combined_rank_buffer40': '三因子/排名缓冲 40'}
+              'combined_rank_buffer40': '三因子/排名缓冲 40',
+              'combined_biweekly': '三因子/双周调仓+缓冲 40',
+              'combined_biweekly_zero_cost': '三因子/双周零成本诊断'}
     start = pd.Timestamp(summary['experiments'][0]['start'])
     fig, ax = plt.subplots(figsize=(11, 5.8))
     for label, curve in curves.items():
@@ -217,7 +256,7 @@ def render_report(output, summary, curves, benchmark, ic, groups):
               '策略均采用同一历史状态、上市年龄与流动性过滤，20 只等权目标、每周调仓、2% 现金缓冲及 25% 行业目标上限。高流动性对照按此前 20 日成交额排序，同样选 20 只、使用相同成交和成本规则。', '',
               '滑点分别按单边 10/30/50 基点建模，并按分价位向不利方向取整。显式费用包含佣金、印花税与过户费；滑点已经反映在成交价和净值中，不能再次从收益扣除。未假定期末全部清仓。', '',
               '分价位向不利方向取整使低价股票的实际滑点可能明显高于名义基点。单股目标金额不足购买一手时保留现金，因此实际持股可能少于 20 只，对照组也遵循该规则。', '',
-              '2020 年情景为佣金万三、每笔最低 5 元，卖出印花税千一、双边过户费十万分之二。佣金是研究假设，未取得用户交割单。现金红利和送股应税面值按固定 20% 税率预留，面值按每股 1 元情景；资本公积转增不计该项税。该简化未实现逐笔持有期差别税率及真实追缴时间。', '',
+              '2016—2020 年开发期情景为佣金万三、每笔最低 5 元，卖出印花税千一、双边过户费十万分之二。佣金是研究假设，未取得用户交割单。现金红利和送股应税面值按固定 20% 税率预留，面值按每股 1 元情景；资本公积转增不计该项税。该简化未实现逐笔持有期差别税率及真实追缴时间。', '',
               '登记日记录权利；除权日确认应收现金和未上市红股；派息/上市日期到达后才转成现金/可卖股数。停牌估值沿用前值并在公司行动时调整参考价；退市按股票价值零回收情景处理。未解释的复权变化若影响持仓，会终止回测。', '',
               '配股采用明确的“不认购”研究情景：不扣认购款，不增加股份，原始股价中的摊薄损失保留；实际触发记为 rights_not_subscribed。该情景不代表合理的实盘操作，后续需加入配股日历、现金安排和认购决策。仅对已有一手来源核验的事件开放识别，其他未知变化仍会中止回测。', '',
               '因子 IC 与分组收益采用下周首日复权开盘至再下一周首日复权开盘，属于未扣费诊断标签，不等同于可成交收益。缺少退出价格的样本不补零，见 n 列。', '',
@@ -246,11 +285,13 @@ def render_report(output, summary, curves, benchmark, ic, groups):
     lines += ['', '公司行动日志条数包含确认和到账记录，不等于分红次数。各策略实际除权事件、红股到账和退市情景触发数见 summary.json；不同策略可能持有同一只股票，不应将这些次数当作独立样本。',
               '缺失日线的非成交估值沿用旧价；该估值不保证能兑现，尤其应关注低波动组合的旧价估值天数。行业超限来自实际持仓，不能用目标权重合规掩盖。']
     if summary['corporate_action_corrections']:
-        lines += ['', '有一项公告核验修正：002260.SZ 在 2020-09-25 的重整转增不向原股东分配，也不作除权，故不作为普通股东送转事件。原始数据保留，修正及原始字段见 corporate_action_corrections.json。这不删除该股票行情，也不按结果修改股票池。',
-                  '[公司 2020-074 号公告](https://static.cninfo.com.cn/finalpage/2020-09-19/1208460598.PDF)。']
+        lines += ['', '本次读取层更正如下；原始文件保留，详情见 corporate_action_corrections.json。', '']
+        for correction in summary['corporate_action_corrections']:
+            lines.append(f"- {correction['ts_code']}：{correction['action']}。{correction['reason']} 来源：{correction['source']}")
     lines += ['', '## 限制和下一步', '',
+              f"- 历史主板行情中有 {summary['missing_price_limit_rows']} 个股票日缺少涨跌停字段，见 execution_data_coverage.csv；成交引擎拒绝缺少该字段的订单。",
               f"- 全股票池发现 {summary['unexplained_adjustments']} 条尚未由已核验事件登记解释的复权因子变化（见 unexplained_adjustments.csv），对应 {summary['quarantined_factor_rows']} 个股票日被隔离出价格因子截面。隔离覆盖异常日起 20 个交易日；原始行情未修改。若未知变化影响持仓账本，程序仍会中止。",
-              '- 名称区间不完整，未知 ST 状态股票被排除；行业区间可能有历史修订，未验证当时发布版本。',
+              '- 股票曾用名表按已公告 ST/PT 区间作为排除清单使用；它不是完整的逐日名称主表。2000 积分账户无法调用 3000 积分的逐日 ST 名单，风险警示事件完整性仍需外部复核。行业区间可能有历史修订，未验证当时发布版本。',
               '- 日线不能还原开盘排队、盘中停牌和手动成交；采用保守拒单及事前成交额容量近似。',
               '- 行业约束施加于目标，价格漂移或拒单后可能超限；每日实际最大行业权重及未知行业权重单独记录。',
               '- 本轮不评选最终因子，不按结果改方向。先扩展开发与验证时期，再冻结设计并打开 2024—2025 封存测试期。',

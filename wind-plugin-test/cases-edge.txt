@@ -1,0 +1,15 @@
+# id|server|tool|params_json
+X01-bad-tool|stock_data|get_stock_magic|{"windcode":"600519.SH"}
+X02-bad-server|equity_data|get_stock_quote|{"windcode":"600519.SH"}
+X03-comma-windcode|stock_data|get_stock_price_indicators|{"windcode":"600519.SH,000001.SZ","indexes":"最新成交价"}
+X04-array-windcode|stock_data|get_stock_price_indicators|{"windcode":["600519.SH","000001.SZ"],"indexes":"最新成交价"}
+X05-bad-index-name|stock_data|get_stock_price_indicators|{"windcode":"600519.SH","indexes":"pe_ttm,收盘价"}
+X06-forex-scope|stock_data|get_stock_price_indicators|{"windcode":"EURUSD.FX","indexes":"最新成交价"}
+X07-weekend-quote|stock_data|get_stock_quote|{"windcode":"600519.SH","begin":"20260927","end":"20260927"}
+X08-etf-via-stock|stock_data|get_stock_price_indicators|{"windcode":"588200.SH","indexes":"最新成交价"}
+X09-bare-us-ticker|stock_data|get_stock_kline|{"windcode":"NVDA","begin_date":"20260901","end_date":"20260925"}
+X10-hk-3digit|stock_data|get_stock_price_indicators|{"windcode":"700.HK","indexes":"最新成交价"}
+X11-hsi-alias|index_data|get_index_price_indicators|{"windcode":"HSI","indexes":"最新成交价"}
+X12-unknown-code|stock_data|get_stock_price_indicators|{"windcode":"999999.SH","indexes":"最新成交价"}
+X13-future-date|stock_data|get_stock_kline|{"windcode":"600519.SH","begin_date":"20270101","end_date":"20270131"}
+X14-reversed-date|stock_data|get_stock_kline|{"windcode":"600519.SH","begin_date":"20260926","end_date":"20260901"}

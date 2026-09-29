@@ -8,7 +8,7 @@ from .data import ROOT, TushareClient, load_token, DataError
 from .audit import table
 from .datasets import DATASETS, dataset_config
 
-def main(dataset='development_2020q4', interval=1.3):
+def main(dataset='development_2020q4', interval=1.3, workers=5):
     spec = dataset_config(dataset)
     start, end = spec['start'], spec['end']
     client = TushareClient(load_token(), interval=interval)
@@ -20,11 +20,14 @@ def main(dataset='development_2020q4', interval=1.3):
 
     def day(date):
         result = {}
-        # Counts in this 2020 window are below the documented endpoint caps.
+        # Reject possible truncation for every historical session.
         # Cross-interface coverage is checked before any strategy is evaluated.
         for api, cap, params in [
             ('daily', 6000, {'trade_date': date}),
-            ('adj_factor', 5000, {'trade_date': date}),
+            # 2026-09-29 spot-check: single-date adj_factor returns >5400 rows intact
+            # (paged limit/offset cross-check on 20231101 returned an identical code set),
+            # so the legacy 5000 endpoint-cap assumption no longer holds for 2024+ sessions.
+            ('adj_factor', 7000, {'trade_date': date}),
             ('stk_limit', 5800, {'trade_date': date}),
             ('suspend_d', 5000, {'trade_date': date}),
             ('dividend', 2000, {'ex_date': date}),
@@ -36,6 +39,8 @@ def main(dataset='development_2020q4', interval=1.3):
         daily, adj = result['daily'], result['adj_factor']
         if daily.empty or adj.empty:
             raise DataError(f'{date}: empty market response')
+        if result['stk_limit'].empty:
+            raise DataError(f'{date}: empty price-limit response; execution coverage unavailable')
         if not set(daily.ts_code).issubset(set(adj.ts_code)):
             raise DataError(f'{date}: adjustment coverage incomplete')
         for api in ['daily', 'adj_factor', 'stk_limit']:
@@ -44,7 +49,7 @@ def main(dataset='development_2020q4', interval=1.3):
         return date, result
 
     results, failures = [], []
-    with ThreadPoolExecutor(max_workers=5) as pool:
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {pool.submit(day, date): date for date in dates}
         for f in as_completed(futures):
             try:
@@ -80,7 +85,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', choices=DATASETS, default='development_2020q4')
     parser.add_argument('--interval', type=float, default=1.3, help='Seconds between API starts; obey account limits')
+    parser.add_argument('--workers', type=int, choices=range(1, 13), default=5)
     args = parser.parse_args()
     if args.interval < .4:
         parser.error('This downloader requires at least 0.4 seconds between requests')
-    main(args.dataset, args.interval)
+    main(args.dataset, args.interval, args.workers)

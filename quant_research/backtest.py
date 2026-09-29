@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from .accounting import Ledger
 from .execution import execute_order, FeeSchedule
+from .adjustment_audit import MATERIAL_ADJUSTMENT_THRESHOLD
 
 
 @dataclass(frozen=True)
@@ -96,7 +97,7 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
         for code, quote in daily.items():
             if ledger.positions[code] and code in last_adj:
                 old_date, old_factor = last_adj[code]
-                changed = abs(quote['adj_factor'] / old_factor - 1) > 1e-5
+                changed = abs(quote['adj_factor'] / old_factor - 1) > MATERIAL_ADJUSTMENT_THRESHOLD
                 explained = any(old_date < ex <= date for ex in action_dates.get(code, []))
                 if changed and not explained:
                     raise ValueError(f'Unexplained corporate action for held {code} on {date.date()}')

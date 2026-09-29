@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_index_technicals fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,MACD指数平滑移动平均,RSI相对强弱指标\\\\n399905.SZ,中证500,-32.9996,36.0035\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_index_technicals_24268_1790571972205.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

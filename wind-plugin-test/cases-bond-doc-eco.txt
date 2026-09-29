@@ -1,0 +1,14 @@
+# id|server|tool|params_json
+B01-bond-basic|bond_data|get_bond_basicinfo|{"question":"查询019547.SH发行规模票面利率"}
+B02-bond-market|bond_data|get_bond_market_data|{"question":"查询019547.SH最新收益率和久期"}
+B03-bond-issuer|bond_data|get_bond_issuer_info|{"question":"查询019547.SH发债主体信息"}
+D01-news|financial_docs|get_financial_news|{"query":"美联储利率政策","top_k":3}
+D02-announcement|financial_docs|get_company_announcements|{"query":"贵州茅台2025年分红公告","top_k":3}
+E01-eco-search|economic_data|search_economic_indicator|{"question":"中国GDP同比"}
+E02-eco-query-obs|economic_data|query_economic_indicator_data|{"question":"中国GDP同比","observation":"10"}
+E03-eco-query-range|economic_data|query_economic_indicator_data|{"question":"中国CPI同比","beginDate":"2024-01-01","endDate":"2026-09-01"}
+E04-eco-query-yyyyMMdd|economic_data|query_economic_indicator_data|{"question":"中国CPI同比","beginDate":"20240101","endDate":"20260901"}
+E05-eco-legacy-tool|economic_data|get_economic_data|{"metricIdsStr":"中国CPI同比","beginDate":"20240101","endDate":"20261231","freq":"4"}
+E06-eco-no-time|economic_data|query_economic_indicator_data|{"question":"中国GDP同比"}
+A01-bond-rank|analytics_data|get_financial_data|{"question":"查询今日境内交易所债券成交额排名前20"}
+A02-multi-entity|analytics_data|get_financial_data|{"question":"查询贵州茅台和宁德时代最新总市值"}

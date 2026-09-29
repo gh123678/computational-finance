@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_fund_company_info fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,基金管理人注册资本,交易币种,基金管理人成立日期,基金管理人法人代表,基金管理人总经理,基金管理人员工人数,基金管理人注册城市,基金管理人办公地址,基金管理人传真,基金管理人电子邮箱,基金管理人英文名称,基金管理人邮编,基金管理人电话,基金管理人注册地址,基金管理人中文名称,基金管理人主页\\\\nF0700022.00,华夏基金管理有限公司,2.38,None,1998-04-09,邹迎光,李一梅,1369,北京市,北京市朝阳区北辰西路6号院北辰中心C座5层,\\\\\"86-10-88066508,86-10-63136700\\\\\",service@chinaamc.com,\\\\\"China Asset Management Co., Ltd.\\\\\",100033,\\\\\"86-10-88066688,86-10-88066798,86-4008186666\\\\\",北京市顺义区安庆大街甲3号院,华夏基金管理有限公司,www.ChinaAMC.com\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_fund_company_info_5672_1790571953440.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

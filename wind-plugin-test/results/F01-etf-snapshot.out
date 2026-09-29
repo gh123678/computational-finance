@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_fund_price_indicators fetched for 1 ticker(s)\",\\n  \"data_preview\": \"中文简称,最新成交价,IOPV,贴水率,wind_code\\\\n科创芯片ETF嘉实,1.115,1.1163,-3.846,588200.SH\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_fund_price_indicators_24308_1790571934178.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

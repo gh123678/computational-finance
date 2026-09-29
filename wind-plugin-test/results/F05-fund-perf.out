@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_fund_performance fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,投资类型_一级分类,近一年复权单位净值增长率,近一年复权单位净值增长率同类排名\\\\n000001.OF,华夏成长,混合型基金,18.2648,1501\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_fund_performance_24724_1790571940972.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

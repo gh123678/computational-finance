@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_bond_issuer_info fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,债务主体名称,债务主体中文简称,穿透信用主体名称,穿透信用主体中文简称,债券发行人法定代表人姓名\\\\n019547.SH,16国债19,中华人民共和国财政部,,中华人民共和国财政部,,刘昆\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_bond_issuer_info_24020_1790572006134.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

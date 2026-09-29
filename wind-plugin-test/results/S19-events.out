@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_stock_events fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,2025年内地股票分红实施进度,2025年内地股票分红基准股本,2025年内地股票分红派息日,2025年内地股票分红报告期,2025年内地股票分红税前每股派息,2025年内地股票分红方案说明\\\\n300750.SZ,宁德时代,实施完毕,453667.7821,2025-08-20,Q2 FY2025,1.007,每10股派10.07元(含税)\\\\n300750.SZ,宁德时代,实施完毕,453209.7822,2026-04-22,Q4 FY2025,6.957,每10股派69.57元(含税)\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_events_24800_1790571886443.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

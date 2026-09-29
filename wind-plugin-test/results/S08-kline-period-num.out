@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind historical price fetched for 1 ticker(s)\",\\n  \"data_preview\": \"trade_date,wind_code,open,high,low,close,volume,amt\\\\n2026-09-04,600519.SH,1297.99,1338.86,1286.00,1330.00,13938335,18207346660\\\\n2026-09-11,600519.SH,1324.00,1333.60,1263.01,1275.16,12871141,16666893945\\\\n2026-09-18,600519.SH,1277.27,1285.53,1254.00,1257.12,9901309,12534650797\\\\n2026-09-24,600519.SH,1259.00,1271.50,1231.05,1237.00,11181040,13986377896\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_price_7984_1790571838096.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

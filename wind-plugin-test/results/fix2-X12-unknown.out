@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_stock_price_indicators fetched for 1 ticker(s)\",\\n  \"data_preview\": \"最新成交价,wind_code\\\\n93.790,BJ.N\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_price_indicators_27736_1790583913408.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}\n\n[wind-cli 校验提示]\n- 代码一致性校验未通过：请求标的 999999.BJ，但返回数据中的标的为 BJ.N。该数据可能属于其它证券，请核实后再使用，切勿当作 999999.BJ 的数据。"
+    }
+  ],
+  "isError": false
+}

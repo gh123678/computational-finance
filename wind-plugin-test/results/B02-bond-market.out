@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_bond_market_data fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,最新收盘价收益率,最新收盘价收益率.债券价格类型,交易币种,最新收盘价久期\\\\n019547.SH,16国债19,,收益率,CNY,\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_bond_market_data_23288_1790572003379.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

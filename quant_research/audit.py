@@ -34,7 +34,7 @@ def main():
     industry = pd.concat(industries, ignore_index=True).drop_duplicates()
     industry.to_csv(out / 'industry_history.csv', index=False)
     results = []
-    for date in ['20161230', '20201231', '20231229']:
+    for date in ['20161230', '20180102', '20180629', '20181228', '20201231', '20231229']:
         listed = universe.loc[(universe.list_date <= date) & (universe.delist_date.isna() | (universe.delist_date > date))]
         valid_names = names.loc[(names.start_date <= date) & (names.end_date.isna() | (names.end_date >= date))]
         # Missing announcement timestamps are explicitly counted, not silently treated as known.

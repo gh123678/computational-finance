@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_fund_info fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,基金成立日,基金管理人,现任基金经理姓名,基金规模合计,投资类型_一级分类,投资类型_二级分类,业绩比较基准,单位净值,单位净值币种\\\\n000001.OF,华夏成长,2001-12-18,华夏基金管理有限公司,\\\\\"刘睿聪,郑晓辉\\\\\",39.3821,混合型基金,灵活配置型基金,中证800成长指数收益率*70%+中债-综合全价(总值)指数收益率*30%,1.295,人民币元\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_fund_info_25468_1790571938215.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

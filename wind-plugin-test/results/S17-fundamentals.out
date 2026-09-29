@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind financial indicators fetched for 1 ticker(s)\",\\n  \"data_preview\": \"wind_code,证券简称,2025年中报总市值,2025年中报企业价值,交易币种,2025年中报市盈率,2025年中报市净率,2025年中报市销率,2025年中报营业收入,2025年中报净利润,2025年中报净资产收益率,2025年中报销售毛利率\\\\n600519.SH,贵州茅台,1.7706,1.7399,CNY,19.8925,7.9157,10.0762,893.8935,469.8668,19.2486,91.2993\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_financial_index_23852_1790571878579.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

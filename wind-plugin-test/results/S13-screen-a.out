@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind search_stocks fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,总市值1,连涨天数,交易币种,交易时间,日期\\\\n600674.SH,川投能源,793.0985,5,CNY,20260928 13:04:29,20260928\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_search_stocks_24500_1790571866494.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

@@ -1,0 +1,14 @@
+X01-bad-tool	stock_data/get_stock_magic	exit=1	122ms	out=568B
+X02-bad-server	equity_data/get_stock_quote	exit=0	1571ms	out=5994B
+X03-comma-windcode	stock_data/get_stock_price_indicators	exit=1	141ms	out=860B
+X04-array-windcode	stock_data/get_stock_price_indicators	exit=1	145ms	out=827B
+X05-bad-index-name	stock_data/get_stock_price_indicators	exit=0	1184ms	out=633B
+X06-forex-scope	stock_data/get_stock_price_indicators	exit=0	1681ms	out=611B
+X07-weekend-quote	stock_data/get_stock_quote	exit=1	1269ms	out=880B
+X08-etf-via-stock	stock_data/get_stock_price_indicators	exit=0	1765ms	out=607B
+X09-bare-us-ticker	stock_data/get_stock_kline	exit=0	1294ms	out=1947B
+X10-hk-3digit	stock_data/get_stock_price_indicators	exit=0	1271ms	out=609B
+X11-hsi-alias	index_data/get_index_price_indicators	exit=0	1195ms	out=609B
+X12-unknown-code	stock_data/get_stock_price_indicators	exit=0	1587ms	out=605B
+X13-future-date	stock_data/get_stock_kline	exit=1	1270ms	out=874B
+X14-reversed-date	stock_data/get_stock_kline	exit=1	1376ms	out=1005B

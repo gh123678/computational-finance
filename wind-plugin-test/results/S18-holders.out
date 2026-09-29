@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_stock_equity_holders fetched successfully\",\\n  \"data_preview\": \"Wind代码,证券简称,大股东前10名,大股东前10名名次\\\\n600519.SH,贵州茅台,中国贵州茅台酒厂(集团)有限责任公司,1\\\\n600519.SH,贵州茅台,贵州省国有资本运营有限责任公司,2\\\\n600519.SH,贵州茅台,香港中央结算有限公司(陆股通),3\\\\n600519.SH,贵州茅台,贵州茅台酒厂(集团)技术开发有限公司,4\\\\n600519.SH,贵州茅台,中国人寿保险股份有限公司-传统-普通保险产品-005L-CT001沪,5\\\\n600519.SH,贵州茅台,中国银行股份有限公司-招商中证白酒指数分级证券投资基金,6\\\\n600519.SH,贵州茅台,国丰兴华(北京)私募基金管理有限公司-鸿鹄志远(上海)私募投资基金有限公司,7\\\\n600519.SH,贵州茅台,华泰证券资管-华泰新启元FOF单一资产管理计划-华泰价值睿远单一资产管理计划,8\\\\n600519.SH,贵州茅台,大成基金-大成基金启盛 FOF单一资产管理计划-大成基金恒鑫单一资产管理计划,9\\\\n600519.SH,贵州茅台,贵州金融控股集团有限责任公司(贵州贵民投资集团有限责任公司),10\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_equity_holders_25116_1790571884180.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

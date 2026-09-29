@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind stock info fetched for 1 ticker(s)\",\\n  \"data_preview\": \"wind_code,证券简称,总市值1,注册资本,交易币种,上市板,法定代表人,成立日期,公司简介,注册地址,董事长姓名,WIND行业明细,WIND行业明细.行业级别,注册资本币种,收盘价,交易时间,日期,交易币种_2\\\\nAAPL.O,苹果(APPLE),4.9776,50.4,USD,NASDAQ精选市场(GS),蒂姆西·库克,1977-01-03,苹果公司从事智能手机、个人电脑、平板电脑、可穿戴设备和配件的设计、制造和销售，以及其他各种相关服务。它通过以下地理区域运营：美洲、欧洲、大中华区、日本和亚太其他地区。美洲部分包括北美和南美。欧洲部分由欧洲国家以及印度、中东和非洲组成。大中华区包括中国大陆、香港和中国台湾。亚太其他地区包括澳大利亚和亚洲国家。其产品和服务包括iPhone、Mac、iPad、AirPods、Apple TV、Apple Watch、Beats产品、AppleCare、iCloud、数字内容商店、流媒体和许可服务。,美国加利福尼亚州,蒂姆西·库克,信息技术--技术硬件与设备--电脑与外围设备--电脑硬件,全部明细,USD,341.07,20260925 20:01:00,20260925,USD\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_stock_info_344_1790571899875.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

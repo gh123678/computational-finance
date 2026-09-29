@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "server_type": "stock_data",
+  "tool": "search_stocks",
+  "is_success": "wind, Wind search_stocks fetched successfully",
+  "data_preview": "Wind代码,证券简称,总市值1,连涨天数,交易币种,交易时间,日期\n600674.SH,川投能源,807.2349,5,CNY,20260928 15:30:05,20260928\n",
+  "notice": "All the data have been provided and can be used directly. And above table saved to C:\\Users\\Admin\\.cache\\wind-allskill\\csv\\wind_search_stocks_35880_1790595069169.csv.If the user has the need for analysis, you can use pandas to read the file."
+}

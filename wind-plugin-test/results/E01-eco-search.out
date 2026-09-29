@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind search_economic_indicator fetched successfully\",\\n  \"data_preview\": \"code,name,unit,source,updateDate,beginDate,endDate,freq\\\\nM0039354,中国:GDP:不变价:当季同比,%,国家统计局,20260811,19920331,20260630,季\\\\nM0045788,中国:GDP:不变价:同比,%,国家统计局,20260602,19531231,20251231,年\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_search_economic_indicator_24136_1790572016188.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}"
+    }
+  ],
+  "isError": false
+}

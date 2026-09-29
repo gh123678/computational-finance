@@ -1,0 +1,11 @@
+# id|server|tool|params_json
+S13-screen-a|stock_data|search_stocks|{"question":"筛选沪深市场市值超500亿且连续5日上涨的股票"}
+S14-screen-spaces|stock_data|search_stocks|{"question":"筛选沪深市场 市值超500亿 且连续5日上涨的股票"}
+S15-screen-hk|stock_data|search_stocks|{"question":"筛选港股中市值超1000亿港元的科技股"}
+S16-basicinfo|stock_data|get_stock_basicinfo|{"question":"600519.SH公司基本档案"}
+S17-fundamentals|stock_data|get_stock_fundamentals|{"question":"贵州茅台2025年中报ROE和净利润增速"}
+S18-holders|stock_data|get_stock_equity_holders|{"question":"贵州茅台前十大股东"}
+S19-events|stock_data|get_stock_events|{"question":"宁德时代2025年分红和增发事件"}
+S20-technicals|stock_data|get_stock_technicals|{"question":"贵州茅台近60日MACD走势"}
+S21-risk|stock_data|get_risk_metrics|{"question":"贵州茅台过去1年Beta和波动率"}
+S22-us-name|stock_data|get_stock_basicinfo|{"question":"苹果公司基本档案"}

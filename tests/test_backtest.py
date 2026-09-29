@@ -38,6 +38,13 @@ def test_unexplained_adjustment_change_stops_run():
         simulate(bars, dates, targets)
 
 
+def test_tiny_adjustment_precision_revision_does_not_stop_run():
+    dates, bars, targets = fixture()
+    bars.loc[3:, 'adj_factor'] = .9999
+    result = simulate(bars, dates, targets)
+    assert not result['nav'].empty
+
+
 def test_future_close_change_cannot_affect_prior_fills_or_nav():
     dates, bars, targets = fixture()
     first = simulate(bars, dates, targets)

@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "error": {
+    "code": "NO_RESULTS",
+    "agent_action": "[{'type': 'text', 'text': 'EMPTY_DATA - Wind returned empty data.'} (server=stock_data, tool=get_stock_quote, api_name=wind_get_stock_quote, via agent-gw)] 数据结果为空：后端执行成功但未匹配到数据。保持同一 server_type、tool_name 和用户意图，只可调整关键词、时间范围或粒度中与原问题直接相关的一项，最多重试一次。仍无结果时按路由顺序尝试 analytics_data 兜底或 wind-alice 最终兜底（先问用户）。禁止编造值或用常识补全。"
+  }
+}

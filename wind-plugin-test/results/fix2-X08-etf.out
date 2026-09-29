@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{'type': 'text', 'text': '{\\n  \"is_success\": \"wind, Wind get_fund_price_indicators fetched for 1 ticker(s)\",\\n  \"data_preview\": \"最新成交价,wind_code\\\\n1.106,588200.SH\\\\n\",\\n  \"notice\": \"All the data have been provided and can be used directly. And above table saved to C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.cache\\\\\\\\wind-allskill\\\\\\\\csv\\\\\\\\wind_get_fund_price_indicators_11808_1790583916937.csv.If the user has the need for analysis, you can use pandas to read the file.\"\\n}'}\n\n[wind-cli 校验提示]\n- 路由已自动调整：请求 stock_data/get_stock_price_indicators，实际执行 fund_data/get_fund_price_indicators。"
+    }
+  ],
+  "isError": false
+}
