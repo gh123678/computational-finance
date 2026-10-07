@@ -12,6 +12,10 @@ def main(final_snapshot=False):
     if final_snapshot:
         if (out/'download.lock').exists():raise RuntimeError('Downloader still owns lock; do not produce closeout')
         audit.analyze(audit.initialize())
+        import audit_financial_candidate_age
+        import verify_financial_original_cases
+        audit_financial_candidate_age.main()
+        verify_financial_original_cases.main()
     state=json.loads((out/'download_status.json').read_text(encoding='utf-8'))
     analysis=json.loads((out/'analysis_status.json').read_text(encoding='utf-8'))
     protocol=json.loads((out/'protocol.json').read_text(encoding='utf-8'))
@@ -42,7 +46,9 @@ def main(final_snapshot=False):
 
 原文线索及已记录访问失败见[primary_evidence_notes.md](primary_evidence_notes.md)。原文公布日期冲突、后续监管引用和原始公告分开；未取得初始版本时保持未知。
 
-已完成两例原文数值检查，见[version-conflict-case-report.md](version-conflict-case-report.md)和evidence/field_checks.csv：晨鸣纸业同日两个指标版本中，原报告支持标志1的扣非净利润，标志0数值不一致；平安银行预告区间与增长率一致，上年利润基数差4万元。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
+已完成三例原文数值检查，见[version-conflict-case-report.md](version-conflict-case-report.md)和evidence/field_checks.csv：晨鸣纸业原报告支持标志1的扣非净利润，航天发展原报告支持标志0；平安银行预告区间与增长率一致，上年利润基数差4万元。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
+
+公告年龄快照见[候选公告年龄说明](candidate-age-report.md)、signal_candidate_age_summary.csv及signal_candidate_age.csv.gz。统计只按公告批次连接信号日，不挑选冲突财务值，不设新鲜度阈值，不作为风险过滤；尚未下载、成功空结果、成功查询但此前无候选分开报告。
 
 ## 本轮真实失败及修复
 

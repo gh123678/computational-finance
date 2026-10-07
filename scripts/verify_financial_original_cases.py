@@ -31,7 +31,12 @@ def main():
          '000488_2015_annual_original.pdf',
          '88ed8cf49f7aca3c8a9a34bc1b22ce3b4a947cc5bce46cede272ddb676073667',
          'https://static.cninfo.com.cn/finalpage/2016-03-31/1202111959.PDF', 6,
-         {'profit_dedt': ('719891359.63', '元')})]
+         {'profit_dedt': ('719891359.63', '元')}),
+        ('000547.SZ', 'fina_indicator', '20200430', '20191231',
+         '000547_2019_annual_retry.pdf',
+         '7019d05b98f96a3d2d964e173b2b3c9271c7b7c39308917e88400b10144a7d00',
+         'https://static.cninfo.com.cn/finalpage/2020-04-30/1207685193.PDF', 6,
+         {'profit_dedt': ('596512953.60', '元')})]
     checks, documents = [], []
     for code, api, ann, end, pdf, expected_sha, url, page, fields in cases:
         path = OUT / 'evidence' / pdf
