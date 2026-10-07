@@ -46,7 +46,9 @@ def main(final_snapshot=False):
 
 原文线索及已记录访问失败见[primary_evidence_notes.md](primary_evidence_notes.md)。原文公布日期冲突、后续监管引用和原始公告分开；未取得初始版本时保持未知。
 
-已完成四例原文数值检查，见[version-conflict-case-report.md](version-conflict-case-report.md)和evidence/field_checks.csv：晨鸣纸业原报告支持标志1的扣非净利润，航天发展原报告支持标志0；平安银行预告区间与增长率一致，上年利润基数差4万元；联络互动原公告镜像的亏损区间、同比变化和上年利润基数支持该API版本。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
+新增原公告与当前官方索引配对见[publication-version-pairing-report.md](publication-version-pairing-report.md)：当代东方落款1月21日、索引1月22日；天夏预告1月23日晚于首次目标1月17日；联络互动盈利初版与亏损修正版分别取得官方文件，修正版与旧镜像哈希一致。四条索引日支持对应API日期，仍不代表完整历史发布时刻及版本链已经证明。当前七个案例23项字段检查，20项匹配、3项差异，未消除任何旧差异。
+
+早期四例原文数值检查保留在[version-conflict-case-report.md](version-conflict-case-report.md)，最新核验清单见evidence/field_checks.csv：晨鸣纸业原报告支持标志1的扣非净利润，航天发展原报告支持标志0；平安银行预告区间与增长率一致，上年利润基数差4万元；联络互动的亏损区间、同比变化和上年利润基数支持该API版本。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
 
 公告年龄快照见[候选公告年龄说明](candidate-age-report.md)、signal_candidate_age_summary.csv及signal_candidate_age.csv.gz。统计只按公告批次连接信号日，不挑选冲突财务值，不设新鲜度阈值，不作为风险过滤；尚未下载、成功空结果、成功查询但此前无候选分开报告。
 
