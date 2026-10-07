@@ -42,6 +42,8 @@ def main(final_snapshot=False):
 
 原文线索及已记录访问失败见[primary_evidence_notes.md](primary_evidence_notes.md)。原文公布日期冲突、后续监管引用和原始公告分开；未取得初始版本时保持未知。
 
+已完成两例原文数值检查，见[version-conflict-case-report.md](version-conflict-case-report.md)和evidence/field_checks.csv：晨鸣纸业同日两个指标版本中，原报告支持标志1的扣非净利润，标志0数值不一致；平安银行预告区间与增长率一致，上年利润基数差4万元。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
+
 ## 本轮真实失败及修复
 
 普通环境DPAPI解密失败；获准Windows用户环境后解密成功，令牌未输出或写入工具源码。第一轮下载70个状态单元后，进度文件替换发生WinError 5，进程退出；实际71个完成缓存保留。失败协议、源码、进度与原因保存在initial_status_replace_failure。增加有限重试后续跑，工程版本变更记在protocol.json，未改变数据范围或策略参数。
