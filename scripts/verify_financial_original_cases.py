@@ -36,12 +36,20 @@ def main():
          '000547_2019_annual_retry.pdf',
          '7019d05b98f96a3d2d964e173b2b3c9271c7b7c39308917e88400b10144a7d00',
          'https://static.cninfo.com.cn/finalpage/2020-04-30/1207685193.PDF', 6,
-         {'profit_dedt': ('596512953.60', '元')})]
+         {'profit_dedt': ('596512953.60', '元')}),
+        ('002280.SZ', 'forecast', '20200122', '20191231',
+         '002280_2019_forecast_revision_mirror.pdf',
+         '3f89c2c5896c15ac74da0ea9e0e1fb2723f467bcb8724bf6cf3db6e106d7a009',
+         'https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESZ_STOCK/2020/2020-1/2020-01-22/5875483.PDF', 1,
+         {'p_change_min': ('-348.62', '%'), 'p_change_max': ('-303.76', '%'),
+          'net_profit_min': ('-300000', '万元'), 'net_profit_max': ('-270000', '万元'),
+          'last_parent_net': ('-66871.25', '万元')})]
     checks, documents = [], []
     for code, api, ann, end, pdf, expected_sha, url, page, fields in cases:
         path = OUT / 'evidence' / pdf
         assert sha(path) == expected_sha, f'Original PDF changed: {pdf}'
         documents.append(dict(file=pdf, sha256=expected_sha, source_url=url,
+                              source_kind='company_document_mirror' if 'sina.com.cn' in url else 'official_disclosure_host',
                               inspected_page=page, publication_status='dated_document_not_full_timing_proof'))
         with (OUT / f'{api}_records.csv').open(encoding='utf-8', newline='') as stream:
             records = [r for r in csv.DictReader(stream)
