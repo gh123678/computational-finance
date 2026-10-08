@@ -48,6 +48,8 @@ def main(final_snapshot=False):
 
 新增原公告与当前官方索引配对见[publication-version-pairing-report.md](publication-version-pairing-report.md)：当代东方落款1月21日、索引1月22日；天夏预告1月23日晚于首次目标1月17日；联络互动盈利初版与亏损修正版分别取得官方文件，修正版与旧镜像哈希一致。四条索引日支持对应API日期，仍不代表完整历史发布时刻及版本链已经证明。当前七个案例23项字段检查，20项匹配、3项差异，未消除任何旧差异。
 
+后续固定首尾样本进度见[fixed-sample-review-report.md](fixed-sample-review-report.md)：48个样本行、38个日期组合的索引采集完成；20个有同代码候选，18个未匹配，替代检索已找到其中两份原文。上市前API日期只作待核线索。最新数值检查73项，66项一致、7项差异（包含万科622元金额差异），另1个审计签字案例。平安银行2012年报原表13,385,220千元换算为元后支持两个API版本，见[bank-annual-review-20261008.md](bank-annual-review-20261008.md)。2013、2014年报的百万元表各支持两个版本；2014年报存在比较期间会计政策调整，见[bank-2013-2014-review-20261008.md](bank-2013-2014-review-20261008.md)。2015—2019五份年报又新增10项一致检查，八份年报的扣非净利润字段均已核对；索引未返回2017年报的问题保留，见[bank-2015-2019-review-20261008.md](bank-2015-2019-review-20261008.md)。其他公司新增三份预告核查与三项小金额差异见[other-forecast-review-20261008.md](other-forecast-review-20261008.md)，国农剩余三份预告新增15项一致检查，见[guonong-2017-2019-review-20261008.md](guonong-2017-2019-review-20261008.md)，立案调查、潜在减值与资产出售收益仅保存原文线索，当前索引核验累计10条；不能把严格数值不相等自动解释为数据错误。早期阶段统计保留，不代表当前总数。全部原版时点核验仍为0。
+
 早期四例原文数值检查保留在[version-conflict-case-report.md](version-conflict-case-report.md)，最新核验清单见evidence/field_checks.csv：晨鸣纸业原报告支持标志1的扣非净利润，航天发展原报告支持标志0；平安银行预告区间与增长率一致，上年利润基数差4万元；联络互动的亏损区间、同比变化和上年利润基数支持该API版本。字段匹配未升级为完整记录时点核验通过，原因尚待查明，不自动设置容差放行。
 
 公告年龄快照见[候选公告年龄说明](candidate-age-report.md)、signal_candidate_age_summary.csv及signal_candidate_age.csv.gz。统计只按公告批次连接信号日，不挑选冲突财务值，不设新鲜度阈值，不作为风险过滤；尚未下载、成功空结果、成功查询但此前无候选分开报告。
