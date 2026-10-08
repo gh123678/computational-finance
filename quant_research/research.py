@@ -193,13 +193,15 @@ def main(dataset='development_2020q4'):
                    unexplained_adjustments=len(adjustment_issues),
                    quarantined_factor_rows=quarantined_factor_rows,
                    unexplained_adjustment_dates=adjustment_issues.trade_date.dt.strftime('%Y-%m-%d').value_counts().to_dict(),
-                   rights_policy='No subscription: no cash or shares credited; raw-price dilution losses remain. Not a live recommendation.',
+                   rights_policy='Subscribe when verified terms and cash are available; otherwise no subscription. Cash paid on ex-date; new rights shares locked on listing day. Research scenario only.',
                    bars=len(bars), assets=int(bars.ts_code.nunique()),
                    missing_price_limit_rows=int(limit_missing.sum()),
                    factor_ic_observations=len(ic), first_execution=str(first_execution.date()),
                    status=('Frozen-parameter out-of-sample test on a sealed period. Parameters and corrections '
                            'were fixed before this run; still not a live recommendation.'
                            if dataset.startswith('out_of_sample')
+                           else 'Supplementary validation of fixed current rules; previously opened 2024-2025 periods are not a fresh holdout. Independent annual account, not a live recommendation.'
+                           if dataset.startswith('validation_')
                            else 'Development-window engineering study. No out-of-sample evidence or live recommendation.'),
                    metadata_sha256={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT / 'data/audit').glob('*.csv')},
                    source_sha256={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT / 'quant_research').glob('*.py')})

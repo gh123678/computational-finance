@@ -13,12 +13,18 @@ def verify(dataset):
     project = Path(__file__).resolve().parents[1]
     sys.path.insert(0, str(project))
     from quant_research.datasets import dataset_config
+    from quant_research.factors import biweekly_schedule
     spec = dataset_config(dataset)
     assert spec['evaluation_start'] is not None
     root = project / 'output' / dataset
     summary = json.loads((root / 'summary.json').read_text(encoding='utf-8'))
     cal = pd.read_csv(project / 'data' / dataset / 'calendar.csv', dtype={'cal_date': str})
-    dates = pd.DatetimeIndex(pd.to_datetime(cal.loc[cal.is_open.eq(1), 'cal_date'])).sort_values()
+    full_dates = pd.DatetimeIndex(pd.to_datetime(cal.loc[cal.is_open.eq(1), 'cal_date'])).sort_values()
+    # The exchange calendar also covers history used for listing-age checks.
+    # Rebalance phase must begin at the registered study's warmup start,
+    # exactly as research.py does, rather than at the first historical session.
+    dates = full_dates[(full_dates >= pd.Timestamp(spec['start'])) &
+                       (full_dates <= pd.Timestamp(spec['end']))]
     expected = dates[(dates >= pd.Timestamp(spec['evaluation_start'])) & (dates <= pd.Timestamp(spec['end']))]
     baseline = dates[dates < expected[0]][-1]
     factors = pd.read_csv(root / 'factors.csv', parse_dates=['trade_date'])
@@ -37,6 +43,12 @@ def verify(dataset):
         monthly = pd.read_csv(folder / 'monthly_returns.csv')
         costs = pd.read_csv(folder / 'cost_attribution.csv')
         targets = pd.read_csv(folder / 'historical_targets.csv', parse_dates=['signal_date', 'execution_date'])
+        if item['strategy'].startswith('combined_biweekly'):
+            schedule = biweekly_schedule(dates)
+            schedule = schedule.loc[schedule.execution_date >= expected[0]]
+            pairs = targets[['signal_date', 'execution_date']].drop_duplicates().reset_index(drop=True)
+            assert pairs.equals(schedule[['signal_date', 'execution_date']].reset_index(drop=True))
+            assert orders.date.isin(schedule.execution_date).all()
         inputs = targets.merge(factors[['ts_code', 'trade_date', *columns]],
                                left_on=['ts_code', 'signal_date'], right_on=['ts_code', 'trade_date'],
                                how='left', validate='many_to_one', suffixes=('', '_source'))

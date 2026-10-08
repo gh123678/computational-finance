@@ -29,3 +29,12 @@ def test_zero_transaction_cost_scenario_keeps_dividend_tax_assumption():
     assert fees.cost(100000., 'buy') == fees.cost(100000., 'sell') == 0
     assert fees.slippage_bps == 0
     assert cfg.dividend_tax == .2
+
+
+@pytest.mark.parametrize('year', [2021, 2022, 2023])
+def test_validation_windows_are_explicit_and_do_not_cross_test_boundary(year):
+    spec = dataset_config(f'validation_{year}')
+    assert spec['start'] == f'{year - 1}1101'
+    assert spec['evaluation_start'] == f'{year}0101'
+    assert spec['end'] == f'{year}1231'
+    assert spec['end'] < '20240101'

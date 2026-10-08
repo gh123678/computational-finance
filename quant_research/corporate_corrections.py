@@ -32,6 +32,9 @@ def correct_actions(frame):
         dict(code='000155.SZ', ex='20161214', record='20161213', announcement='20161210',
              ratio=1.7021276, source=CHUANHUA_SOURCE,
              reason='Restructuring shares were transferred to restructuring investors; proceeds paid restructuring expenses and creditors, so existing shareholders received no shares.'),
+        dict(code='002219.SZ', ex='20220623', record='20220622', announcement='20220617',
+             ratio=0.75, source='https://static.cninfo.com.cn/finalpage/2022-06-17/1213733449.PDF',
+             reason='All restructuring capitalization shares go to restructuring investors; existing shareholders receive no shares (2022-071).'),
     ]
     excluded = pd.Series(False, index=frame.index)
     for correction in corrections:
@@ -52,6 +55,60 @@ def correct_actions(frame):
                               action='exclude_non_shareholder_distribution', source=correction['source'],
                               reason=correction['reason'],
                               original={k: None if pd.isna(v) else v for k, v in row.items()}))
+    # These exact pairs are a total and an already-included special dividend.
+    for spec in [
+        dict(code='601601.SH', ex='20210630', record='20210629', imp='20210622',
+             parts=[('20210329', '20210329', 0.1), ('20201231', '20210529', 1.3)], total=1.3,
+             source='https://www1.hkexnews.hk/listedco/listconews/sehk/2021/0621/2021062101127_c.pdf'),
+        dict(code='600188.SH', ex='20220714', record='20220713', imp='20220708',
+             parts=[('20220331', '20220331', 0.4), ('20211231', '20220701', 2.0)], total=2.0,
+             source='https://www.hkexnews.hk/listedco/listconews/sehk/2022/0707/2022070701149_c.pdf'),
+        dict(code='600600.SH', ex='20230714', record='20230713', imp='20230707',
+             parts=[('20230323', '20230323', 0.5), ('20221231', '20230617', 1.8)], total=1.8,
+             source='https://epaper.cs.com.cn/zgzqb/images/2023-07/07/B004/zqB00407.pdf'),
+    ]:
+        mask = frame.ts_code.eq(spec['code']) & frame.ex_date.eq(spec['ex']) & frame.div_proc.eq('实施')
+        if not mask.any():
+            continue
+        rows = frame.loc[mask]
+        observed = {(r['end_date'], r['ann_date'], float(r['cash_div_tax'])) for r in rows.to_dict('records')}
+        zero_stock = all(pd.to_numeric(rows[field], errors='raise').fillna(0).eq(0).all()
+                         for field in ['stk_div', 'stk_bo_rate', 'stk_co_rate'])
+        if (len(rows) != 2 or observed != set(spec['parts']) or not zero_stock or
+                not rows.record_date.eq(spec['record']).all() or not rows.pay_date.eq(spec['ex']).all() or
+                not rows.imp_ann_date.eq(spec['imp']).all() or
+                not pd.to_numeric(rows.cash_div).eq(pd.to_numeric(rows.cash_div_tax)).all()):
+            raise ValueError(f"Verified {spec['code']}/{spec['ex']} dividend overlap no longer matches; review required")
+        redundant = rows.index[pd.to_numeric(rows.cash_div_tax).ne(spec['total'])]
+        excluded.loc[redundant] = True
+        audit.append(dict(ts_code=spec['code'], ex_date=spec['ex'],
+                          action='exclude_special_dividend_already_in_total', source=spec['source'],
+                          reason='Issuer implementation announcement confirms the special dividend is already included in the retained total.',
+                          retained_cash_per_share=spec['total'],
+                          excluded_cash_per_share=float(rows.loc[redundant, 'cash_div_tax'].iloc[0])))
+    # YK 2023 instead contains two distinct cash legs, plus bonus shares on the annual leg.
+    yk = frame.ts_code.eq('600188.SH') & frame.ex_date.eq('20230717') & frame.div_proc.eq('实施')
+    if yk.any():
+        rows = frame.loc[yk]
+        expected = {('20230325', '20230325', 1.23, 0., 0.), ('20221231', '20230701', 3.07, .5, .5)}
+        observed = {(r['end_date'], r['ann_date'], float(r['cash_div_tax']), float(r['stk_div']),
+                     0. if pd.isna(r['stk_bo_rate']) else float(r['stk_bo_rate'])) for r in rows.to_dict('records')}
+        annual = rows.loc[rows.end_date.eq('20221231')]
+        if (len(rows) != 2 or observed != expected or not rows.record_date.eq('20230714').all() or
+                not rows.pay_date.eq('20230717').all() or not rows.imp_ann_date.eq('20230710').all() or
+                not pd.to_numeric(rows.cash_div).eq(pd.to_numeric(rows.cash_div_tax)).all() or
+                not pd.to_numeric(rows.stk_co_rate).fillna(0).eq(0).all() or
+                len(annual) != 1 or annual.div_listdate.iloc[0] != '20230717' or
+                not rows.loc[rows.end_date.eq('20230325'), 'div_listdate'].isna().all()):
+            raise ValueError('Verified 600188.SH/20230717 combined dividend no longer matches; review required')
+        # Preserve the annual row's stock entitlement and listing date.
+        frame.loc[annual.index, ['cash_div', 'cash_div_tax']] = 4.3
+        excluded.loc[rows.index.difference(annual.index)] = True
+        audit.append(dict(ts_code='600188.SH', ex_date='20230717',
+                          action='merge_cash_legs_preserve_bonus_shares',
+                          source='https://static.cninfo.com.cn/finalpage/2023-07-10/1217254673.PDF',
+                          reason='Ordinary 3.07 plus special 1.23 CNY make 4.30; preserve 0.5 bonus shares listed on 2023-07-17.',
+                          merged_cash_per_share=4.3, retained_bonus_per_share=.5))
     shenhua = frame.ts_code.eq('601088.SH') & frame.ex_date.eq('20170710') & frame.div_proc.eq('实施')
     if shenhua.any():
         rows = frame.loc[shenhua]

@@ -63,6 +63,7 @@ class Ledger:
             raise ValueError('Invalid ledger parameters')
         self.cash = float(initial_cash)
         self.positions = defaultdict(int)
+        self.settlement_locked = defaultdict(int)
         self.prices = {}
         self.dividend_tax = dividend_tax
         self.bonus_face_value = bonus_face_value
@@ -79,6 +80,9 @@ class Ledger:
                 self.entitlements[action] = self.positions[action.code]
 
     def morning(self, date, actions):
+        # A simulation morning is an exchange session, so Friday's listing
+        # lock expires on Monday (or the next session after a holiday).
+        self.settlement_locked.clear()
         for action in actions:
             if action.ex != date:
                 continue
@@ -112,6 +116,8 @@ class Ledger:
                 item['cash'] = 0.
             if item['shares'] and item['stock_pay'] <= date:
                 self.positions[item['code']] += item['shares']
+                if item.get('lock_on_settlement', False):
+                    self.settlement_locked[item['code']] += item['shares']
                 self.events.append(dict(date=date, code=item['code'], event='stock_settlement', shares=item['shares']))
                 item['shares'] = 0
         self.pending = [item for item in self.pending if item['cash'] or item['shares']]

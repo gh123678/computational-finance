@@ -115,7 +115,8 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
                     if allotted and ledger.cash >= cost - 1e-8:
                         ledger.cash = round(ledger.cash - cost, 2)
                         ledger.pending.append(dict(code=issue.code, cash=0., shares=allotted,
-                                                   cash_pay=pd.NaT, stock_pay=issue.list_date))
+                                                   cash_pay=pd.NaT, stock_pay=issue.list_date,
+                                                   lock_on_settlement=True))
                         ledger.events.append(dict(date=date, code=issue.code, event='rights_subscribed',
                                                   entitled_shares=entitled, allotted_shares=allotted,
                                                   price=issue.price, ratio=issue.ratio, cost=cost,
@@ -137,7 +138,8 @@ def simulate(bars, calendar, targets, actions=(), suspensions=None, delistings=N
         opening_equity = ledger.components()['equity']
         if opening_equity <= 0:
             raise ValueError('Nonpositive portfolio equity')
-        sellable = dict(ledger.positions)
+        sellable = {code: max(0, shares - ledger.settlement_locked.get(code, 0))
+                    for code, shares in ledger.positions.items()}
         day_fees = turnover_value = slippage_cost = 0.
         if date in plans:
             weights = plans[date]

@@ -9,6 +9,59 @@ def record():
                 stk_co_rate='1.1', cash_div=None, cash_div_tax=None, stk_bo_rate=None)
 
 
+@pytest.mark.parametrize('code,ex,record_date,imp,parts,total', [
+    ('601601.SH', '20210630', '20210629', '20210622', [('20210329', '20210329', .1), ('20201231', '20210529', 1.3)], 1.3),
+    ('600188.SH', '20220714', '20220713', '20220708', [('20220331', '20220331', .4), ('20211231', '20220701', 2.)], 2.),
+    ('600600.SH', '20230714', '20230713', '20230707', [('20230323', '20230323', .5), ('20221231', '20230617', 1.8)], 1.8),
+])
+def test_verified_total_dividends_exclude_already_included_special(code, ex, record_date, imp, parts, total):
+    from quant_research.accounting import normalize_actions
+    base = dict(ts_code=code, ex_date=ex, record_date=record_date, pay_date=ex,
+                imp_ann_date=imp, div_proc='实施', stk_div='0', stk_bo_rate=None, stk_co_rate=None)
+    raw = pd.DataFrame([dict(base, end_date=end, ann_date=ann, cash_div=cash, cash_div_tax=cash)
+                        for end, ann, cash in parts])
+    result, audit = correct_actions(raw)
+    assert normalize_actions(result, {code})[0].cash_per_share == total
+    assert len(raw) == 2 and len(result) == len(audit) == 1
+    with pytest.raises(ValueError, match='no longer matches'):
+        correct_actions(raw.iloc[:1])
+    changed = raw.copy(); changed.loc[0, 'pay_date'] = '20250101'
+    with pytest.raises(ValueError, match='no longer matches'):
+        correct_actions(changed)
+
+
+def test_yankuang_distinct_cash_legs_preserve_bonus_entitlement_and_listing():
+    from quant_research.accounting import normalize_actions
+    base = dict(ts_code='600188.SH', ex_date='20230717', record_date='20230714',
+                pay_date='20230717', imp_ann_date='20230710', div_proc='实施', stk_co_rate=None)
+    raw = pd.DataFrame([
+        dict(base, end_date='20230325', ann_date='20230325', cash_div=1.23, cash_div_tax=1.23,
+             stk_div=0., stk_bo_rate=None, div_listdate=None),
+        dict(base, end_date='20221231', ann_date='20230701', cash_div=3.07, cash_div_tax=3.07,
+             stk_div=.5, stk_bo_rate=.5, div_listdate='20230717'),
+    ])
+    corrected, audit = correct_actions(raw)
+    action = normalize_actions(corrected, {'600188.SH'})[0]
+    assert action.cash_per_share == 4.3
+    assert action.stock_per_share == action.taxable_bonus_per_share == .5
+    assert action.stock_pay == pd.Timestamp('2023-07-17')
+    assert len(audit) == 1 and raw.cash_div.sum() == 4.3
+    changed = raw.copy(); changed.loc[1, 'div_listdate'] = None
+    with pytest.raises(ValueError, match='no longer matches'):
+        correct_actions(changed)
+
+
+def test_hengkang_restructuring_has_no_old_shareholder_entitlement():
+    raw = pd.DataFrame([dict(ts_code='002219.SZ', ex_date='20220623', record_date='20220622',
+                            imp_ann_date='20220617', div_proc='实施', stk_div=.75, stk_co_rate=.75,
+                            cash_div=None, cash_div_tax=None, stk_bo_rate=None)])
+    corrected, audit = correct_actions(raw)
+    assert corrected.empty and len(audit) == 1
+    changed = raw.copy(); changed.loc[0, 'stk_div'] = .8
+    with pytest.raises(ValueError, match='no longer matches'):
+        correct_actions(changed)
+
+
 def test_shenhua_special_dividend_is_not_counted_twice():
     from quant_research.accounting import normalize_actions
     row = dict(ts_code='601088.SH', ex_date='20170710', record_date='20170707',

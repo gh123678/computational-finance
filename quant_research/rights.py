@@ -48,6 +48,26 @@ def _verified_rights():
             ('603633.SH', '20200710', '20200721')]
     result = [RightsIssue(c, pd.Timestamp(r), pd.Timestamp(e), SSE_SOURCE) for c, r, e in rows]
     extra = [
+        # 2026-10-04 supplementary validation: final-result PDFs archived and
+        # record/ex dates checked. No subscription terms inferred from prices.
+        ('000049.SZ', '20231129', '20231208', 'https://static.cninfo.com.cn/finalpage/2023-12-08/1218545401.PDF'),
+        ('000065.SZ', '20220401', '20220414', 'https://static.cninfo.com.cn/finalpage/2022-04-14/1212912102.PDF'),
+        ('000970.SZ', '20220215', '20220224', 'https://static.cninfo.com.cn/finalpage/2022-02-24/1212443412.PDF'),
+        ('002142.SZ', '20211123', '20211202', 'https://static.cninfo.com.cn/finalpage/2021-12-02/1211763892.PDF'),
+        ('002948.SZ', '20220104', '20220113', 'https://www.qdccb.com/images/ag_gsgg/2022/01/26/44A37D760B7C3D35965A654E4B2EADC7.pdf'),
+        ('600030.SH', '20220118', '20220127', 'https://www.citics.com/newsite/tzzgx/ggyth/gg/aggg/202201/P020220328648174712581.pdf'),
+        ('600081.SH', '20230801', '20230810', 'https://static.cninfo.com.cn/finalpage/2023-08-10/1217501773.PDF'),
+        ('600459.SH', '20221213', '20221222', 'https://static.cninfo.com.cn/finalpage/2022-12-22/1215418022.PDF'),
+        ('600888.SH', '20210412', '20210421', 'https://static.cninfo.com.cn/finalpage/2021-04-21/1209736447.PDF'),
+        ('600909.SH', '20210601', '20210610', 'https://static.cninfo.com.cn/finalpage/2021-06-10/1210209866.PDF'),
+        ('600958.SH', '20220420', '20220429', 'https://static.cninfo.com.cn/finalpage/2022-04-29/1213214263.PDF'),
+        ('601015.SH', '20210629', '20210708', 'https://static.cninfo.com.cn/finalpage/2021-07-08/1210437971.PDF'),
+        ('601016.SH', '20221117', '20221128', 'https://static.cninfo.com.cn/finalpage/2022-11-28/1215213853.PDF'),
+        ('601108.SH', '20220330', '20220412', 'https://static.cninfo.com.cn/finalpage/2022-04-12/1212886504.PDF'),
+        ('601236.SH', '20210726', '20210804', 'https://static.cninfo.com.cn/finalpage/2021-08-04/1210651292.PDF'),
+        ('601377.SH', '20220816', '20220825', 'https://static.cninfo.com.cn/finalpage/2022-08-25/1214390207.PDF'),
+        ('601555.SH', '20211214', '20211223', 'https://static.cninfo.com.cn/finalpage/2021-12-23/1211991537.PDF'),
+        ('601916.SH', '20230614', '20230627', 'https://www.czbank.com/cn/investor/announcements_3867/202306/P020230626637994950210.pdf'),
         # Final results read on 2026-09-28; registration and ex dates explicit.
         ('000661.SZ', '20160418', '20160427', 'https://static.cninfo.com.cn/finalpage/2016-04-27/1202249012.PDF'),
         ('000686.SZ', '20160406', '20160415', 'https://static.cninfo.com.cn/finalpage/2016-04-15/1202179746.PDF'),

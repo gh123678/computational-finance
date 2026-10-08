@@ -153,6 +153,44 @@ def test_rights_subscription_skipped_when_cash_insufficient():
     assert result['nav'].iloc[-1].equity == 9000
 
 
+@pytest.mark.parametrize('old_shares_sold_before_listing', [False, True])
+def test_rights_listing_day_locks_only_new_shares_until_next_session(old_shares_sold_before_listing):
+    from quant_research.rights import RightsIssue
+    dates = pd.DatetimeIndex(pd.to_datetime([
+        '2020-01-02', '2020-01-03', '2020-01-06', '2020-01-07',
+        '2020-01-08', '2020-01-10', '2020-01-13']))
+    bars = pd.DataFrame({'trade_date': dates, 'ts_code': 'A', 'open': 10., 'close': 10.,
+                         'amount': 30000., 'vol': 100000., 'adj_factor': 1.,
+                         'up_limit': 11., 'down_limit': 4.})
+    bars.loc[3:, ['open', 'close']] = 8.
+    bars.loc[3:, 'adj_factor'] = 1.25
+    executions = [dates[2], dates[5], dates[6]]
+    signals = [dates[1], dates[4], dates[5]]
+    weights = [.5, 0., 0.]
+    if old_shares_sold_before_listing:
+        executions.insert(1, dates[4])
+        signals.insert(1, dates[3])
+        weights.insert(1, 0.)
+    targets = pd.DataFrame({'execution_date': executions, 'signal_date': signals,
+                            'ts_code': 'A', 'target_weight': weights})
+    issue = RightsIssue('A', dates[2], dates[3], 'https://example.test/issuer',
+                        price=5., ratio=.3, list_date=dates[5])
+    result = simulate(bars, dates, targets, config=Config(initial_cash=10000, zero_trading_costs=True),
+                      rights=[issue])
+    sells = result['orders'].loc[result['orders'].side.eq('sell')].set_index('date')
+    assert sells.loc[dates[5], 'shares'] == (0 if old_shares_sold_before_listing else 500)
+    assert sells.loc[dates[6], 'shares'] == 150
+    if old_shares_sold_before_listing:
+        assert sells.loc[dates[4], 'shares'] == 500
+        assert sells.loc[dates[5], 'status'] == 'rejected'
+    held = result['holdings'].set_index('date')
+    assert held.loc[dates[5], 'shares'] == 150
+    assert held.loc[dates[5], 'pending_shares'] == 0
+    nav = result['nav'].set_index('date')
+    assert nav.loc[dates[5], 'stock_value'] == 1200
+    assert nav.loc[dates[5], 'equity'] == nav.loc[dates[6], 'equity'] == 9450
+
+
 def test_rights_terms_require_all_fields():
     from quant_research.rights import RightsIssue
     dates, bars, targets = fixture()
