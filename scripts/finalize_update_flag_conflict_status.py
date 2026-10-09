@@ -53,6 +53,14 @@ def main() -> None:
         if k in status:
             status[k] = R3_CLASS[r['classification']]
 
+    # Round 4: issuer-listing documents for the 67 no-candidate keys
+    kc4 = pd.read_csv(AUDIT / 'auto_screen_20261009_issuer_listing' / 'key_classification.csv',
+                      dtype=str, encoding='utf-8-sig')
+    for _, r in kc4.iterrows():
+        k = (r['ts_code'], r['ann_date'], r['end_date'])
+        if k in status and status[k] is None:
+            status[k] = R3_CLASS[r['classification']].replace('_r3_', '_r4_')
+
     for k in status:
         if status[k] is None:
             status[k] = 'no_candidate_document_unverified'
@@ -62,6 +70,14 @@ def main() -> None:
     # exactly. NOTE: flag=0 here carries the post-ann_date updated value
     # (vendor backfill), not the cancelled original released at ann_date.
     status[('000676.SZ', '20210429', '20201231')] = 'resolved_flag0_matches_updated_republication'
+    # 601989.SH 20200630 manually adjudicated from
+    # auto_screen_20261009_issuer_listing (2020 半年报, unit 万元): the headline
+    # 扣非净利润 is -15,863.13万元 = -158,631,300 CNY = flag=1 exactly
+    # (narrative "-1.59亿元" corroborates). flag=0 carries the raw 万元 figure
+    # (-15,863.13) unconverted — a vendor unit error. The extractor misread the
+    # PDF column merge "-15,863.13"+"2,945.15" as -15,863.132, hence the machine
+    # screen marked differs. Only confirmed reverse case (flag=1 = original).
+    status[('601989.SH', '20200828', '20200630')] = 'resolved_flag1_original_flag0_unit_error'
 
     ck['final_status'] = [status[(t, a, e)] for t, a, e in
                           zip(ck['ts_code'], ck['ann_date'], ck['end_date'])]

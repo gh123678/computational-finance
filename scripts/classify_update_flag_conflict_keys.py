@@ -1,19 +1,24 @@
-"""Classify each round-3 screened update_flag conflict key by whether the
-flag=0 / flag=1 API values match the candidate original-document text.
+"""Classify screened update_flag conflict keys by whether the flag=0 / flag=1
+API values match the candidate original-document text.
 
-Reads auto_screen_20261009_conflict_keys/profit_dedt_screen.csv, writes
-auto_screen_20261009_conflict_keys/key_classification.csv.
+Usage: classify_update_flag_conflict_keys.py [screen_dir_name]
+Default screen dir: auto_screen_20261009_conflict_keys (round 3).
+Round 4: auto_screen_20261009_issuer_listing.
+
+Reads <screen_dir>/profit_dedt_screen.csv, writes <screen_dir>/key_classification.csv.
 """
+import sys
 from pathlib import Path
 
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / 'output' / 'announcement_financial_audit_20261007' / 'auto_screen_20261009_conflict_keys'
 MATCH = {'value_matches_dated_original', 'value_matches_needs_manual_confirm'}
 
 
 def main() -> None:
+    screen_dir = sys.argv[1] if len(sys.argv) > 1 else 'auto_screen_20261009_conflict_keys'
+    OUT = ROOT / 'output' / 'announcement_financial_audit_20261007' / screen_dir
     sc = pd.read_csv(OUT / 'profit_dedt_screen.csv', dtype=str, encoding='utf-8-sig')
     rows = []
     for (ts, ad, ed), g in sc.groupby(['ts_code', 'ann_date', 'end_date']):
