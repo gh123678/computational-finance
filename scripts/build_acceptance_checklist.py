@@ -104,7 +104,7 @@ def screen_observations(ts_code, ann_date, end_date):
 def main() -> None:
     ck = pd.read_csv(REVIEW / 'update_flag_conflict_all204.csv', dtype=str, encoding='utf-8-sig')
     u = ck[ck['final_status'].isin(UNRESOLVED)]
-    assert len(u) == 36, f'expected 36 unresolved keys, got {len(u)}'
+    assert len(u) == 32, f'expected 32 unresolved keys, got {len(u)}'
     rows = []
     for _, r in u.iterrows():
         ts, ad, ed = r['ts_code'], r['ann_date'], r['end_date']

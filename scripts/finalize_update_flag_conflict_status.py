@@ -78,6 +78,16 @@ def main() -> None:
     # PDF column merge "-15,863.13"+"2,945.15" as -15,863.132, hence the machine
     # screen marked differs. Only confirmed reverse case (flag=1 = original).
     status[('601989.SH', '20200828', '20200630')] = 'resolved_flag1_original_flag0_unit_error'
+    # OCR adjudication (ocr_adjudication_20261009) — contexts manually verified:
+    # 000851.SZ 20201231: cancelled 2020 annual report narrative states 扣非净利润
+    #   -196,380,050.17元 = flag=0 exactly.
+    # 002781.SZ 2012/2013/2014: IPO prospectus (2015-12) table "扣除非经常性损益
+    #   后归属于发行人股东的净利润" 11,984.42/12,417.65/14,724.63万元 = flag=0
+    #   values x1e4 respectively.
+    status[('000851.SZ', '20210415', '20201231')] = 'revision_row_original_available_in_queue'
+    status[('002781.SZ', '20151204', '20121231')] = 'revision_row_original_available_in_queue'
+    status[('002781.SZ', '20151204', '20131231')] = 'revision_row_original_available_in_queue'
+    status[('002781.SZ', '20151204', '20141231')] = 'revision_row_original_available_in_queue'
 
     ck['final_status'] = [status[(t, a, e)] for t, a, e in
                           zip(ck['ts_code'], ck['ann_date'], ck['end_date'])]
