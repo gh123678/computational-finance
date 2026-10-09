@@ -57,6 +57,12 @@ def main() -> None:
         if status[k] is None:
             status[k] = 'no_candidate_document_unverified'
 
+    # 000676.SZ 20201231 resolved by correction_evidence_20261009: the updated
+    # 2020 annual report (更新后, published 2022-04-28) matches the flag=0 value
+    # exactly. NOTE: flag=0 here carries the post-ann_date updated value
+    # (vendor backfill), not the cancelled original released at ann_date.
+    status[('000676.SZ', '20210429', '20201231')] = 'resolved_flag0_matches_updated_republication'
+
     ck['final_status'] = [status[(t, a, e)] for t, a, e in
                           zip(ck['ts_code'], ck['ann_date'], ck['end_date'])]
     ck.to_csv(REVIEW / 'update_flag_conflict_all204.csv', index=False, encoding='utf-8-sig')
