@@ -212,3 +212,13 @@
 ## 10. 门槛执行记录
 
 - **2026-10-10（基线 b9eb243）**：门槛三项执行检查完成——反向案例 5 键 + 000676/601989 两例逐键核验通过并定性（000676 = 更新版回填，用时须版本链核验；601989 = flag0 单位错误、flag1 = 原文）；冻结哈希校验 23/24 OK + 队列文件 OK（report.md 为 append-only 活文档属预期；两处 source 差异均有提交/删除记录解释；`update_flag_conflict_all204.csv` 补记新基线 sha256）；清单回填 done；130 测试签报提交前实测通过。签报见 `output/announcement_financial_audit_20261007/case_review_20261009/profit-dedt-enablement-signoff-20261010.md`，**待用户签字**。签字前 profit_dedt 仍不得消费；签字范围 = 清单 32 键结论 + 反向案例排除，清单外修订模式键仍须逐键排除 §5 与 000676/601989。
+
+## 11. 消费后验证（标准动作，2026-10-10 首次执行）
+
+清单口径下允许消费 `profit_dedt` 后，必须按序执行以下三步只读验证并留档（本次 32 键切片已执行，提交 b729d4d / 3630244 / fe5082c）：
+
+1. **切片构建** `scripts/build_profit_dedt_factor_slice.py`——按 §4 口径映射消费值（revision→flag0、true_difference→核定原文值、reverse→flag1），守卫 G1-G4（裁定值与源记录精确一致、反向键 flag 相异、映射合规、反例排除），产出 `output/profit_dedt_factor_slice_*/`（含 consumption_log.json 留档输入基线哈希与授权记录）；
+2. **横截面对齐检查** `scripts/check_profit_dedt_slice_alignment.py`——保守规则 trade_date > ann_date 拼入量价面板，泄漏守卫 G1-G3（无 trade_date ≤ ann_date 行、首拼接截面 = 披露后第一截面、披露前面板行全部排除），产物 merged_panel.csv + verification.json；
+3. **相关性/IC 速览** `scripts/profile_profit_dedt_slice_ic.py`——池化 / 键级 / 逐日截面三层出数，必须带解读纪律（水平值规模效应、窗口内值重复致 IC 自相关、不构成因子有效性证据）。
+
+共同纪律：三步全部只读于冻结产物，不改模型/标签/冻结 CSV；usable_in_verified_history 与时点核验批准状态不因验证通过而变更；每步产出 report.md 并在 `docs/research-progress.md` 登记。
