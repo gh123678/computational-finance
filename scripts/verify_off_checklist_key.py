@@ -70,6 +70,72 @@ def search_pdf(path, targets):
     return hits, 'ok'
 
 
+POST_WINDOW_DAYS = 60
+CORRECTION_RE = None  # compiled below (avoid re module at import time cost)
+
+
+def query_post_window(code, org_id, day):
+    """ann_date 之后 POST_WINDOW_DAYS 天内的发行人公告列表（版本链检查用）。"""
+    from datetime import datetime as _dt, timedelta as _td
+    base = _dt.strptime(day, '%Y%m%d')
+    start = (base + _td(days=1)).strftime('%Y-%m-%d')
+    end = (base + _td(days=POST_WINDOW_DAYS)).strftime('%Y-%m-%d')
+    resp_dir = OUT / 'responses'
+    resp_dir.mkdir(parents=True, exist_ok=True)
+    all_items = []
+    for page in range(1, 6):
+        path = resp_dir / f'{code}_{day}_post_{page}.json'
+        if not path.exists():
+            args = ['--max-time', '40', r4.ENDPOINT, '--header', 'User-Agent: Mozilla/5.0',
+                    '--header', 'Referer: https://www.cninfo.com.cn/', '--output',
+                    str(path.with_suffix('.partial'))]
+            params = dict(pageNum=str(page), pageSize='30', tabName='fulltext',
+                          column='szse' if code.endswith('.SZ') else 'sse',
+                          isHLtitle='false', stock=f'{code[:6]},{org_id}',
+                          seDate=f'{start}~{end}')
+            for name, value in params.items():
+                args += ['--data-urlencode', f'{name}={value}']
+            if not r1.run_curl(args, 50, dict(code=code, day=day, query='post_window')):
+                break
+            try:
+                obj = json.loads(path.with_suffix('.partial').read_text(encoding='utf-8'))
+                if not isinstance(obj, dict) or 'announcements' not in obj:
+                    break
+                path.with_suffix('.partial').replace(path)
+            except (ValueError, UnicodeError):
+                break
+            time.sleep(1.3)
+        obj = json.loads(path.read_text(encoding='utf-8'))
+        items = obj.get('announcements') or []
+        all_items.extend(items)
+        if not obj.get('hasMore', False):
+            break
+    return all_items
+
+
+def version_chain_check(code, org_id, day):
+    """检索 ann_date 后更正/更新后/修订/取消类公告；返回状态与命中清单。
+
+    版本链判定只认**定期报告/审计报告类**更正（上市公告书等无关公告单独列示，
+    如资产收购"（更新后）"不算年报版本链变更）。
+    """
+    import re
+    pat = re.compile('更正|更新后|修订|取消')
+    neg = re.compile('问询|回复|补充|意见|提示|说明')
+    report_pat = re.compile('年度报告|年年度报告|半年度报告|季度报告|审计报告')
+    hits, unrelated = [], []
+    for item in query_post_window(code, org_id, day):
+        title = re.sub('<[^>]+>', '', item.get('announcementTitle', ''))
+        if not (pat.search(title) and not neg.search(title)):
+            continue
+        d = r4.local_day(item)
+        entry = dict(title=title, day=d, url=item.get('adjunctUrl'))
+        (hits if report_pat.search(title) else unrelated).append(entry)
+    status = 'clear_no_later_correction' if not hits else 'later_correction_found'
+    return dict(status=status, checked_range_days=POST_WINDOW_DAYS,
+                corrections=hits[:10], unrelated_corrections=unrelated[:10])
+
+
 def verify_one(code, end_date):
     wl = { (r['ts_code'], r['end_date']): r for r in
            csv.DictReader(WORKLIST.open(encoding='utf-8-sig')) }
@@ -130,7 +196,33 @@ def verify_one(code, end_date):
     rec['flag0_hit_count'] = len(found['flag0'])
     rec['flag1_hit_count'] = len(found['flag1'])
     rec['flag0_hits'] = found['flag0'][:6]
+    if org_id:
+        vc = version_chain_check(code, org_id, day)
+        rec['version_chain'] = vc
+        rec['final_status'] = ('verified_flag0_clear' if f0 and not f1
+                               and vc['status'] == 'clear_no_later_correction'
+                               else 'verified_flag0_but_version_chain_flagged' if f0 and not f1
+                               else 'needs_manual_review')
+    else:
+        rec['final_status'] = 'org_unresolved'
     return rec
+
+
+def write_progress():
+    rows = []
+    for p in sorted(RESULTS.glob('*.json')):
+        r = json.loads(p.read_text(encoding='utf-8'))
+        rows.append(dict(ts_code=r['ts_code'], end_date=r['end_date'], batch=r.get('batch'),
+                         verdict=r.get('verdict'), final_status=r.get('final_status'),
+                         version_chain=(r.get('version_chain') or {}).get('status'),
+                         corrections=len((r.get('version_chain') or {}).get('corrections') or []),
+                         candidates=r.get('candidate_count')))
+    if rows:
+        with (OUT / 'adjudication_progress.csv').open('w', encoding='utf-8-sig', newline='') as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+            w.writeheader()
+            w.writerows(rows)
+    return len(rows)
 
 
 def main():
@@ -139,6 +231,10 @@ def main():
     r1.OUT = OUT  # 下载与事件重定向到本目录
     (OUT / 'documents').mkdir(exist_ok=True)
     args = sys.argv[1:]
+    next_n = 2
+    if args and args[0] == '--next':
+        next_n = int(args[1])
+        args = args[2:]
     if args:
         pairs = [(args[i], args[i + 1]) for i in range(0, len(args), 2)]
     else:
@@ -146,7 +242,7 @@ def main():
         wl = list(csv.DictReader(WORKLIST.open(encoding='utf-8-sig')))
         todo = [r for r in wl if r['batch'] == 'A_window_mismatch'
                 and f"{r['ts_code']}_{r['end_date']}" not in done]
-        pairs = [(r['ts_code'], r['end_date']) for r in todo[:2]]
+        pairs = [(r['ts_code'], r['end_date']) for r in todo[:next_n]]
     if not pairs:
         print('no keys to process')
         return
@@ -154,10 +250,12 @@ def main():
         rec = verify_one(code, end_date)
         target = RESULTS / f'{code}_{end_date}.json'
         audit.write_json(target, rec)
-        print(code, end_date, rec['verdict'],
+        vc = (rec.get('version_chain') or {}).get('status', '-')
+        print(code, end_date, rec.get('final_status'), rec['verdict'],
               f"candidates={rec.get('candidate_count')}",
               f"f0hits={rec.get('flag0_hit_count')}",
-              f"f1hits={rec.get('flag1_hit_count')}")
+              f"f1hits={rec.get('flag1_hit_count')}", f"vc={vc}")
+    print(f"progress: {write_progress()}/166 keys have results")
 
 
 if __name__ == '__main__':
