@@ -240,8 +240,8 @@ def main():
     else:
         done = {p.stem for p in RESULTS.glob('*.json')}
         wl = list(csv.DictReader(WORKLIST.open(encoding='utf-8-sig')))
-        todo = [r for r in wl if r['batch'] == 'A_window_mismatch'
-                and f"{r['ts_code']}_{r['end_date']}" not in done]
+        # worklist.csv 已按批次排序（A→B→C），续跑全部剩余键
+        todo = [r for r in wl if f"{r['ts_code']}_{r['end_date']}" not in done]
         pairs = [(r['ts_code'], r['end_date']) for r in todo[:next_n]]
     if not pairs:
         print('no keys to process')
