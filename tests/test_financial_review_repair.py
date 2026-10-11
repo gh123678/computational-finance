@@ -54,6 +54,16 @@ def test_pdf_numeric_match_does_not_find_smaller_value_inside_larger_number(tmp_
     assert hits['negative'] and hits['exact']
 
 
+@pytest.mark.parametrize('title', ['补充更正公告', '前期会计差错更正公告', '更正公告'])
+def test_generic_financial_correction_requires_content_review(title):
+    query = dict(items=[dict(announcementTitle=title)], complete=True,
+                 failure=None, pages=1, total=1)
+    result = verify.assess_version_query(query)
+    assert result['status'] == 'ambiguous_correction_notice_requires_review'
+    assert len(result['ambiguous_corrections']) == 1
+    assert result['full_version_chain_verified'] is False
+
+
 @pytest.mark.parametrize('response', [None, {}, {'announcements': []},
     dict(announcements=[], hasMore='false', totalAnnouncement=0),
     dict(announcements=[], hasMore=True, totalAnnouncement=10),

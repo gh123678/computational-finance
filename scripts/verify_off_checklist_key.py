@@ -165,19 +165,28 @@ def assess_version_query(query):
     import re
     pat = re.compile('更正|更新|修订|取消')
     report_pat = re.compile('年度报告|半年度报告|季度报告|审计报告')
-    hits, unrelated = [], []
+    hits, unrelated, ambiguous = [], [], []
     for item in query['items']:
         title = re.sub('<[^>]+>', '', item.get('announcementTitle', ''))
         if not pat.search(title):
             continue
         entry = dict(title=title, day=r4.local_day(item), url=item.get('adjunctUrl'))
-        (hits if report_pat.search(title) else unrelated).append(entry)
+        if report_pat.search(title):
+            hits.append(entry)
+        elif re.search('差错|会计|财务|^(补充)?更正公告$|^补充更正公告$', title):
+            # Generic notices may contain retrospective financial changes without
+            # naming a periodic report in their title. Never treat as harmless.
+            ambiguous.append(entry)
+        else:
+            unrelated.append(entry)
     status = ('query_incomplete' if not query['complete'] else
-              'later_correction_found' if hits else 'no_correction_found_in_60_day_index')
+              'later_correction_found' if hits else
+              'ambiguous_correction_notice_requires_review' if ambiguous else
+              'no_correction_found_in_60_day_index')
     return dict(status=status, checked_range_days=POST_WINDOW_DAYS,
                 query_complete=query['complete'], query_failure=query['failure'],
                 query_pages=query['pages'], query_total=query['total'],
-                corrections=hits, unrelated_corrections=unrelated,
+                corrections=hits, ambiguous_corrections=ambiguous, unrelated_corrections=unrelated,
                 full_version_chain_verified=False)
 
 
@@ -255,7 +264,7 @@ def verify_one(code, end_date):
         rec['version_chain'] = vc
         rec['final_status'] = ('version_query_incomplete' if not vc['query_complete']
                                else 'flag0_text_match_60_day_index_only' if f0 and not f1
-                               and not vc['corrections']
+                               and not vc['corrections'] and not vc['ambiguous_corrections']
                                else 'flag0_text_match_correction_review_required' if f0 and not f1
                                else 'needs_manual_review')
     else:
