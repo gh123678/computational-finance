@@ -12,6 +12,7 @@
 """
 import csv
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -25,7 +26,7 @@ import collect_issuer_listing_evidence as r4
 
 WORKLIST = audit.OUT / '..' / 'off_checklist_revision_worklist_20261010' / 'worklist.csv'
 WORKLIST = Path(__file__).resolve().parent.parent / 'output' / 'off_checklist_revision_worklist_20261010' / 'worklist.csv'
-OUT = WORKLIST.parent / 'verification_round'
+OUT = WORKLIST.parent / 'verification_round_r2'
 RESULTS = OUT / 'results'
 DOCS = OUT / 'documents'
 
@@ -62,8 +63,9 @@ def search_pdf(path, targets):
         for label, variants in targets.items():
             for s in variants:
                 key = s.replace(',', '').replace(' ', '')
-                if key and key in compact:
-                    i = compact.index(key)
+                match = re.search(r'(?<![\d.\-−–])' + re.escape(key) + r'(?![\d.])', compact) if key else None
+                if match:
+                    i = match.start()
                     hits[label].append((pno + 1, compact[max(0, i - 30):i + len(key) + 30]))
                     break
     doc.close()
@@ -83,6 +85,10 @@ def query_post_window(code, org_id, day):
     resp_dir = OUT / 'responses'
     resp_dir.mkdir(parents=True, exist_ok=True)
     all_items = []
+    expected_total = None
+    pages = 0
+    complete = False
+    failure = None
     for page in range(1, 6):
         path = resp_dir / f'{code}_{day}_post_{page}.json'
         if not path.exists():
@@ -96,21 +102,83 @@ def query_post_window(code, org_id, day):
             for name, value in params.items():
                 args += ['--data-urlencode', f'{name}={value}']
             if not r1.run_curl(args, 50, dict(code=code, day=day, query='post_window')):
+                failure = 'request_failed'
                 break
             try:
                 obj = json.loads(path.with_suffix('.partial').read_text(encoding='utf-8'))
                 if not isinstance(obj, dict) or 'announcements' not in obj:
+                    failure = 'invalid_response'
                     break
                 path.with_suffix('.partial').replace(path)
             except (ValueError, UnicodeError):
+                failure = 'invalid_json'
                 break
             time.sleep(1.3)
-        obj = json.loads(path.read_text(encoding='utf-8'))
-        items = obj.get('announcements') or []
-        all_items.extend(items)
-        if not obj.get('hasMore', False):
+        try:
+            obj = json.loads(path.read_text(encoding='utf-8'))
+        except (ValueError, UnicodeError):
+            failure = 'invalid_cached_json'
             break
-    return all_items
+        error = validate_post_response(obj)
+        if error:
+            failure = error
+            break
+        total = obj['totalAnnouncement']
+        if expected_total is not None and total != expected_total:
+            failure = 'total_changed_during_pagination'
+            break
+        expected_total = total
+        pages += 1
+        items = obj['announcements'] or []
+        all_items.extend(items)
+        if not obj['hasMore']:
+            complete = len(all_items) == expected_total
+            if not complete:
+                failure = 'total_count_mismatch'
+            break
+    if not complete and failure is None:
+        failure = 'pagination_limit_reached'
+    return dict(items=all_items, complete=complete, failure=failure,
+                pages=pages, total=expected_total, start=start, end=end)
+
+
+def validate_post_response(obj):
+    if not isinstance(obj, dict):
+        return 'invalid_response'
+    if not isinstance(obj.get('hasMore'), bool):
+        return 'missing_or_invalid_hasMore'
+    total = obj.get('totalAnnouncement')
+    if isinstance(total, bool) or not isinstance(total, int) or total < 0:
+        return 'missing_or_invalid_total'
+    items = obj.get('announcements')
+    if items is None and total == 0 and not obj['hasMore']:
+        return None
+    if not isinstance(items, list) or any(not isinstance(i, dict) for i in items):
+        return 'invalid_announcements'
+    if obj['hasMore'] and not items:
+        return 'empty_page_with_hasMore'
+    return None
+
+
+def assess_version_query(query):
+    """范围内索引检索不是完整历史版本链的认证。"""
+    import re
+    pat = re.compile('更正|更新|修订|取消')
+    report_pat = re.compile('年度报告|半年度报告|季度报告|审计报告')
+    hits, unrelated = [], []
+    for item in query['items']:
+        title = re.sub('<[^>]+>', '', item.get('announcementTitle', ''))
+        if not pat.search(title):
+            continue
+        entry = dict(title=title, day=r4.local_day(item), url=item.get('adjunctUrl'))
+        (hits if report_pat.search(title) else unrelated).append(entry)
+    status = ('query_incomplete' if not query['complete'] else
+              'later_correction_found' if hits else 'no_correction_found_in_60_day_index')
+    return dict(status=status, checked_range_days=POST_WINDOW_DAYS,
+                query_complete=query['complete'], query_failure=query['failure'],
+                query_pages=query['pages'], query_total=query['total'],
+                corrections=hits, unrelated_corrections=unrelated,
+                full_version_chain_verified=False)
 
 
 def version_chain_check(code, org_id, day):
@@ -119,21 +187,7 @@ def version_chain_check(code, org_id, day):
     版本链判定只认**定期报告/审计报告类**更正（上市公告书等无关公告单独列示，
     如资产收购"（更新后）"不算年报版本链变更）。
     """
-    import re
-    pat = re.compile('更正|更新后|修订|取消')
-    neg = re.compile('问询|回复|补充|意见|提示|说明')
-    report_pat = re.compile('年度报告|年年度报告|半年度报告|季度报告|审计报告')
-    hits, unrelated = [], []
-    for item in query_post_window(code, org_id, day):
-        title = re.sub('<[^>]+>', '', item.get('announcementTitle', ''))
-        if not (pat.search(title) and not neg.search(title)):
-            continue
-        d = r4.local_day(item)
-        entry = dict(title=title, day=d, url=item.get('adjunctUrl'))
-        (hits if report_pat.search(title) else unrelated).append(entry)
-    status = 'clear_no_later_correction' if not hits else 'later_correction_found'
-    return dict(status=status, checked_range_days=POST_WINDOW_DAYS,
-                corrections=hits[:10], unrelated_corrections=unrelated[:10])
+    return assess_version_query(query_post_window(code, org_id, day))
 
 
 def verify_one(code, end_date):
@@ -199,9 +253,10 @@ def verify_one(code, end_date):
     if org_id:
         vc = version_chain_check(code, org_id, day)
         rec['version_chain'] = vc
-        rec['final_status'] = ('verified_flag0_clear' if f0 and not f1
-                               and vc['status'] == 'clear_no_later_correction'
-                               else 'verified_flag0_but_version_chain_flagged' if f0 and not f1
+        rec['final_status'] = ('version_query_incomplete' if not vc['query_complete']
+                               else 'flag0_text_match_60_day_index_only' if f0 and not f1
+                               and not vc['corrections']
+                               else 'flag0_text_match_correction_review_required' if f0 and not f1
                                else 'needs_manual_review')
     else:
         rec['final_status'] = 'org_unresolved'
@@ -229,6 +284,8 @@ def main():
     RESULTS.mkdir(parents=True, exist_ok=True)
     DOCS.mkdir(parents=True, exist_ok=True)
     r1.OUT = OUT  # 下载与事件重定向到本目录
+    r4.OUT = OUT  # orgId/发行人列表查询也写新轮缓存，不动旧目录
+    (OUT / 'responses').mkdir(exist_ok=True)
     (OUT / 'documents').mkdir(exist_ok=True)
     args = sys.argv[1:]
     next_n = 2
