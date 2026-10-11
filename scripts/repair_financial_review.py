@@ -121,7 +121,7 @@ def main():
                   removed_duplicate_rows=len(original) - len(unique),
                   ic_sections=len(ic), revised_mean_ic=float(ic.ic.mean()),
                   revised_median_ic=float(ic.ic.median()), version_cache_status_counts=counts,
-                  remaining_23_unresolved=len(remaining), frozen_files_checked=len(before),
+                  initial_remaining_23_review_keys=len(remaining), frozen_files_checked=len(before),
                   frozen_unchanged=before == after, usable_in_verified_history=False,
                   limitations=['32-key selected slice, not complete latest financial history',
                                '60-day present index is not a complete version chain',
