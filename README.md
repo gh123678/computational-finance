@@ -1,6 +1,6 @@
 # A 股周频多因子研究
 
-2026-10-12最新状态：当前策略不启用。冻结D主候选10/30bp净收益仍为负，财务历史可用性尚未通过；原文内容核对不等于历史版本批准。项目183项测试通过，独立前向模拟尚未完成。见[交付关卡复核](docs/2026-10-12-strategy-delivery-gate-assessment.md)、[历史模拟执行说明](docs/2026-10-12-frozen-account-operations.md)与[持续路线](docs/strategy-completion-roadmap.md)。新的周频价量回归[具体设计草案](docs/superpowers/specs/2026-10-12-price-amount-ridge-design.md)已写好，仍待用户审阅，尚未启动新模型或十二组实验。下方按日期保留旧阶段记录。
+2026-10-14最新状态：当前策略不启用。已批准的价量回归十二组及独立账务核验完成，Ridge主候选10bp累计−34.8843%、30bp−40.7665%、10bp回撤38.0198%，研究关卡失败；不事后换GBM为主候选。最近完整工程检查193项通过，独立前向模拟及财务历史可用性仍未通过。见[十二组结果](docs/2026-10-14-price-amount-ridge-results.md)、[历史模拟执行说明](docs/2026-10-12-frozen-account-operations.md)与[持续路线](docs/strategy-completion-roadmap.md)。[主流路线评估](docs/2026-10-14-mainstream-quant-strategy-assessment.md)和[中期动量九组具体设计](docs/superpowers/specs/2026-10-14-medium-term-momentum-design.md)已完成，具体实验仍待用户确认，尚未启动。[财务字段补核验](docs/2026-10-14-financial-metric-definition-followup.md)明确roe与加权平均字段不同，保持全部历史使用门槛关闭。下方按日期保留旧阶段记录。
 
 2026-10-08策略审查完成：五轮已核验工作的未提交改动按轮次分五次提交锁定，130项测试通过。新增只读双基准超额诊断：周频零成本相对沪深300超额+104.35%，但相对主板等权基准仅+31.04%（IR 0.18），差额为规模风格暴露；10bp真实成本下全部路径超额深度为负。信号毛利与成本差一个数量级，结论为改造信号收益来源并以共同池超额口径评估，审计完成后冻结最终设计转前向验证。见 [策略审查备忘录](docs/2026-10-08-strategy-review.md)。
 
