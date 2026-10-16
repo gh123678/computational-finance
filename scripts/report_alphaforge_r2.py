@@ -57,6 +57,10 @@ def number(value, decimals=4):
     return f'{float(value):,.{decimals}f}' if pd.notna(value) and np.isfinite(float(value)) else '—'
 
 
+def scientific(value):
+    return f'{float(value):.6e}' if pd.notna(value) and np.isfinite(float(value)) else '—'
+
+
 def boolean(value):
     if isinstance(value, (bool, np.bool_)):
         return bool(value)
@@ -117,6 +121,14 @@ def main(out=OUT, render_figures=False):
         raise ValueError('Research gate aggregate disagrees with individual gates')
 
     feature = load(out, 'feature_summary.json')
+    existing_adjustments = [item for item in feature['adjustment_corrections']
+                            if item['ts_code'] == '000998.SZ'
+                            and item['action'] == 'replace_transient_vendor_adjustment_factor']
+    if (len(existing_adjustments) != 1 or
+            existing_adjustments[0]['corrected_quote_dates'] != ['20180823', '20180824', '20180827'] or
+            existing_adjustments[0]['original_factor'] != 10.8142 or
+            existing_adjustments[0]['corrected_factor'] != 11.107):
+        raise ValueError('Existing frozen 000998 adjustment evidence differs from the reported correction')
     event_mapping = load(out, 'event_mapping_summary.json')
     event_audit = verification['event_timing']
     pool = verification['pool_comparison']
@@ -204,6 +216,11 @@ def main(out=OUT, render_figures=False):
               '它不认证“舍入”“无行动”或供应商系数错误。', '',
               'timing_verified仅表示缓存实施公告日合法且不晚于生效日，不等于已核对不可修订的原始公告版本；'
               '日内发布时间和历史版本身份均未认证。重复行动版本保留；已有有来源的correct_actions另存纠正清单，未按最新提案择优。', '',
+              'feature_summary.json仍记录旧core既有的000998.SZ正复权系数修正：2018-08-23、08-24、08-27三个实际报价日'
+              '从10.8142替换为11.1070，本轮沿用且未改规则。原始raw缓存、年度与连续数据文件始终保留，'
+              '派生计算沿用该既有修正，不能笼统称所有计算输入从未修正。r2公式只用raw close／vol，'
+              '形成资格对adj_factor只要求有限正值且不因其变化而排除，因此这一正值替换不恢复缺报价、'
+              '不改变本轮形成资格；它也不构成供应商系数通用纠正规则。', '',
               f"冻结事件{event_audit['event_rows']:,}条，其中日级时间字段有效{event_audit['timing_verified_rows']:,}条、"
               f"时间未认证{event_audit['timing_unverified_rows']:,}条；现金／送转记录{event_audit['dividend_rows']:,}条、"
               f"配股风险记录{event_audit['rights_rows']:,}条。", '',
@@ -231,11 +248,11 @@ def main(out=OUT, render_figures=False):
               f"新增有效{pool['newly_valid']:,}条、变为无效{pool['no_longer_valid']:,}条。共同有效原公式逐值一致；"
               '池变化会改变百分位、留仓和账户路径，不能归因为公式改进。', '',
               f"独立核验全部{verification['original_formation_rows']:,}条资格及{verification['feature_rows_checked']:,}条有效公式；"
-              f"因子最大绝对差{number(verification['maximum_factor_error'], 12)}。"
+              f"因子最大绝对差{scientific(verification['maximum_factor_error'])}。"
               f"孤立系数变化仍有效的形成记录{feature['isolated_factor_change_rows']:,}条；"
               f"epsilon分支实际命中{feature['guard_rows']:,}条。资格不使用未来标签。", '',
               f"每只股票首个有效窗口的float64／float32对照共{len(precision):,}个，最大因子绝对差"
-              f"{number(precision.absolute_difference.max(), 12)}，guard分支差异"
+              f"{scientific(precision.absolute_difference.max())}，guard分支差异"
               f"{int((precision.guard64.map(boolean) != precision.guard32.map(boolean)).sum()):,}个。"
               '这是固定数值诊断，不是作者数据与全部结果的位级复制认证。', '',
               '## IC／RankIC及固定五组', '',
@@ -296,9 +313,9 @@ def main(out=OUT, render_figures=False):
     lines += ['', '## 独立账务、保护证据与限制', '',
               f"六账户共独立重建{sum(item['sessions'] for item in checks):,}个账本日（含空仓准备），"
               '普通股、待上市股逐日精确一致，现金／应收／权益成分均通过，12个跨年边界连续。'
-              f"现金最大误差{number(max(item['maximum_cash_error'] for item in checks), 10)}元，"
-              f"应收最大误差{number(max(item['maximum_receivable_error'] for item in checks), 10)}元，"
-              f"权益成分最大误差{number(max(item['maximum_equity_error'] for item in checks), 10)}元。", '',
+              f"现金最大误差{scientific(max(item['maximum_cash_error'] for item in checks))}元，"
+              f"应收最大误差{scientific(max(item['maximum_receivable_error'] for item in checks))}元，"
+              f"权益成分最大误差{scientific(max(item['maximum_equity_error'] for item in checks))}元。", '',
               '| 受保护旧输出 | 文件数 |', '|---|---:|']
     for name, count in sorted(verification['old_artifacts'].items()):
         lines.append(f'| {cell(name)} | {int(count):,} |')
