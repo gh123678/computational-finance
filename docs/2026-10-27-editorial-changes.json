@@ -1,0 +1,155 @@
+{
+  "note": "仅统一称呼；未重算实验。原始公告正文保留原文。历史冻结清单仍引用原始字节，本次副本以新校验清单为准。",
+  "files": [
+    {
+      "path": "README.md",
+      "original_sha256": "14193ede338ad8f7dd4d272b4025bb762c5457d379909231005ec62684068e34",
+      "published_sha256": "4a71ca7acb17854602842f04286c4c68fc57cb2e99ecdf73e84d7003db2a4a55"
+    },
+    {
+      "path": "scripts/report_alphaforge_r5.py",
+      "original_sha256": "7a9bec4eb9c62cfdd840bcf3942cf14079f98e8451363784153f9aea6e1e0ace",
+      "published_sha256": "6f373480fef9d55adf4b53bc00cf9cf4ca3c6792f8439de014c83c5ed18c9910"
+    },
+    {
+      "path": "scripts/report_alphaforge_r4.py",
+      "original_sha256": "37a13bd89fde144353375f0e6e98b9887a36d3b7afa338a9ec3662ea8fa1dfd3",
+      "published_sha256": "379e27e933bc9c36cc4bf0780cc06bd3ada0151b4cb4a8c60d1d1719ae39d7f4"
+    },
+    {
+      "path": "scripts/run_single_etf_monthly_trend.py",
+      "original_sha256": "74e1dd1fbb52d55ff384eb32a4cc3958acfd9fa0c2711c983762a102bfa8d980",
+      "published_sha256": "5683a9470c6e316132889a2845f689f2cdd8fd5ed4e33a537cb2e76640fd98c9"
+    },
+    {
+      "path": "tmp/hw02_private_notes/private_workflow_note.md",
+      "original_sha256": "5fe1739386515dee31bf90cbbc85f0b787927967733d39462e2e4110f73f1f6c",
+      "published_sha256": "0a15d7e4e23cfac2c24b7d1834e33a53c3afb73efe8eaccb5cd2b834d51eabcd"
+    },
+    {
+      "path": "tmp/hw02_pre_final_revision_20261011/ai_logs/README_用户必读.md",
+      "original_sha256": "541415021a9ecd566ef542308adedd6b0b7883d3013783d13d215e97b43fcaa7",
+      "published_sha256": "0941bb72967f11dc1bbb7cb6ac538c67572a77cdf370faa34bb0fccca06fb8d6"
+    },
+    {
+      "path": "docs/2026-10-20-alphaforge-r6-evaluation.md",
+      "original_sha256": "788d3c3a9e78a45d55adc2e13a094071d5bb57143f46f7cc6625880cacaf01a7",
+      "published_sha256": "7b5ceb04f9c7453a5855d58e058662e49dfdf2a2f846c5b63071e44cc67025a4"
+    },
+    {
+      "path": "docs/2026-10-19-alphaforge-r5-results.md",
+      "original_sha256": "0a0677ab264bb3d408d42277550e69d5a05d235672420f268af677d6cdc12fd0",
+      "published_sha256": "d63c183a2f47fa376b5cb04fa0dd4f7f7274051d6dc6651344e035f0645c5112"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-21-medium-term-momentum-g2-design.md",
+      "original_sha256": "d037aa81b44dc9c56dfb3acc9c715f41883ef09659165d42776da02dbe2ae5c9",
+      "published_sha256": "b5d1a1bbc860332c2a147ba1a2098400516a0554ec82e8f0155b67f1c5039190"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-21-long-term-strategy-goals-design.md",
+      "original_sha256": "ce4fce1012258ed9055c53c50aaa57021d686056ad7d48c3faaf69901be4817f",
+      "published_sha256": "09f1189d01253a72c532eeab1151adec9c4a0cc6fe948aa8e86690b2ac3593e1"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-20-single-etf-monthly-trend-design.md",
+      "original_sha256": "3c88cbf1ae2869e7ef7bbd19de034c935d9f799ce5f03a889f583c0c90cff662",
+      "published_sha256": "52097ff75e39e90d082052457be635cada0c8efdd01c4fe9f9ed09bcdb137703"
+    },
+    {
+      "path": "docs/2026-10-19-alphaforge-r4-results.md",
+      "original_sha256": "b501e48fe8e06976942f197589c1394a7cb7803a8df7b013f731a77d3da43552",
+      "published_sha256": "d999b38611e991aaa974f947722eca29f4fc0f999e888c8d474d2ec438678202"
+    },
+    {
+      "path": "docs/2026-10-18-alphaforge-r4-engineering.md",
+      "original_sha256": "35baaa22456d7543784a95d11dc56f7d2880a5ac5e7ccae05e4a0e384ed3c014",
+      "published_sha256": "ac53f94bcfdbd0791ebdcbfc39573a543582fd8c627c18652177916508654506"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-21-momentum-g2-implementation.md",
+      "original_sha256": "0e7a463c5e344483f2e7b619e16d8365fda169e149309f957d7de44fcea966be",
+      "published_sha256": "8cbb33d0b3b5ecd955e8373e3425d3fc56ce808d568a8806ea450ff83f87e97e"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-20-single-etf-monthly-trend-implementation.md",
+      "original_sha256": "9dade633677782a7f578c399f23c11792faa636fb8ebee8dfe8ea99913107a47",
+      "published_sha256": "54c51d9260af06f115bf7974edf1c105f4274f313f7b138f158904fc1f0018a3"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-18-alphaforge-r4-implementation.md",
+      "original_sha256": "c7b31748599258e4254b9db1d8d20de02b6c51a4faf4640246549ed357b2219c",
+      "published_sha256": "cf838e408d44fce676303c7277c7254055eb877b0db55fea16a03ee8bbbec694"
+    },
+    {
+      "path": "docs/strategy-completion-roadmap.md",
+      "original_sha256": "693daf4508de9f1f9f4df71235eb90a65a4fe69215ff07ca434db732ccd330a8",
+      "published_sha256": "9728ee27391eb8b4ad02474c5b45ddaf087b9cc927b81077b4b9463efab9a5c1"
+    },
+    {
+      "path": "docs/research-progress.md",
+      "original_sha256": "80fdc01fae114e8ce0165475095f2fe0f6418323ff0a55990852d1c1a60cc73c",
+      "published_sha256": "29e14d7834d7b1882e571a39a44f4d3a9a78f64b395dcf275977de530ab4a00f"
+    },
+    {
+      "path": "docs/2026-10-21-momentum-g1-feasibility.md",
+      "original_sha256": "51f38efaddba168ac3989559d910e0f9983add1975f2d9e86e85752745ce0be7",
+      "published_sha256": "8312b5f74eb2e594193374be311e9511b66658af7b09d07aad66f06ab34131a5"
+    },
+    {
+      "path": "docs/2026-10-20-single-etf-monthly-trend-results.md",
+      "original_sha256": "c5a5e7843b80d3fc4ca14fb04c22c92c6ad9c57cfc1cd49a5732e7a61da8e47f",
+      "published_sha256": "1c765c30172e40fae5ede0788a45ede8c61ee23c0729b82f6ec7a39531a12eb3"
+    },
+    {
+      "path": "docs/2026-10-20-research-priority-reset.md",
+      "original_sha256": "13d557386624fca531c110f298d4987055bdd51b7304e40f83044af2c5dca100",
+      "published_sha256": "980f5ab2952a16a19bbdf2d5dc124ff9d674b788cf7d68ae845869dfb4b73dff"
+    },
+    {
+      "path": "output/alphaforge_risk_budget_2018_2020_r6/source_before/scripts/report_alphaforge_r5.py",
+      "original_sha256": "7a9bec4eb9c62cfdd840bcf3942cf14079f98e8451363784153f9aea6e1e0ace",
+      "published_sha256": "6f373480fef9d55adf4b53bc00cf9cf4ca3c6792f8439de014c83c5ed18c9910"
+    },
+    {
+      "path": "output/alphaforge_risk_budget_2018_2020_r6/source_before/scripts/report_alphaforge_r4.py",
+      "original_sha256": "37a13bd89fde144353375f0e6e98b9887a36d3b7afa338a9ec3662ea8fa1dfd3",
+      "published_sha256": "379e27e933bc9c36cc4bf0780cc06bd3ada0151b4cb4a8c60d1d1719ae39d7f4"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r4/source_before/scripts/report_alphaforge_r4.py",
+      "original_sha256": "37a13bd89fde144353375f0e6e98b9887a36d3b7afa338a9ec3662ea8fa1dfd3",
+      "published_sha256": "379e27e933bc9c36cc4bf0780cc06bd3ada0151b4cb4a8c60d1d1719ae39d7f4"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r4/source_before/docs/superpowers/plans/2026-10-18-alphaforge-r4-implementation.md",
+      "original_sha256": "c7b31748599258e4254b9db1d8d20de02b6c51a4faf4640246549ed357b2219c",
+      "published_sha256": "cf838e408d44fce676303c7277c7254055eb877b0db55fea16a03ee8bbbec694"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r4/source_before/docs/2026-10-18-alphaforge-r4-engineering.md",
+      "original_sha256": "35baaa22456d7543784a95d11dc56f7d2880a5ac5e7ccae05e4a0e384ed3c014",
+      "published_sha256": "ac53f94bcfdbd0791ebdcbfc39573a543582fd8c627c18652177916508654506"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r5/source_before/scripts/report_alphaforge_r5.py",
+      "original_sha256": "7a9bec4eb9c62cfdd840bcf3942cf14079f98e8451363784153f9aea6e1e0ace",
+      "published_sha256": "6f373480fef9d55adf4b53bc00cf9cf4ca3c6792f8439de014c83c5ed18c9910"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r5/source_before/scripts/report_alphaforge_r4.py",
+      "original_sha256": "37a13bd89fde144353375f0e6e98b9887a36d3b7afa338a9ec3662ea8fa1dfd3",
+      "published_sha256": "379e27e933bc9c36cc4bf0780cc06bd3ada0151b4cb4a8c60d1d1719ae39d7f4"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r4/report.md",
+      "original_sha256": "b501e48fe8e06976942f197589c1394a7cb7803a8df7b013f731a77d3da43552",
+      "published_sha256": "d999b38611e991aaa974f947722eca29f4fc0f999e888c8d474d2ec438678202"
+    },
+    {
+      "path": "output/alphaforge_case_2018_2020_r5/report.md",
+      "original_sha256": "0a0677ab264bb3d408d42277550e69d5a05d235672420f268af677d6cdc12fd0",
+      "published_sha256": "d63c183a2f47fa376b5cb04fa0dd4f7f7274051d6dc6651344e035f0645c5112"
+    }
+  ]
+}

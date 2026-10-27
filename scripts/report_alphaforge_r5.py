@@ -65,7 +65,7 @@ def collect(out):
 def render(out,result,preserved):
     bridge=result['preparation']['source_bridge_audit']
     lines=['# AlphaForge r5：来源映射修订固定实验结果','',
-        '客户端北京时间2026-10-19。主人在完整r5方案交付后回复“=继续”，本轮按该批准实施；原提案的待批准文字保留为历史证据。','',
+        '客户端北京时间2026-10-19。用户在完整r5方案交付后回复“=继续”，本轮按该批准实施；原提案的待批准文字保留为历史证据。','',
         '## 结论','',f'终态：`{result["kind"]}`。已启动{result["accounts_started"]}账户，完整完成{result["completed_accounts"]}/6，独立核验跨年{result["year_boundaries"]}/12。',
         '实盘不启用。全市场2806只×790日的原16441条失败保持，局部补证不等于整个市场已认证；本轮也不是严格未见样本外或独立前向验证。','',
         '|账户|终态|已完成日|停止原因|','|---|---|---:|---|']

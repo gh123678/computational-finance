@@ -27,7 +27,7 @@ def main():
         assert audit['completed_accounts_verified']==sum(s['status']=='completed' for s in statuses)
         complete=audit['full_six_account_verification_passed']
         lines=['# AlphaForge r4：实际账户范围固定实验结果','',
-            '按客户端北京时间2026-10-19记录运行与结果。主人2026-10-18明确“批准”后实施；原r4提案中的待批准字样为保留的历史快照。','',
+            '按客户端北京时间2026-10-19记录运行与结果。用户2026-10-18明确“批准”后实施；原r4提案中的待批准字样为保留的历史快照。','',
             '## 终态','',
             f'- 已启动{audit["accounts_started"]}账户，完整完成{audit["completed_accounts_verified"]}/6；独立核对跨年{audit["year_boundaries"]}/12。',
             '- 全市场库存仍为未通过：2806只×790日，原16441条失败完整保留。条件性账户准入不等于数据认证。',
