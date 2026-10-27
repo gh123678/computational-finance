@@ -1,0 +1,171 @@
+\subsection{A1. Five-year real-data return analysis}
+\textbf{(a) Input and audit.} MSFT (Nasdaq), USD; Yahoo Finance public historical/chart interface; retrieved on 21 October 2026. The frozen window is 14 October 2021--14 October 2026, inclusive. The selected adjusted-close field includes the provider's split and dividend adjustments as of retrieval. It describes an adjusted return series, not a raw execution price. The input has 1255 observations and 1254 adjacent log returns. There are zero duplicate dates, missing values, nonpositive prices, missing expected trading sessions, or unexpected observations. The longest calendar gap is four days. Weekends, exchange holidays and the 9 January 2025 Carter closure were audited; no nontrading dates were forward-filled.
+
+The analyzed CSV SHA-256 is
+\begin{quote}\small\path{ce807ba43ff39e775faebda202ad5d8476569efa74973284a93216fbae8eff9f}\end{quote}
+The exact raw-response hash, retrieval timestamp, request URL, currency and field definition are retained in \path{data/provenance.json}. Raw data remain in the private local data directory; redistribution rights were not established, so no public-data redistribution right is asserted. The downloader and public historical interface provide a course-access route. Any later provider revision must be identified by a changed hash, rather than presented as the same input.
+
+\textbf{(b) Implemented statistics.} Let $n$ be the number of returns, $y_i=r_i-\bar r$, and $m_k=n^{-1}\sum y_i^k$. The variance uses $s^2=\sum y_i^2/(n-1)$; skewness is $m_3/m_2^{3/2}$ and excess kurtosis is $m_4/m_2^2-3$. The last two are uncorrected central-moment ratios, not bias-adjusted estimators.
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity & Observed value\\\midrule
+Number of returns & 1254\\
+Daily mean & 0.000484860\\
+Daily variance & 0.000312370\\
+Daily standard deviation & 0.017674004\\
+Skewness & 0.356888\\
+Excess kurtosis & 6.165976\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The histogram uses density normalization. The fitted normal uses $\bar r,s_r$; the Q--Q plot uses sorted $(r_i-\bar r)/s_r$ and theoretical quantiles $\Phi^{-1}((i-1/2)/n)$ with the reference $y=x$.
+
+\textbf{(c) Tail comparison.} The counts use the strict inequality $|r_i-\bar r|>ks_r$; fitted-normal expected counts are $2n[1-\Phi(k)]$.
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Threshold $k$ & Observed & Normal expected\\\midrule
+3 & 13 & 3.3855443\\
+4 & 6 & 0.0794315\\
+5 & 3 & 0.0007189\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The fitted normal is a rough central reference. The Q--Q tails depart from its line and the observed tail counts exceed its expectations; this sample therefore does not support an exact fitted i.i.d.-normal description. These are fitted in-sample comparisons, not exact hypothesis tests: estimated standardization, dependence, parameter changes, dividend adjustments and a few extreme observations matter. No particular alternative tail law or market inefficiency follows.
+
+\textbf{(d) Temporal diagnostics.} The code implements the exact global-mean/global-denominator ACF given in the handout. The same single seeded permutation is used for both return and squared-return comparisons. Returns have small ACFs at lags 1--20 (largest absolute value about 0.0524); some squared-return ACFs are positive, reaching about 0.0709. These observations neither prove independence nor establish a volatility model. One permuted squared-return ACF reaches about 0.1287, illustrating why one permutation is not a significance test. Permutation preserves the complete empirical marginal distribution, moments, tail counts and compounded final return; it changes ordering, intermediate paths and temporal dependence.
+
+\textbf{(e) Calibration with $h=1/252$.}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Estimate & Value\\\midrule
+$\widehat m$ (year$^{-1}$) & 0.122185\\
+$\widehat\sigma$ (year$^{-1/2}$) & 0.280566\\
+$\widehat\sigma^2$ (year$^{-1}$) & 0.078717\\
+$\widehat\mu$ (year$^{-1}$) & 0.161543\\
+Plug-in SE$(\widehat m)$ (year$^{-1}$) & 0.125773\\
+$H=nh$ (years) & 4.976190\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The log-drift SE is about as large as its estimate. The physical drift is imprecisely estimated, and these parameters are descriptive constant-model estimates, not forecasts guaranteed by the data. Dividend-adjusted prices and annualization conventions must be kept consistent.
+
+Checks include strict positive/finite prices and duplicate/date validation; exchange-calendar coverage and no forward filling; telescoping log-return/compounding identities; hand-calculated ACF and moment divisors; and preservation of marginal statistics under permutation. Commands and actual results are preserved alongside the code.
+\clearpage
+\fig{A1_histogram}{Density histogram and fitted normal for daily adjusted MSFT log returns.}{.86}
+\fig{A1_qq}{Standardized-return normal Q--Q diagnostic. Extremes depart from the fitted Gaussian benchmark.}{.68}
+\clearpage
+\fig{A1_acf_returns}{Return ACF: original order and one seeded permutation.}{.88}
+\fig{A1_acf_squared}{Squared-return ACF for the same two orders; neither curve is a significance threshold.}{.88}
+\clearpage
+\subsection{A2. Lognormal densities and exact terminal simulation}
+\textbf{(a) Density and normalization.} For $T>0$, $\sigma>0$,
+\[
+ f_T(s)=\frac{1}{s\sigma\sqrt{2\pi T}}
+ \exp\left\{-\frac{[\log(s/S_0)-(\mu-\sigma^2/2)T]^2}{2\sigma^2T}\right\},\quad s>0,
+\]
+and $f_T(s)=0$ for $s\leq0$. This follows by transforming the normal log price with Jacobian $1/s$. Elementary quadrature on $(0,\infty)$ gives integrals 1.0000000000000007 and 1.0000000000000002 for $S_0=T=1$, $\sigma=0.4$, $\mu=0.05,0.20$. Increasing $\mu$ shifts the log-price location upward; under common $Z$, it multiplies $S_T$ by $e^{\Delta\mu T}$ while preserving log variance.
+
+\textbf{(b) Exact simulation.} Draw $Z_j\sim N(0,1)$ independently and set
+\[
+ S_T^{(j)}=S_0\exp[(\mu-\sigma^2/2)T+\sigma\sqrt{T}Z_j].
+\]
+No Euler stepping or library lognormal sampler is used. At the T6 parameters, $M=100{,}000$ gives
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Quantity & Simulation & Analytical\\\midrule
+Terminal mean & 117.188510 & 117.351087\\
+Terminal variance & 2707.881389 & 2715.935064\\
+Mean MCSE & 0.164556 & 0.164801\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The approximate mean confidence interval is $\bar S\pm1.96s_S/\sqrt M$:
+\[
+ [116.865980, 117.511041].
+\]
+The mean discrepancy is about $-0.988$ estimated MCSEs. Sampling variation is expected; a single nominal 95\% interval miss alone would not identify a program defect.
+
+\textbf{(c) Fixed prediction-interval coverage.} T6's endpoints remain
+$[46.693857,246.343711]$. The observed count inside is 95060 out of 100,000, or 0.950600. With rounded $z=1.96$, the exact model probability is $p_\star=2\Phi(1.96)-1=0.95000421$, and
+\[
+ \operatorname{SD}(\widehat p)=\sqrt{p_\star(1-p_\star)/M}=0.000689175.
+\]
+The observed discrepancy is about 0.8645 MCSEs. This binomial error scale measures the coverage fraction; it is not uncertainty in the terminal mean.
+
+For $T=0$, the terminal price is $S_0$; for $\sigma=0$, it is $S_0e^{\mu T}$. Both are point masses and have no ordinary lognormal density. The sampler and moment routines support them, while the ordinary-density routine raises an explicit error. Nonfinite inputs, nonpositive $S_0$, negative volatility/time and invalid counts are checked.
+\fig{A2_density_comparison}{Analytical densities with common volatility and two physical drifts.}{.82}
+\fig{A2_terminal_histogram}{100,000 exact terminal prices, density-normalized histogram and analytical density.}{.82}
+\clearpage
+\subsection{A3. Coupled discretizations and vanishing noise}
+\textbf{(a) Coupling and updates.} Each path uses one 256-increment Brownian grid. For $n\in\{16,32,64,128,256\}$, consecutive fine increments are summed in blocks of $256/n$; consequently every resolution has the same terminal Brownian increment. With $h=1/n$ and coarse $\Delta W_i$, the implementations are
+\begin{align*}
+ G_T&=S_0e^{(\mu-\sigma^2/2)T+\sigma\sum_i\Delta W_i},\\
+ E_{i+1}&=E_i(1+\mu h+\sigma\Delta W_i),\\
+ V_{i+1}&=V_i(1+\mu h+\sigma\sqrt h\,\Delta W_i).
+\end{align*}
+Since $\Delta W_i=\sqrt hY_i$, the final line is exactly the specified wrong $\sigma hY_i$ scheme. All 20,000 paths are retained. Nonpositive multipliers are counted before updating, with no clipping or removal.
+
+\textbf{(b) Independent analytical benchmarks.} Let $a=1+\mu h$ and let $c$ be the Brownian coefficient ($\sigma$ for Euler, $\sigma\sqrt h$ for the wrong scheme). For $X_n=S_0\prod_i(a+c\Delta W_i)$,
+\begin{align*}
+ \E X_n&=S_0a^n,&\E X_n^2&=S_0^2(a^2+c^2h)^n,\\
+ \Var(X_n)&=S_0^2[(a^2+c^2h)^n-a^{2n}],\\
+ \E[X_nG_T]&=S_0^2e^{\mu T}(a+c\sigma h)^n.
+\end{align*}
+The last identity follows by differentiating the Gaussian exponential moment. It independently checks coupling. Substituting the second and cross moments into
+$\E[(X_n-G_T)^2]=\E X_n^2+\E G_T^2-2\E[X_nG_T]$ yields an exact finite-$n$ RMSE benchmark. The wrong scheme's distance from $d=S_0e^{\mu T}$ is $\Var(V_n)+(\E V_n-d)^2$ before taking the square root.
+
+Here are the actual terminal moments; means and errors are in price units, variances in squared price units.
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $n$ & Mean & Sample variance & Product variance\\\midrule
+euler & 16 & 108.1115 & 1086.6859 & 1090.0748\\
+wrong & 16 & 108.2544 & 65.4672 & 65.4996\\
+euler & 32 & 108.1063 & 1091.5136 & 1097.5659\\
+wrong & 32 & 108.2800 & 32.8573 & 32.8786\\
+euler & 64 & 108.1074 & 1095.2981 & 1101.3445\\
+wrong & 64 & 108.2964 & 16.4642 & 16.4710\\
+euler & 128 & 108.1051 & 1096.2403 & 1103.2422\\
+wrong & 128 & 108.3069 & 8.2411 & 8.2434\\
+euler & 256 & 108.1093 & 1097.4422 & 1104.1931\\
+wrong & 256 & 108.3139 & 4.1230 & 4.1237\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The common exact reference has sample mean 108.112308 and variance 1098.854857; the GBM population values are 108.328707 and 1105.145457. Monte Carlo variability explains their differences. The detailed CSV also reports mean, variance, cross-moment and squared-error uncertainty scales.
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+$n$ & Euler vs. exact & Wrong vs. exact & Wrong vs. deterministic\\\midrule
+16 & 1.791140 & 25.196830 & 8.091317\\
+32 & 1.272735 & 27.521571 & 5.732196\\
+64 & 0.896502 & 29.169397 & 4.057641\\
+128 & 0.636632 & 30.335608 & 2.870737\\
+256 & 0.448867 & 31.160114 & 2.030526\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Regressing $\log(\mathrm{RMSE})$ on $\log h$ gives an observed Euler slope of 0.499243. This run is consistent with order $1/2$ strong convergence; an observed rate is not a proof. The wrong variance decreases toward zero and its deterministic-target RMSE falls, while its coupled GBM error increases toward $\sqrt{\Var(G_T)}\approx33.244$.
+
+\textbf{(c) One-step stress test.} At $S_0=100$, $\mu=.08$, $\sigma=T=h=1$,
+\[
+ \Pp(1+.08+Y\leq0)=\Phi(-1.08)=0.1400710901.
+\]
+There are 14,178 nonpositive outcomes among 100,000 draws, fraction 0.141780. The model binomial MCSE is 0.0010975025; the discrepancy is about 1.5571 MCSEs. Clipping would replace the simulated law and corrupt both this probability diagnostic and moment/error calculations.
+
+\textbf{(d) Cost and memory.} Batches have at most $B=1000$ paths. Runtime is $O(M[n_{\max}+\sum n])$, or $O(Mn_{\max})$ for these geometric resolutions. Peak working-array storage is $O(Bn_{\max})$: the finest-grid array uses 2,048,000 bytes and the conservative dominant-array estimate is 4,192,000 bytes. Retained terminal outputs use an additional $O(MK)$ space, 1,760,000 bytes for $K=5$ resolutions; no full path history is saved. These are array sizes, not measured total process memory.
+
+Using an independent exact path would not measure pathwise approximation error. Even if Euler converged to one exact realization, an independent exact reference would leave limiting MSE $2\Var(G_T)$ rather than zero. The common Brownian grid removes this unrelated physical variation.
+\clearpage
+\fig{A3_coupled_error}{Log--log coupled errors: Euler approaches GBM, while the wrong scheme approaches the deterministic target.}{.88}
+\fig{A3_variance}{Sample and exact finite-grid product variances; the wrong noise disappears as the grid is refined.}{.88}

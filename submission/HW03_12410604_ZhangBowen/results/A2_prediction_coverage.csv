@@ -1,0 +1,2 @@
+M,inside_count,empirical_fraction,model_fraction_using_z1_96,binomial_mcse_model,binomial_mcse_plugin,fraction_error_in_mcse,mc_interval95_lower,mc_interval95_upper
+100000,95060,0.9506,0.950004209703559,0.000689174950568252,0.000685271041267614,0.8644978984649908,0.9492492170968863,0.9519507829031137

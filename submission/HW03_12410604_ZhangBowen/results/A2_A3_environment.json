@@ -1,0 +1,55 @@
+{
+  "run_started_China_Standard_Time": "2026-10-21T20:13:51.979402+08:00",
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Admin\\anaconda3\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.4.6",
+  "scipy": "1.16.3",
+  "matplotlib": "3.10.6",
+  "master_seed": 21603,
+  "generator": "numpy.random.default_rng / PCG64",
+  "seed_sequence_spawn_keys": {
+    "A2": [
+      2
+    ],
+    "A3": [
+      3
+    ],
+    "stress": [
+      4
+    ]
+  },
+  "A2_parameters": {
+    "S0": 100,
+    "mu": 0.08,
+    "sigma": 0.3,
+    "T": 2,
+    "M": 100000
+  },
+  "A3_parameters": {
+    "S0": 100,
+    "mu": 0.08,
+    "sigma": 0.3,
+    "T": 1,
+    "M": 20000,
+    "steps": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "batch_size": 1000
+  },
+  "variance_divisor": "n-1",
+  "source_sha256": {
+    "gbm.py": "9f244586926a003e2bf0b428b8d4b1b7452c99dea5d26a5fd84d7c3ac7af53cc",
+    "experiments_gbm.py": "06bc7342adfc12528599809f3ac1e6777a62f8a9efd45db328bbefcbf153bd0e",
+    "test_gbm.py": "4a9e34f4e3e027921855ccd197345a6fa4f9df82eb517f9fcbb66b7d24823146"
+  },
+  "invocation": [
+    "C:\\Users\\Admin\\anaconda3\\python.exe",
+    "submission/HW03_12410604_ZhangBowen/code/experiments_gbm.py",
+    "--run-tests"
+  ]
+}

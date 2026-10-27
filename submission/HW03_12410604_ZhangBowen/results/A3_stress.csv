@@ -1,0 +1,2 @@
+M,S0,mu_per_year,sigma_per_sqrt_year,T_years,h_years,threshold_Y,analytical_nonpositive_probability,nonpositive_count,observed_fraction,binomial_mcse_model,binomial_mcse_plugin,fraction_error_in_mcse,clipped_or_discarded
+100000,100,0.08,1,1,1,-1.08,0.140071090088769,14178,0.14178,0.0010975025276058045,0.0011030794694853131,1.5570897271270665,False

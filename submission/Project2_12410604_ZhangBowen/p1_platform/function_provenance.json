@@ -1,0 +1,32 @@
+{
+  "extraction": "AST exact source segment, no edits inside functions",
+  "functions": [
+    {
+      "source_file": "quant_research/research.py",
+      "reference_file": "p1_platform/reference/research.py",
+      "source_file_sha256": "f25e15a467ebde671b4e9d81469a5ac80a5bafe29a9f74aba0e9f2ef5354baff",
+      "function": "read_market",
+      "start_line": 21,
+      "end_line": 25,
+      "function_utf8_sha256": "86b92bbb52b5c80bc3990bc1ce59d17f852a48a76bca0cc8114587c55b2ee465"
+    },
+    {
+      "source_file": "quant_research/datasets.py",
+      "reference_file": "p1_platform/reference/datasets.py",
+      "source_file_sha256": "2e45d61bbb625310f70624350c71ec1ca08ab830fbedaebe5317ec8d6e6fad43",
+      "function": "dataset_config",
+      "start_line": 33,
+      "end_line": 36,
+      "function_utf8_sha256": "1a03690defc50fa8932dbc992557ecbb5960120c5490a027062e0ee20a32b31e"
+    },
+    {
+      "source_file": "quant_research/backtest.py",
+      "reference_file": "p1_platform/reference/backtest.py",
+      "source_file_sha256": "0dca85c6eac4f8000a5eace03c3e90227d0a78ee738718a12555c96ae284a380",
+      "function": "summarize",
+      "start_line": 220,
+      "end_line": 245,
+      "function_utf8_sha256": "3612a2900da2919ae860c47854309eb98ccf0a63f54e74b4af59deab9113608a"
+    }
+  ]
+}

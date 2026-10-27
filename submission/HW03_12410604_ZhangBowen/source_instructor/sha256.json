@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "1832b3646c534849473e674aadb5bf9062eaa1d542446d88c54b503e286df187",
+  "files": {
+    "code/test_student_tasks.py": "344852954829be74d202de2951eadb7bbe010a75f3b8cc49f33d6f713a799c85",
+    "code/student_tasks.py": "dc62335f7de017e52d4346289afad2af98e8d7207a339d1d0729c83c63aca97c",
+    "code/download_prices.py": "c883ccfe2b1fa63e0e0ee0310d29aec150e59e6dec863a605215600349e31f60",
+    "code/run_student.py": "c1ddf6d3da25bd6bad250f94426d0e3cee1a810ee47130bceec0ffd74204cb0a",
+    "code/ai_debug_exercise.py": "7f9bf4b6a5621cfdc427ecf0cf56621ff37c9a5662028570793a29aea8adf174"
+  }
+}

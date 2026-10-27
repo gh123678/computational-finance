@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Theory}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}T1. Contracts and positions}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}T2. Payoffs and financed profit}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}T3. Call butterfly}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}T4. Compounding conventions}{4}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}T5. European option bounds and arbitrage}{4}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}T6. Parity and the put butterfly}{4}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}T7. Forward delivery price and value}{5}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}T8. Uniform distribution}{5}{subsection.1.8}%
+\contentsline {subsection}{\numberline {1.9}T9. Variance and covariance}{5}{subsection.1.9}%
+\contentsline {subsection}{\numberline {1.10}T10. Exponential moments}{6}{subsection.1.10}%
+\contentsline {subsection}{\numberline {1.11}T11. Standard normal moments}{6}{subsection.1.11}%
+\contentsline {subsection}{\numberline {1.12}T12. Inverse-transform sampling}{6}{subsection.1.12}%
+\contentsline {subsection}{\numberline {1.13}T13. Quantiles and endpoints}{7}{subsection.1.13}%
+\contentsline {subsection}{\numberline {1.14}T14. LLN, CLT and Monte Carlo uncertainty}{7}{subsection.1.14}%
+\contentsline {subsection}{\numberline {1.15}T15. Replication and risk-neutral valuation}{7}{subsection.1.15}%
+\contentsline {section}{\numberline {2}Algorithms and actual results}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}A1. Payoffs and financed-profit visualizer}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}A2. Rate conversion and compounding}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}A3. Exponential inverse-transform sampler}{13}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}A4. Exponential CLT simulation}{15}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}A5. Exact and Monte Carlo pricing}{18}{subsection.2.5}%
+\contentsline {section}{\numberline {3}AI interaction: supplied records and independent audit}{19}{section.3}%
+\contentsline {subsection}{\numberline {3.1}I1. Cross-model audit}{19}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}I2. AI-assisted debugging and remaining defects}{21}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}I3. Supplied rehearsal questions and verified solutions}{22}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Reproduction and submission status}{24}{section.4}%

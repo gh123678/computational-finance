@@ -1,0 +1,55 @@
+\subsection{I1. Two-session audit}
+Two independently prompted DeepSeek sessions, Model A and Model B, received the same four claims and mathematical conventions on 21 October 2026. The interface did not expose distinct backend build identifiers, so this is not a claim of two vendor-distinct models; it is a two-session audit within one provider. Earlier draft labels naming OpenAI models were incorrect and have been corrected. Neither session browsed or executed code while answering; the orchestrator ran the verification independently. The prompts were issued by the orchestrating assistant on the student's behalf, not typed personally by the student. Full initial prompts, actual replies and two substantive follow-ups per session are preserved separately.
+\begin{center}
+\begin{tabular}{p{.30\linewidth}lll}
+\toprule
+Claim & A & B & Independent conclusion\\\midrule
+Efficiency implies i.i.d. Gaussian & Invalid & Invalid & Mean restrictions do not fix a law\\
+$\mu>0$ implies a.s. growth & Invalid & Invalid & Need $\mu>\sigma^2/2$\\
+More paths narrow a fixed PI & Invalid & Invalid & PI independent of replication count\\
+Smooth $\sigma hY_i$ verifies GBM & Invalid & Invalid & Noise variance $\sigma^2Th\to0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Hand argument 1.} Dividing $\log(S_t/S_0)$ by $t$ and using $W_t/t\to0$ gives $\mu-\sigma^2/2$. With $\mu=.10,\sigma=.50$, this is $-.025$: the price tends to zero almost surely although its expectation grows.
+
+\textbf{Hand argument 2.} For the wrong scheme, independence gives the exact first and second product moments in T5. They converge to $d$ and $d^2$, so $\E[(V_n-d)^2]\to0$. This proof uses no invalid logarithm of a potentially negative multiplier.
+
+\textbf{Numerical check.} A3 uses 20,000 coupled paths. Refining from 16 to 256 steps reduces Euler RMSE from 1.791140 to 0.448867, while the wrong scheme's variance drops from 65.467154 to 4.123023 and its GBM RMSE increases from 25.196830 to 31.160114. The independent finite-grid product/cross-moment checks agree within their Monte Carlo scales. This directly distinguishes visual smoothness from convergence to GBM.
+
+\textbf{Response-specific follow-ups.} Model A initially illustrated mean-unpredictability with an unbounded product-normal sequence. A follow-up identified that it can be below $-1$ if called a positive-stock simple return. It supplied a bounded discrete martingale-difference construction with strictly positive gross returns and positively dependent squared returns. This is a qualified counterexample, not a claim that economic efficiency was proved. Its second follow-up derived the coupled cross-moment benchmark used in A3. Model B supplied a complete product-moment proof after its first response had relied on summed-noise intuition; its second follow-up clarified the Jensen/risk-benchmark qualification of a symmetric log-return example and computed MC uncertainty scaling.
+
+\textbf{Comparison (206 words).} Both models rejected the four claims, so disagreement was not needed to make the audit useful. Model A gave a detailed distinction between conditional-mean restrictions and distributional assumptions, including an explicit dependent counterexample. Its initial product-normal example, however, could not be used unchanged as the simple return of a positive-price stock. A targeted follow-up produced a bounded construction and preserved the original limitation. Model B was more concise. Its initial argument about vanishing summed noise needed a product-moment justification for the multiplicative scheme; the follow-up supplied that proof. Its symmetric log-return example also required an economic benchmark because a zero expected log return does not mean a zero expected simple return.
+
+Cochrane's discussion of Fama, actually consulted through Chicago Booth Review, emphasizes the relation between available information, trading rules, risk, and empirical evaluation. That perspective supports treating efficiency as an economic claim requiring a benchmark, rather than equating it with Gaussian noise. Neither model response establishes empirical efficiency. The useful difference was explanatory depth and which assumptions became explicit after questioning. Mathematical derivations and A3's independently executed coupled experiment provided the verification; fluent agreement alone did not. The record therefore reports qualified examples and completed checks without inventing an incorrect classification to create a model error.
+
+Non-AI source: John H. Cochrane, ``Eugene Fama, Efficient Markets, and the Nobel Prize,'' Chicago Booth Review, 20 May 2014, \url{https://www.chicagobooth.edu/review/eugene-fama-efficient-markets-and-the-nobel-prize}. The Fama 1970 bibliographic record was checked; its full text was not claimed to have been read.
+\subsection{I2. Repair of the instructor terminal-price routine}
+The unchanged original was supplied in \path{code.zip} and preserved byte-for-byte, SHA-256
+\begin{quote}\small\path{7f9bf4b6a5621cfdc427ecf0cf56621ff37c9a5662028570793a29aea8adf174}\end{quote}
+The original is deliberately flawed instructor-authored teaching code; it is not attributed to an AI. The student reported having no earlier independent/pre-AI diagnostic record. The saved initial diagnosis and the 11-check design are explicitly an assistant baseline written before the separate repair-model request; they cannot satisfy a personal pre-AI chronology retrospectively. Rubric item (a) is therefore only partly met: the diagnosis and checks exist and precede the repair request, but they were not authored personally by the student. This gap is disclosed rather than backdated.
+
+The original exponent uses $\mu T+\sigma TZ$, omitting $-\sigma^2T/2$ and replacing $\sqrt T$ by $T$. It computes SE as $s/M$ instead of $s/\sqrt M$, and labels a narrow interval for the simulated mean as a terminal prediction interval. It also lacks model/count validation. Correct code uses the exact A2 law, sample variance with divisor $M-1$, an explicitly named mean confidence interval, and analytical fixed prediction endpoints. Deterministic limits return exact zero variance and SE.
+
+\begin{center}\small
+\begin{tabular}{p{.24\linewidth}p{.52\linewidth}c}
+\toprule
+Required category & Executed checks (fixed script) & Count\\\midrule
+Analytical benchmark & mean within 5 model MCSE; variance within 5\%; same-draw drift/time; divisor $M-1$ & 4\\
+Uncertainty/interval & SE $=s/\sqrt M$; fixed population PI; separate mean CI; quadrupling $M$ halves SE & 4\\
+Invalid/limiting input & $T=0$ point mass; $\sigma=0$ point mass; invalid model/count rejected & 3\\
+\bottomrule
+\end{tabular}
+\end{center}
+The same 11 checks in \path{code/debug_checks.py} were run unchanged against all three versions, so the before/after comparison does not use tests written after seeing a patch.
+
+The unchanged original passed 1 of the 11 initial checks. At the default parameters it returned mean 140.073177, variance 8452.529174, SE 0.0009193764, and a purported prediction interval [140.071375,140.074979], instead of the T6 distribution and uncertainty scales.
+The final repair passes 11 of 11 checks. Its default mean is 117.100664, sample variance 2701.350850, and mean MCSE 0.164357867. Its population prediction interval is [46.693857,246.343711], while its mean confidence interval is [116.778523,117.422806]. The seed differs from the A2 child stream; equality of sample outcomes is not expected. A separate same-draw check agrees with the A2 sampler to numerical precision.
+
+Three substantive repair exchanges, including the actual candidate test output and a more demanding follow-up, are preserved in \path{ai_logs/I2_model_B.md}. The original, proposed patch and final repair remain separate. A passing candidate is reported honestly; no artificial model failure is invented. Accepted/revised decisions and all executed checks are recorded in the repair log.
+The first proposal passed 8/11 direct checks: its numerical formulas were correct, but three checks failed because it renamed the original \texttt{prediction\_interval} key. Restoring that key as an alias of the explicitly named fixed-population interval resolved the compatibility regression. After 11/11 passed, 44 more demanding checks also passed: 36 same-draw comparisons across three drifts, three volatilities and four horizons, one prediction-interval/count invariance check, and seven invalid-input cases.
+
+\textbf{Accepted, revised and rejected changes.} Accepted: the $-\sigma^2T/2$ log-drift correction, $\sigma\sqrt T$ noise scaling, divisor $M-1$, SE $=s/\sqrt M$, separation of the mean confidence interval from the fixed population prediction interval, input validation, and exact deterministic limits. Revised: the proposed removal of the \texttt{prediction\_interval} key was rejected as an API break and replaced by a backward-compatible alias with identical endpoints in every branch. Rejected: treating the three \texttt{KeyError} failures as numerical errors (they were not); changing formulas after the 11/11 pass with no failing evidence; and inventing a further failure to make the interaction look more eventful. The recorded 1/11, 8/11 and 11/11 outcomes are the actual executed results.
+
+These checks establish tested model behavior, not empirical validity of GBM or numerical representability for every extreme input.

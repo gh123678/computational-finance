@@ -1,0 +1,10 @@
+Module: ai_debug_exercise; analytical call=11.950823019971; actual output={'price': -13.690703488104962, 'se': 9.532128356248671e-05, 'ci_low': -13.690890317820744, 'ci_high': -13.69051665838918}
+FAIL: analytical benchmark: absolute error < 5 reported SE
+FAIL: call no-arbitrage bounds
+FAIL: discounted payoff and risk-neutral draw reconstruction
+FAIL: sample SE divided by sqrt(N)
+FAIL: zero payoff when strike above both states
+FAIL: invalid tree
+FAIL: boundary tree
+FAIL: invalid count
+0/8 checks passed

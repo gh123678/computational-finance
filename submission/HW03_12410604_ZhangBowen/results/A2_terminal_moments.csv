@@ -1,0 +1,2 @@
+M,S0,mu_per_year,sigma_per_sqrt_year,T_years,sample_mean,sample_variance_n_minus_1,mean_mcse,variance_mcse_plugin,analytical_mean,analytical_variance,mean_error_in_mcse,mean_ci95_lower,mean_ci95_upper,fixed_prediction95_lower,fixed_prediction95_upper
+100000,100.0,0.08,0.3,2.0,117.18851015526066,2707.881389013636,0.16455641552408815,21.302004202671345,117.35108709918103,2715.935063641711,-0.9879708633819411,116.86597958083344,117.51104072968788,46.69385686207214,246.34371117703844

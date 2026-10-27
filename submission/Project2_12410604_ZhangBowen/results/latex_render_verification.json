@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "method": "pdfLaTeX-compiled vector PDF equations merged with pypdf",
+  "report_pages": 11,
+  "font_resources_checked": 715,
+  "font_operators_checked": 2493,
+  "formula_count": 10,
+  "formulas": [
+    {
+      "key": "variance",
+      "page": 3
+    },
+    {
+      "key": "weights",
+      "page": 3
+    },
+    {
+      "key": "scale",
+      "page": 3
+    },
+    {
+      "key": "regression",
+      "page": 3
+    },
+    {
+      "key": "annualization",
+      "page": 3
+    },
+    {
+      "key": "metrics",
+      "page": 3
+    },
+    {
+      "key": "wealth",
+      "page": 3
+    },
+    {
+      "key": "cap",
+      "page": 7
+    },
+    {
+      "key": "fees",
+      "page": 8
+    },
+    {
+      "key": "net_return",
+      "page": 8
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+<html>
+<head>
+
+<title>Kenneth R. French - Changes in CRSP Data</title>
+
+
+<META NAME="keywords" CONTENT="Monthly, Annual, Series, Stock, Portfolio, Formation, Detail, NYSE, Fama/French, Book-to-Market">
+
+
+<META NAME="description" CONTENT="The portfolios, which are constructed at the end of each June, from 1926-1999, are the intersections of 10 portfolios formed on size (market equity, ME) and 10 portfolios formed on the ratio of book equity to market equity (BE/ME). ">
+
+<!-----------------------------------------------------------------------------------
+--
+-- Site Developed by Dimensional Fund Advisors Web Team (http://www.dfafunds.com).
+-- Web Producer: Robert Dintzner
+-- Webmaster: Keith J. Hasely
+-- Graphic Artist: Dan Searle
+-- Jr. Developer/Jr. Graphic Artist: Hiroshi Nakahara
+--
+-- All images and code are property of Ken French. Use in part or whole is illegal
+-- except by permission of Ken French or Dimensional Fund Advisors
+--
+------------------------------------------------------------------------------------> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+<br>
+<br>
+<center>
+
+  <script language="JavaScript">
+
+<!--
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+//		Script written by Keith J. Hasely
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Constants
+
+
+var INT_VERSION = parseInt(navigator.appVersion);
+
+var STRING_BROWSER = navigator.appName;
+
+
+// Variable
+var
+ bool_finished_loading = 0;
+var bool_browser_scriptable = 0;
+
+
+// Checks for browsers that supports the image object
+
+if ((INT_VERSION >= 3) && (STRING_BROWSER == "Netscape")){bool_browser_scriptable = 1}
+if ((INT_VERSION >= 4) && (STRING_BROWSER == "Microsoft Internet Explorer")) {bool_browser_scriptable = 1}
+
+
+// If the browser supports the image object
+
+if (bool_browser_scriptable){
+// Image Object Creation
+	
+	var kf_hi_lo = new Image(108, 65);
+	kf_hi_lo.src = "../images/Board_HiLoSm.jpg";	
+
+	var kf_bio = new Image(108, 65);
+	kf_bio.src = "../images/Board_BiographySm.jpg";
+
+	var kf_curriculum = new Image(108, 65);
+	kf_curriculum.src = "../images/Board_CurriculumSm.jpg";
+		
+	var kf_working = new Image(108, 65);
+	kf_working.src = "../images/Board_WorkingSm.jpg";
+	
+	var kf_data = new Image(108, 65);
+	kf_data.src = "../images/Board_DataSm.jpg";
+	
+	var kf_consulting = new Image(108, 65);
+	kf_consulting.src = "../images/Board_ConsultingSm.jpg";
+	
+		var kf_fff = new Image(108, 65);
+	kf_fff.src = "../images/Board_fffSm.jpg";
+
+	var kf_contact = new Image(108, 65);
+	kf_contact.src = "../images/Board_ContactSm.jpg";
+
+	bool_finished_loading = 1;
+
+} // END if (bool_browser_scriptable)
+
+
+	function kf_on_image(object_name){
+		
+		if (bool_finished_loading){
+			self.document.kf_blackboard.src = object_name.src;
+		} // END if		
+	} // END function on_image
+	
+
+	function kf_off_imag(){
+		if (bool_finished_loading){
+			self.document.kf_blackboard.src = kf_data.src
+		} // END if
+	} // END function off_imag
+	
+
+
+//-->
+</script>
+
+
+  <table width="650" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      
+   <td valign="top" width="140"><font face="Courier New, Courier, mono" size="2" color="#336699"><b><img src="../images/Board_DataSm.jpg" width="108" height="65" name="kf_blackboard" border="0"></b></font><br>
+        <br>
+        <table width="140" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top"> 
+            <td colspan="3"><a href="../index.html" onMouseOver="kf_on_image(kf_hi_lo)" onMouseOut="kf_off_imag()"><img src="../images/Home_nav.gif" width="42" height="16" alt="Home" border="0"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="../biography.html" onMouseOver="kf_on_image(kf_bio)" onMouseOut="kf_off_imag()"><img src="../images/Biography_nav.gif" width="81" height="20" alt="Biography" border="0"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="../curriculum_vitae.html" onMouseOver="kf_on_image(kf_curriculum)" onMouseOut="kf_off_imag()"><img src="../images/Curriculum_nav.gif" width="123" height="16" border="0" alt="Curriculum Vitae"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="https://urldefense.com/v3/__http://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=1455__;!!OfU0AjxONc4!NO97VYjDPUFMu4Mu54CLLi-hhXi-kgLitb9oAYbL7GXQkm_Lz-qPjmmCxJxzYjDFoBfvCRlsfyC46ULnlIq0pQ7-OcjOUY9XHHXJvz0$" target="_blank" onmouseover="kf_on_image(kf_working)" onmouseout="kf_off_imag()"><img src="../images/Working_nav.gif" width="113" height="15" border="0" alt="Working Papers"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3" height="2"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="../data_library.html"><img src="../images/Data_blue_nav.gif" width="99" height="19" border="0" alt="Data Library"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"> <!-- Begin nested table for the Data Library Section -->
+              <table cellpadding="0" cellspacing="2">
+                
+ <tr> 
+                  
+  <td width="10">&nbsp;</td>
+  <td colspan="3"><a href="../data_library.html#Benchmarks"><img src="../images/Benchmarks_nav.gif" width="97" height="16" border="0" alt="Benchmarks"></a></td>
+ </tr>
+                
+ <tr> 
+                  
+  <td width="10">&nbsp;</td>
+  <td colspan="3"><a href="../data_library.html#Research"><img src="../images/Research_returns_blue_nav.gif" alt="U.S. Research Returns" width="133" height="14" border="0"></a></td>
+ </tr>
+                
+ <tr> 
+                  
+  <td width="10">&nbsp;</td>
+  <td colspan="3"><a href="../data_library.html#Breakpoints"><img src="../images/Research_breakpoints_nav.gif" width="150" height="14" border="0" alt="U.S. Research Breakpoints"></a></td>
+ </tr>
+                
+ <tr>
+  <td>&nbsp;</td>
+  <td colspan="3"><a href="../data_library.html#BookEquity"><img src="../images/US_Book_Equity_Data_nav.gif" width="116" height="14" border="0" alt="U.S. Book Equity Data"></a></td>
+ </tr>
+ <tr>
+                  
+  <td width="10">&nbsp;</td>
+  <td colspan="3"><a href="../data_library.html#International"><img src="../images/Int_research_returns_nav.gif" alt="International Research Returns" width="112" height="29" border="0"></a></td>
+ </tr>
+              
+</table>
+              <!-- End nested table for the Data Library Section --> </td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="../consul_rel.html" onMouseOver="kf_on_image(kf_consulting)" onMouseOut="kf_off_imag()"><img src="../images/Consulting_nav.gif" width="88" height="31" border="0" alt="Consulting Relationship"></a></td>
+          </tr>
+		  <tr valign="top">
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="9" alt=""></td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3"><a href="http://www.dimensional.com/famafrench/" onMouseOver="kf_on_image(kf_fff)" onMouseOut="kf_off_imag()"><img src="../images/fff_nav.gif" alt="Fama / French Forum" border="0" id="fff"></a></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="20" alt=" "></td>
+          </tr>
+          <tr valign="top"> 
+            <td colspan="3"><a href="../contact_Information.html" onMouseOver="kf_on_image(kf_contact)" onMouseOut="kf_off_imag()"><img src="../images/Contact_nav.gif" width="138" height="17" border="0" alt="Contact Information"></a></td>
+          </tr>
+        </table>
+      </td>
+      <td width="20" rowspan="2">&nbsp;</td>
+      
+   <td valign="top" align="left" width="470" rowspan="3"> 
+        
+	<p><font face="Courier New, Courier, mono" size="2" color="#336699"><b>Changes in CRSP Data</b></font><br>
+	
+	 </p>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     
+          <tr> 
+            
+            <td width="74%" valign="top"><font face="Times New Roman, Times, serif" size="2">
+		Please note that in 2005, CRSP completed the compilation and merging of daily data between 1925 and 1962 for securities that traded on NYSE in that period. The addition of these new daily data results in changes to month-end prices and to dividend ex-dates. These changes have resulted in many small changes to historical returns on my website. 
+		</font></td>
+          </tr>
+          <tr> 
+            <td width="24%">&nbsp;</td>
+            <td width="2%">&nbsp;</td>
+            <td width="74%">&nbsp;</td>
+          </tr>
+         
+        </table>
+     
+        <p> <!-- /pre --> </p>
+	
+
+        </p>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     
+          <tr> 
+            
+            <td width="74%" valign="top"><font face="Times New Roman, Times, serif" size="2">
+		Please note that in 2014, CRSP completed the project to backfill shares outstanding data for some stocks prior to 1947. These changes affect the early history of the return series on the website. In addition, CRSP also completed a review of shares outstanding data for securities with acquisitions having stock distributions as part of their merger terms. For details, please refer to  
+		<a href="https://www.crsp.org/files/images/release_notes/mdaz_201412.pdf">
+       	<font face="Times New Roman, Times, serif" size="2" color="#336699">CRSP December 2014 Monthly Release</font></a>
+		and 
+		<a href="https://www.crsp.org/files/images/release_notes/mdaz_201406.pdf">
+       	<font face="Times New Roman, Times, serif" size="2" color="#336699">CRSP June 2014 Monthly Release</font></a>
+		documentation.
+		
+		</font></td>
+          </tr>
+          <tr> 
+            <td width="24%">&nbsp;</td>
+            <td width="2%">&nbsp;</td>
+            <td width="74%">&nbsp;</td>
+          </tr>
+         
+        </table>
+
+        <p> <!-- /pre --> </p>
+		
+		</p>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     
+          <tr> 
+            
+            <td width="74%" valign="top"><font face="Times New Roman, Times, serif" size="2">
+			Please note that CRSP's Stock and Indexes Legacy Format (FIZ) files were discontinued after the December 2024 data release. 
+			Beginning with the January 2025 data release, we use the new Stock and Indexes Flat File Format 2.0 (CIZ) files to generate US research returns. 
+			More details of the new Flat File Format 2.0 (CIZ) and the differences with the Legacy (FIZ) format 
+            can be found in the <a href="https://www.crsp.org/wp-content/uploads/guides/Executive_Summary_File_Format_1.0_(SIZ)_to_File_Format_2.0_(CIZ).pdf"><font color="#336699" size="2">executive summary</font></a></b> 
+            and the <a href="https://www.crsp.org/wp-content/uploads/guides/CRSP_Cross_Reference_Guide_1.0_to_2.0.pdf"><font color="#336699" size="2">cross reference guide</font></a></b>  provided by CRSP.
+
+		
+		</font></td>
+          </tr>
+          <tr> 
+            <td width="24%">&nbsp;</td>
+            <td width="2%">&nbsp;</td>
+            <td width="74%">&nbsp;</td>
+          </tr>
+         
+        </table>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p> <!-- /pre --> </p>
+        
+        
+<meta name="robots" CONTENT="index,follow">
+</td>
+    </tr>
+    <tr valign="top"> 
+      <td valign="top" width="140"> 
+        <p>&nbsp;</p>
+        </td>
+    </tr>
+  </table>
+<!-- Begin Copyright Notice -->
+<font color="#000000" face="Courier New, Courier, mono" size="1">
+	Copyright 
+	<script type="text/javascript">
+		var time=new Date();
+		var year=time.getYear();
+		if (year < 200){
+			year = 1900 + time.getYear();
+		}
+		document.write(year + " ");
+	</script>
+	Kenneth R. French
+</font>
+<!-- End Copyright Notice -->
+</center>
+</body>
+</html>
+

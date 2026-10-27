@@ -1,0 +1,135 @@
+\subsection*{R1 reading notes, page 1 of 4: Tsay---returns, aggregation, and moments}
+\textbf{Source and disclosure.} Ruey S. Tsay, \emph{Analysis of Financial Time Series}, third edition, Wiley, 2010, ISBN 9780470414354. The publisher's public chapter excerpt was consulted: \url{https://catalogimages.wiley.com/images/db/pdf/9780470414354.excerpt.pdf}. Printed pp.~2--23 were used: \S1.1 pp.~2--6, \S1.2 pp.~7--22, and \S1.3 pp.~22--23. The notes are AI-assisted; they record a source-based close reading, not a claim that the student personally completed the reading.
+
+\textbf{Concepts and assumptions.} Tsay begins with prices $P_t$, simple returns $R_t$, and log returns $r_t$, then treats sample moments, marginal and conditional distributions, and the distinction between an empirical distribution and a model. The algebra on pp.~3--6 requires positive prices but not normality, independence, or constant volatility. The distributional discussion on pp.~7--23 is diagnostic: it asks what a return sample looks like and what time dependence it exhibits, rather than asserting a data-generating law.
+
+\subsubsection*{Reconstruction: telescoping and the missing cross term}
+For positive prices with no dividend inside the interval,
+\[
+ 1+R_t=\frac{P_t}{P_{t-1}},\qquad
+ r_t=\log\frac{P_t}{P_{t-1}}.
+\]
+Intermediate prices cancel in a product, so for $k$ periods
+\[
+ \prod_{j=1}^{k}(1+R_j)=\frac{P_k}{P_0},\qquad
+ \sum_{j=1}^{k}r_j=\log\frac{P_k}{P_0}.
+\]
+For two periods, $R_{0:2}=(1+R_1)(1+R_2)-1=R_1+R_2+R_1R_2$. Adding simple returns therefore omits the cross term; adding log returns is an exact temporal identity. This is the T4(a) point and the reason A1 uses log returns while reporting compounded simple returns separately.
+
+\subsubsection*{Checked example: Example 1.1, p.~6}
+Recomputing the printed percentage log returns,
+\[
+ 100(e^{0.0446}-1)=4.56095324\%,\qquad
+ 4.46-7.34+10.77=7.89\%.
+\]
+Transforming the accumulated log return once gives
+\[
+ 100(e^{0.0789}-1)=8.20961070\%,
+\]
+whereas transforming each monthly return and adding gives $8.85521777\%$. The difference is the cross term above, not rounding error. When returns are quoted in percent, the exponential argument must first be divided by $100$.
+
+\textbf{Course connection and question.} This material supplies the aggregation and compounding conventions of A1 and T4; it also warns that the dividend adjustment on p.~5 changes what the price ratio measures. My unresolved question is how a provider's retrospective adjustment convention affects the economic interpretation of a historical series even though the algebra is unchanged.
+\clearpage
+
+\subsection*{R1 reading notes, page 2 of 4: Tsay---marginals, tails, and time order}
+\textbf{Precise locations.} Sample moments and divisors appear on pp.~8--9, equations (1.10)--(1.13); Example 1.2 and its calculation on pp.~10--14; the conditional-distribution factorization on p.~15, equations (1.15)--(1.16); distributional alternatives on pp.~16--18; empirical comparisons and volatility discussion on pp.~19--23. Chapter 2 was not used in these notes.
+
+\subsubsection*{Reconstruction: a marginal distribution cannot identify dependence}
+Let $Z_t$ be independent standard normals and set $X_t=Z_tZ_{t-1}$. Then
+\[
+ \E X_t=0,\qquad \E X_t^2=1,\qquad
+ \E(X_tX_{t-1})=0.
+\]
+Nevertheless,
+\[
+ \E(X_t^2X_{t-1}^2)
+ =\E Z_t^2\,\E Z_{t-1}^4\,\E Z_{t-2}^2=3,
+ \qquad
+ \Cov(X_t^2,X_{t-1}^2)=2.
+\]
+Thus zero linear autocorrelation does not imply independence. A permutation preserves every observation, hence the empirical marginal distribution, moments, tail counts, and the compounded final return, but it changes adjacency and therefore the ACF. This is exactly what A1(d) displays when it compares a return series and one seeded permutation; one permutation is an illustration, not a significance test.
+
+\subsubsection*{Checked examples: Example 1.2 and the variance mixture}
+For the reported sample size $9845$ and skewness $0.06139878$,
+\[
+ t=\frac{0.06139878}{\sqrt{6/9845}}=2.487092723,
+\]
+and the two-sided standard-normal tail probability is $p\approx0.0128792$, agreeing with the book's displayed calculation. For the mixture illustrated on pp.~17--18 with weights $0.95,0.05$ and component variances $1,16$,
+\[
+ v=0.95(1)+0.05(16)=1.75,\qquad
+ \E X^4=3[0.95(1)^2+0.05(16)^2]=41.25,
+\]
+\[
+ \frac{\E X^4}{v^2}-3=10.46938776.
+\]
+Independent draws from this mixture have fat marginal tails but no time dependence. Non-Gaussianity and dependence are therefore separate properties, which is why A1 reports a histogram, a Q--Q plot, and ACFs rather than treating them as substitutes.
+
+\textbf{Course connections and questions.} This connects to T1 (a non-Gaussian histogram does not settle weak-form efficiency), T4(c) (permutation changes time order, not the marginal), and A1(b)--(d). My open questions are how stable these diagnostics are across subsamples and how conditional volatility should be assessed when a constant-normal calibration looks acceptable in the center but fails in the tails.
+\clearpage
+
+\subsection*{R1 reading notes, page 3 of 4: Hull---Wiener processes, It\^o's lemma, and the lognormal price}
+\textbf{Source and edition handling.} The assignment specifies John C. Hull, \emph{Options, Futures, and Other Derivatives}, eleventh U.S.\ edition, Pearson, copyright 2022 (published 2021), ISBN 9780136939979, Chapter 14, \S\S14.1--14.8 and the appendix. The publisher catalog confirms the chapter title and that the eleventh edition adds \S14.8 on fractional Brownian motion. A complete eleventh-edition chapter text was \emph{not} lawfully accessible from this environment, so no unofficial full-book copy was used. The complete text actually read was a course copy of the same Chapter 14 in the \textbf{ninth-edition printing}, pp.~302--320: \S\S14.1--14.7 and the appendix. All page numbers below are therefore ninth-edition pages, and equation numbers are those printed in that copy; they are not attributed to the eleventh edition. The section names are cross-checked against the publisher's eleventh-edition contents. This edition deviation is disclosed rather than concealed; \S14.8 was not read. The notes are AI-assisted and are not an attestation of personal reading.
+
+\textbf{Concepts and assumptions.} Hull assumes that a stock price is a Markov process (\S14.1), which he relates to weak-form efficiency, and builds a continuous-time model with constant expected return $\mu$ and volatility $\sigma$ (\S\S14.2--14.4). A Wiener process has $\Delta z=\xi\sqrt{\Delta t}$ with $\xi\sim N(0,1)$ and independent increments, so variances add while standard deviations grow like $\sqrt{T}$. A generalized Wiener process is $dx=a\,dt+b\,dz$; an It\^o process lets $a$ and $b$ depend on $x$ and $t$. The stock model is
+\[
+ \frac{dS}{S}=\mu\,dt+\sigma\,dz,
+ \qquad
+ \Delta S=\mu S\,\Delta t+\sigma S\,\xi\sqrt{\Delta t}
+ \quad \text{(9th-ed.\ eqs.~14.6--14.8)}.
+\]
+\subsubsection*{Reconstruction: why the second derivative survives, and the lognormal law}
+Expand $G(S,t)$ to second order and substitute $\Delta S=\mu S\Delta t+\sigma S\xi\sqrt{\Delta t}$:
+\[
+ \Delta G=G_S\Delta S+G_t\Delta t+\tfrac12G_{SS}(\Delta S)^2+\cdots.
+\]
+The key point is
+\[
+ (\Delta S)^2=\sigma^2S^2\xi^2\Delta t+o(\Delta t).
+\]
+Since $\E\xi^2=1$ and $\Var(\xi^2\Delta t)=2(\Delta t)^2$, the term $\xi^2\Delta t$ is non-stochastic to first order and equals $\Delta t$ in the limit. The second-order term is therefore $O(\Delta t)$ and cannot be dropped, unlike ordinary calculus. Hence
+\[
+ dG=\left(G_S\mu S+G_t+\tfrac12G_{SS}\sigma^2S^2\right)dt+G_S\sigma S\,dz.
+\]
+For $G=\log S$, $G_S=1/S$, $G_{SS}=-1/S^2$, and $G_t=0$, so
+\[
+ d\log S=\left(\mu-\frac{\sigma^2}{2}\right)dt+\sigma\,dz.
+\]
+Integrating over $[0,T]$ and using $W_T-W_0\sim N(0,T)$ gives
+\[
+ \log S_T-\log S_0\sim N\!\left((\mu-\tfrac12\sigma^2)T,\ \sigma^2T\right),
+\]
+which is the lognormal property (9th-ed.\ eqs.~14.17--14.19). The $-\sigma^2/2$ is the same correction derived heuristically in T5(b) and estimated in T8.
+
+\subsubsection*{Checked example: Example 14.3 and Table 14.1}
+For $\mu=0.15$, $\sigma=0.30$, and one week $\Delta t=0.0192$,
+\[
+ \frac{\Delta S}{S}=0.15(0.0192)+0.30\sqrt{0.0192}\,\xi
+ =0.00288+0.0415692\,\xi,
+\]
+which the book rounds to $0.00288+0.0416\xi$. For the first two rows of Table 14.1,
+\[
+ \Delta S=0.288+0.0415692(100)(0.52)=2.4496\approx2.45\quad(S=100,\ \xi=0.52),
+\]
+\[
+ \Delta S=0.2941+0.0415692(102.45)(1.44)=6.4277\approx6.43\quad(S=102.45,\ \xi=1.44).
+\]
+Both rows reproduce the table. The update is exactly A3's Euler scheme with $\sigma\sqrt{h}$, not the deliberately wrong $\sigma h$.
+
+\textbf{Course connections and questions.} T5(a)'s finite nonzero variance requires the $\sqrt{h}$ scaling; T6's moments follow from the lognormal law; T7's growth rate is $\mu-\sigma^2/2$; A2's exact sampler exponentiates the normal log price; A3's Euler step is (14.7)--(14.8). Hull does not treat estimation error, calibration, volatility clustering, or the positivity failure of Euler steps; those are the questions carried into A1--A3 and T8.
+\clearpage
+
+\subsection*{R1 reading notes, page 4 of 4: cross-book comparison and unresolved questions}
+\textbf{Two books, two purposes.} Tsay (pp.~2--23) is empirical and statistical: it starts from observed prices, defines returns, reports sample moments and distributional diagnostics, and asks what dependence is visible in a finite sample. Hull (Chapter 14) is structural and continuous-time: it starts from a Markov assumption and an SDE, derives the law of $\log S_T$ with It\^o's lemma, and uses that law for analytic moments and simulation. The first is a toolkit for diagnosing data; the second is a model for propagating uncertainty. Neither, by itself, establishes weak-form efficiency or that a real price follows GBM.
+
+\textbf{Notation and a hidden parameter conflict.} Tsay writes prices $P_t$, simple returns $R_t$, and log returns $r_t$; Hull writes $S_t$, $\mu$, $\sigma$, and $dz$. The same symbol $\mu$ does not mean the same object. Hull's $\mu$ is the expected arithmetic rate of return in $dS/S=\mu\,dt+\sigma\,dz$; the annual log drift is $m=\mu-\sigma^2/2$. For observations spaced $h$ years apart,
+\[
+ \E r_i=mh,\qquad \Var(r_i)=\sigma^2h,\qquad
+ \E(e^{r_i}-1)=e^{\mu h}-1.
+\]
+T8 estimates $m$ and $\sigma$ from data and then reports $\widehat\mu=\widehat m+\widehat\sigma^2/2$. Setting $\widehat\mu=252\bar r$ without the correction would conflate the two conventions. A1 uses $h=1/252$; Tsay's data spacing plays the same role, but his discussion does not impose the constant-parameter law.
+
+\textbf{Assumptions and methods compared.} Tsay's return aggregation is an identity, while his distributional statements are empirical descriptions; he does not require independent Gaussian increments. Hull explicitly assumes independent normal increments, constant $\mu$ and $\sigma$, and the Markov property, and he derives rather than assumes the lognormal terminal law. Tsay's tools are sample moments, histograms, Q--Q plots, and autocorrelations; Hull's are the SDE, It\^o's lemma, analytic moments, and Monte Carlo paths. The methods answer different questions: A1's ACF and tail counts can reject a fitted i.i.d.-normal description but cannot identify the true law; A2's exact sampler removes discretization error only inside the assumed model. The two readings therefore complement each other: Tsay supplies the diagnostics, Hull supplies the model and the numerical target.
+
+\textbf{Unresolved questions.} (i) How should dividend and split adjustments be mapped to the total-return interpretation of $S_t$? (ii) How much of A1's excess kurtosis is sampling noise, parameter instability, or genuine conditional heteroskedasticity? (iii) Hull's constant-parameter model gives no standard error for $\mu$ or $\sigma$; T8's plug-in standard error is a start, but model uncertainty remains. (iv) A fixed 95\% prediction interval for $S_T$ and a Monte Carlo confidence interval for $\E S_T$ answer different questions; only the latter shrinks with the replication count. (v) Euler's scheme can produce nonpositive multipliers, so positivity and discretization bias must be checked numerically rather than inferred from a smooth-looking path.
+
+\textbf{AI disclosure.} The close reading, reconstructions, and arithmetic checks above were prepared with AI assistance from the public Tsay excerpt and the Hull Chapter 14 course copy described on page 3. All numbers were recomputed independently. The student should verify the cited locations and complete a personal reading before relying on these notes in an examination or declaring them as personal reading.

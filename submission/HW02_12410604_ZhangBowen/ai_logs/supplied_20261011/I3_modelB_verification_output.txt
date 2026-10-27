@@ -1,0 +1,10 @@
+I3-ModelB Q1: digital up-bet, S0=120, u=1.15, d=0.85, r=0.03, T=2, Hu=20, Hd=0
+ e^rT = 1.061837  no-arb 0.85<e^rT<1.15: True
+ p*=0.706122  V0=13.300010  Delta=0.555556  B0=-53.366657  Delta*S0+B0=13.300010
+ up-state repl: True  down-state repl: True
+ real-world(0.5) disc. E^P = 9.4176 != V0
+
+I3-ModelB Q2: logistic f(x)=e^-x/(1+e^-x)^2, F^-1(p)=log(p/(1-p))
+ sample mean=0.00031 (theory 0), sample var=3.28178 (theory pi^2/3=3.28987)
+ N=8225: SE=0.019762 (target<=0.02), CI=(-0.0168,+0.0606) covers 0: True
+ N=10 mean: sample skewness=-0.0049 (~0), excess kurtosis=+0.1242 (normal=0; theory 1.2/10=0.12)

@@ -1,0 +1,12 @@
+Command: python -m p1_platform
+Exit code: 0
+
+{
+  "status": "completed",
+  "core_months": 1065,
+  "alpha_annual_pct": 4.953467178604705,
+  "beta": 0.6006484379025369,
+  "managed_sharpe": 0.5158753521820958,
+  "market_sharpe": 0.41804911360051156,
+  "holdout_months": 108
+}

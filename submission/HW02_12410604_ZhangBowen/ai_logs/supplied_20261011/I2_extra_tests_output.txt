@@ -1,0 +1,4 @@
+E1 paired parity: C-P estimate=4.9047 +- 1.96*0.0411, S0-Ee^{-rT}=4.8771, covered=True
+E2 replication: Delta=0.5000, B0=-38.0492, V0=11.950823, exact=11.950823, match=True
+   terminal equations: up_state=True, down_state=True
+E3 CI coverage at N=1000 over 50 reps: 47/50 (expect about 47-48; one miss is not evidence of a bug)

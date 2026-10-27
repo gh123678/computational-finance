@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=28mm]{geometry}
+\title{Project 2: Mathematical Formulas}
+\author{Zhang Bowen, 12410604}
+\date{October 20, 2026}
+\begin{document}
+\maketitle
+\subsection*{Realized variance}
+\begin{equation}
+\bar f_t=\frac{1}{n_t}\sum_{d\in\mathcal D_t}f_d,\qquad RV_t=\sum_{d\in\mathcal D_t}\left(f_d-\bar f_t\right)^2
+\end{equation}
+\subsection*{Portfolio formation}
+\begin{equation}
+w_{t+1}=\frac{c}{RV_t},\qquad f^{\mathrm{VM}}_{t+1}=w_{t+1}f_{t+1}
+\end{equation}
+\subsection*{Equal-volatility normalization}
+\begin{equation}
+c=\frac{s_{\mathcal T}(f_t)}{s_{\mathcal T}\!\left(f_t/RV_{t-1}\right)},\qquad s_{\mathcal T}(x)=\sqrt{\frac{1}{T-1}\sum_{t\in\mathcal T}(x_t-\bar x)^2}
+\end{equation}
+\subsection*{Univariate regression}
+\begin{equation}
+f_t^{\mathrm{VM}}=\alpha_m+\beta f_t+\varepsilon_t
+\end{equation}
+\subsection*{Annual alpha and its standard error}
+\begin{equation}
+\alpha_{\mathrm{ann},\%}=1200\alpha_m,\qquad \operatorname{SE}(\alpha_{\mathrm{ann},\%})=1200\operatorname{SE}(\alpha_m)
+\end{equation}
+\subsection*{Sharpe ratio and original-table RMSE units}
+\begin{equation}
+\mathrm{SR}_{\mathrm{ann}}=\sqrt{12}\,\frac{\bar f^{\mathrm{VM}}}{s_{\mathcal T}(f^{\mathrm{VM}})},\qquad \mathrm{RMSE}_{\mathrm{paper}}=1200\sqrt{\frac{\sum_{t\in\mathcal T}\hat\varepsilon_t^2}{T-2}}
+\end{equation}
+\subsection*{Total-return wealth and risk}
+\begin{equation}
+\begin{aligned}R_t^{\mathrm{gross}}&=r_t^f+w_tf_t,&V_t&=V_{t-1}(1+R_t),\quad V_0=1,\\ \mathrm{CAGR}&=\left(\frac{V_T}{V_0}\right)^{12/T}-1,&\mathrm{MDD}&=\max_{0\leq t\leq T}\left(1-\frac{V_t}{\max_{0\leq s\leq t}V_s}\right).\end{aligned}
+\end{equation}
+\subsection*{Leverage cap}
+\begin{equation}
+w_t^{\mathrm{cap}}=\min\!\left\{\frac{c}{RV_{t-1}},\,2\right\}
+\end{equation}
+\subsection*{Exact proportional trading cost}
+\begin{equation}
+\phi_t=k\left|w_t(1-\phi_t)-d_t\right|=\begin{cases}\displaystyle\frac{k(w_t-d_t)}{1+kw_t},&w_t\geq d_t,\\[5pt]\displaystyle\frac{k(d_t-w_t)}{1-kw_t},&w_t<d_t.\end{cases}
+\end{equation}
+\subsection*{Financing and net total return}
+\begin{equation}
+R_t^{\mathrm{net}}=(1-\phi_t)\left[1+r_t^f+w_tf_t-\frac{\lambda}{12}\max(w_t-1,0)\right]-1,\qquad f_t^{\mathrm{net}}=R_t^{\mathrm{net}}-r_t^f
+\end{equation}
+\end{document}

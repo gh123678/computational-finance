@@ -1,0 +1,2 @@
+fit,observed_slope,intercept,expected_asymptotic_strong_order,qualification
+"OLS log(RMSE_Euler_exact) on log(h), all five resolutions",0.4992432973129758,1.9687292235240432,0.5,"One coupled Monte Carlo run is evidence, not a rate proof."

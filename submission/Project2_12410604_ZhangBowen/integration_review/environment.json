@@ -1,0 +1,16 @@
+{
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.6",
+    "reportlab": "5.0.0",
+    "pytest": "8.3.0",
+    "requests": "2.32.5"
+  },
+  "created_at_utc": "2026-10-20T00:42:47.857719+00:00",
+  "config_sha256": "760b1887cc72fa03651f1a6ecd139596c743fc879fb179cdfa14f80b38d71df5"
+}

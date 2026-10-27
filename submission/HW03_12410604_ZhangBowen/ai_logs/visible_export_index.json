@@ -1,0 +1,50 @@
+{
+  "exported_at_utc": "2026-10-21T12:47:15.137780+00:00",
+  "scope": "Visible user/assistant messages and actual tool calls/results; no private reasoning or system/developer/account metadata.",
+  "limitations": "Snapshot ends at each last_record_utc. Export/file-handoff operations after cutoff are not asserted to be inside the snapshot.",
+  "attribution_note": "These raw visible exports are unmodified. Some prompts in visible_i1_model_a.jsonl, visible_i1_model_b.jsonl and visible_root.jsonl contain the earlier, incorrect OpenAI/gpt-6-* labels. The runtime used was DeepSeek; the correction and its scope are documented in AI_use_declaration.md. The .md transcripts correct the provider label with a visible note; the .jsonl exports retain the original strings so the correction is auditable.",
+  "redactions": [
+    {
+      "session": "01a15e53-6db0-7c80-8f58-587bffc2d82f",
+      "timestamp": "2026-10-21T12:11:25.495Z",
+      "reason": "Diagnostic account/session metadata"
+    }
+  ],
+  "sessions": [
+    {
+      "name": "root",
+      "thread_id": "01a15e53-6db0-7c80-8f58-587bffc2d82f",
+      "records": 156,
+      "last_record_utc": "2026-10-21T12:47:09.111Z",
+      "output": "visible_root.jsonl"
+    },
+    {
+      "name": "theory_audit",
+      "thread_id": "01a15e54-c8c9-7090-90a1-e245c4007196",
+      "records": 64,
+      "last_record_utc": "2026-10-21T12:21:06.282Z",
+      "output": "visible_theory_audit.jsonl"
+    },
+    {
+      "name": "source_research",
+      "thread_id": "01a15e54-ecf7-76b1-b046-7aea80f337b0",
+      "records": 81,
+      "last_record_utc": "2026-10-21T12:17:29.226Z",
+      "output": "visible_source_research.jsonl"
+    },
+    {
+      "name": "i1_model_a",
+      "thread_id": "01a15e57-3f61-7250-9357-8ce7111acd47",
+      "records": 10,
+      "last_record_utc": "2026-10-21T12:35:23.305Z",
+      "output": "visible_i1_model_a.jsonl"
+    },
+    {
+      "name": "i1_model_b",
+      "thread_id": "01a15e57-f779-77c3-8762-aad61c7de275",
+      "records": 40,
+      "last_record_utc": "2026-10-21T12:35:59.084Z",
+      "output": "visible_i1_model_b.jsonl"
+    }
+  ]
+}

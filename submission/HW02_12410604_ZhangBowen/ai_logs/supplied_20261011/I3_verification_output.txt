@@ -1,0 +1,10 @@
+I3 Q1 (one-period, S0=80, u=1.25, d=0.9, r=0.04, T=0.5, Hu=30, Hd=5)
+ e^rT = 1.020201  no-arb d<e^rT<u: True
+ p*=0.343432  V0=13.316793  Delta=0.892857  B0=-58.111778  Delta*S0+B0=13.316793
+ terminal check up: True  down: True
+ real-world(0.6) discounted expectation: 19.604 != V0
+
+I3 Q2 (Beta(3,1): f=3x^2 on [0,1])
+ sample mean=0.75004 (theory 0.75), sample var=0.037508 (theory 0.0375)
+ N=1500: SE=0.004743 (target <= 0.005), CI=(0.7491,0.7677) covers 0.75: True
+ skewness of sample mean at N=10: -0.2768 (not 0 => not exactly normal)

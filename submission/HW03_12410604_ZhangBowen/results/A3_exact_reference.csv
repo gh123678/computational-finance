@@ -1,0 +1,2 @@
+M,S0,mu_per_year,sigma_per_sqrt_year,T_years,sample_mean,sample_variance_n_minus_1,mean_mcse,variance_mcse_plugin,analytical_mean,analytical_variance,deterministic_limit_wrong_model
+20000,100.0,0.08,0.3,1.0,108.11230822513853,1098.8548568769666,0.23439868353693527,14.254737903314698,108.32870676749586,1105.145456959313,108.32870676749586

@@ -1,0 +1,9 @@
+metric,paper,reproduction,difference,source
+n,1065,1065,0,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+alpha_annual_pct,4.86,4.871767499,0.01176749852,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+alpha_se_annual_pct,1.56,1.556149433,-0.003850566889,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+beta,0.61,0.6091318978,-0.0008681022253,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+beta_se,0.05,0.05404769555,0.004047695554,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+r_squared,0.37,0.3710416689,0.001041668887,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+rmse_paper_units,51.39,51.42074617,0.03074617217,"Table I, Panel A, column 1 (Mkt), published PDF p.9 / journal p.1619"
+sharpe,0.51,0.5150548095,0.005054809497,"Table II, Mkt row, univariate; Table V instead reports rounded 0.52"

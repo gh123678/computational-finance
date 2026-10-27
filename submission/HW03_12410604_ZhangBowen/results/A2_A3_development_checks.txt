@@ -1,0 +1,19 @@
+Actual development-check record (AI implementation; not a student pre-AI attempt)
+
+Command:
+C:/Users/Admin/anaconda3/python.exe -m pytest -q submission/HW03_12410604_ZhangBowen/code/test_gbm.py
+
+Initial actual result: 1 failed, 20 passed in 0.71s.
+The failure was in test_mean_standard_error_shrinks_prediction_interval_does_not:
+    assert interval[1] - interval[0] > 100 * se400
+Observed operands:
+    (246.34371117703844 - 46.69385686207214) > (100 * 2.6057316936139605)
+This arbitrary threshold was mathematically wrong. The implementation's numerical
+values were correct. The test was revised to reconstruct the physical prediction
+width analytically, verify that it has no Monte Carlo replication factor, and check
+that the confidence-interval width for a mean halves when M increases fourfold.
+
+The final actual test command and its output are preserved in A2_A3_execution.txt.
+An unrelated installed pytest-asyncio plugin emitted a deprecation warning about
+its default fixture loop scope during the initial check; no asynchronous tests
+are used here.

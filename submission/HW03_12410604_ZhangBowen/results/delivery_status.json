@@ -1,0 +1,21 @@
+{
+  "english_pdf_pages": 23,
+  "figures": 8,
+  "pytest_passed": 111,
+  "I2_direct_checks": {
+    "original_passed": 1,
+    "proposed_passed": 8,
+    "final_passed": 11,
+    "total": 11
+  },
+  "R1": "completed: 4 pages comparing Tsay (3rd ed., pp. 2-23) and Hull (Chapter 14, specified 11th ed.; complete text lawfully accessible here was the 9th-edition course copy pp. 302-320; all pages/equations labelled as 9th ed.; section names cross-checked against 11th-ed contents; 11th ed. S14.8 not read). AI-assisted source consultation and edition deviation disclosed; personal reading not attested.",
+  "pre_AI_student_records": "student explicitly reported none; no retrospective record invented",
+  "ZIP_created": true,
+  "english_pdf_sha256": "019f94177aa6648bc6101e28308d959d00fced1d09dac75689a61ad383e9ddff",
+  "I1_attribution": "DeepSeek; two independently prompted sessions, same-provider limitation disclosed; earlier OpenAI labels corrected",
+  "original_I2_unchanged": true,
+  "visual_QA": "pages 17-19 (I1/I2) and 20-23 (R1) rendered and inspected after the rewrite; 23-page build has no overfull/underfull boxes, clipping or overlap; R1 occupies exactly 4 pages",
+  "ZIP_filename": "12410604_ZhangBowen_HW-03.zip",
+  "packaged_at_China_Standard_Time": "2026-10-21T21:21:17.932620+08:00",
+  "packaging_status": "Worked solutions completed and packaged; R1 discloses that the accessible Hull text was the 9th-edition course copy; I2 now maps all three required check categories and records accepted/revised/rejected changes; AI attribution corrected to DeepSeek. Personal pre-AI chronology and personal reading remain unattested."
+}

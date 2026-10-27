@@ -1,0 +1,77 @@
+{
+  "module": "ai_debug_exercise.py",
+  "checks": [
+    {
+      "check": "analytical_mean_within_5_model_MCSE",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "analytical_variance_within_5_percent",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "same_draws_correct_drift_and_time",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "variance_divisor_n_minus_1",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "SE_is_sample_sd_over_sqrt_M",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "fixed_population_prediction_interval",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "distinct_mean_confidence_interval",
+      "passed": false,
+      "detail": "KeyError: 'mean_confidence_interval'"
+    },
+    {
+      "check": "quadrupling_M_halves_SE",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "T_zero_point_mass",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "check": "sigma_zero_point_mass",
+      "passed": false,
+      "detail": "assertion false"
+    },
+    {
+      "check": "invalid_model_and_count_rejected",
+      "passed": false,
+      "detail": "assertion false"
+    }
+  ],
+  "passed": 1,
+  "total": 11,
+  "actual_default_report": {
+    "mean": 140.07317674051487,
+    "variance": 8452.529174026107,
+    "se": 0.0009193763741812222,
+    "prediction_interval": [
+      140.07137476282148,
+      140.07497871820826
+    ]
+  },
+  "analytical_mean": 117.35108709918103,
+  "analytical_variance": 2715.935063641711,
+  "analytical_prediction_interval": [
+    46.69385686207214,
+    246.34371117703844
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "price_rows": 1255,
+  "return_rows": 1254,
+  "duplicates": 0,
+  "missing_entries": 0,
+  "nonpositive_or_nonfinite": 0,
+  "originally_sorted": true,
+  "first_date": "2021-10-14",
+  "last_date": "2026-10-14",
+  "expected_sessions": 1255,
+  "missing_trading_sessions": [],
+  "unexpected_observations": [],
+  "max_calendar_gap_days": 4,
+  "nontrading_dates_filled": false,
+  "calendar_description": "US equity holiday rules, Juneteenth from 2022; special Carter closure 2025-01-09; early closes remain trading observations.",
+  "calendar_reference": "https://www.nasdaqtrader.com/trader.aspx?id=Calendar",
+  "special_closure_reference": "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2024-632",
+  "analyzed_csv_sha256": "ce807ba43ff39e775faebda202ad5d8476569efa74973284a93216fbae8eff9f"
+}

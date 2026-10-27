@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "Project 2: volatility-managed portfolios",
+  "source_repository_git_head": "cb7e6a8c24b9ea8063fc6445aa990b540254b57e",
+  "entries": [
+    {
+      "original_path": "quant_research/attribution.py",
+      "original_absolute_path": "D:\\Documents\\ChatGPT\\计算金融\\quant_research\\attribution.py",
+      "source_git_head": "cb7e6a8c24b9ea8063fc6445aa990b540254b57e",
+      "original_sha256": "304cb7e7710fb4bb00d5544073ed00450aba669acf542b198a6422a37ffb87a9",
+      "reused_as": "attribution.py",
+      "reuse_type": "byte-for-byte copy; monthly_returns executes in summarize_monthly reconciliation",
+      "source_function": "monthly_returns(equity), lines 16-20"
+    },
+    {
+      "original_path": "quant_research/backtest.py",
+      "original_absolute_path": "D:\\Documents\\ChatGPT\\计算金融\\quant_research\\backtest.py",
+      "source_git_head": "cb7e6a8c24b9ea8063fc6445aa990b540254b57e",
+      "original_sha256": "0dca85c6eac4f8000a5eace03c3e90227d0a78ee738718a12555c96ae284a380",
+      "reused_as": "performance.py",
+      "reuse_type": "explicit adaptation of summarize NAV/drawdown/arithmetic mean/sample volatility/CAGR logic",
+      "source_function": "summarize(nav, orders, first_execution, evaluation_start=None), lines 220-245"
+    }
+  ],
+  "adaptations": [
+    "Monthly observations annualize at 12 rather than Project 1 daily 252.",
+    "Total-return NAV includes RF and is separated from excess-return arithmetic mean, volatility and Sharpe.",
+    "Initial NAV 1.0 before the first evaluated month is retained for drawdown.",
+    "Input checks require chronological, consecutive, unique months and exact aligned indices.",
+    "P1 raw-share stock execution, fees, lot sizes and capacity constraints are not claimed to apply to factor portfolios.",
+    "New factor return backtest and signal logic are Project 2 extensions."
+  ],
+  "no_original_files_modified": true,
+  "delivery_version": 2,
+  "additional_exact_functions": "function_provenance.json",
+  "execution_contract": "pipeline.py: validated P1 target table -> monthly_factor backend -> nav/orders/holdings/corporate_events",
+  "legacy_summary_policy": "Actual original summarize executes; only period-free results are retained; daily252 annual metrics discarded"
+}

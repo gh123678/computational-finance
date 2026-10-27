@@ -1,0 +1,38 @@
+\contentsline {section}{\numberline {1}Part I: Theory}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}T1. Weak-form efficiency and empirical evidence}{3}{subsection.1.1}%
+\contentsline {paragraph}{(a)}{3}{section*.2}%
+\contentsline {paragraph}{(b)}{3}{section*.3}%
+\contentsline {subsection}{\numberline {1.2}T2. Five-sigma events and observation frequency}{3}{subsection.1.2}%
+\contentsline {paragraph}{(a)}{3}{section*.4}%
+\contentsline {paragraph}{(b)}{3}{section*.5}%
+\contentsline {subsection}{\numberline {1.3}T3. Trading assumptions and feasible strategies}{4}{subsection.1.3}%
+\contentsline {paragraph}{No transaction costs.}{4}{section*.6}%
+\contentsline {paragraph}{Unrestricted short selling.}{4}{section*.7}%
+\contentsline {subsection}{\numberline {1.4}T4. Return aggregation and distributional diagnostics}{4}{subsection.1.4}%
+\contentsline {paragraph}{(a)}{4}{section*.8}%
+\contentsline {paragraph}{(b)}{4}{section*.9}%
+\contentsline {paragraph}{(c)}{4}{section*.10}%
+\contentsline {subsection}{\numberline {1.5}T5. Why diffusion noise scales as the square root of time}{5}{subsection.1.5}%
+\contentsline {paragraph}{(a)}{5}{section*.11}%
+\contentsline {paragraph}{(b)}{5}{section*.12}%
+\contentsline {paragraph}{(c)}{5}{section*.13}%
+\contentsline {subsection}{\numberline {1.6}T6. GBM moments and a terminal prediction interval}{5}{subsection.1.6}%
+\contentsline {paragraph}{(a)}{5}{section*.14}%
+\contentsline {paragraph}{(b)}{6}{section*.15}%
+\contentsline {paragraph}{(c)}{6}{section*.16}%
+\contentsline {subsection}{\numberline {1.7}T7. Long-run growth versus expectation}{6}{subsection.1.7}%
+\contentsline {paragraph}{(a)}{6}{section*.17}%
+\contentsline {paragraph}{(b)}{6}{section*.18}%
+\contentsline {paragraph}{(c)}{6}{section*.19}%
+\contentsline {subsection}{\numberline {1.8}T8. Calibrating a constant-parameter return model}{7}{subsection.1.8}%
+\contentsline {paragraph}{(a)}{7}{section*.20}%
+\contentsline {paragraph}{(b)}{7}{section*.21}%
+\contentsline {paragraph}{(c)}{7}{section*.22}%
+\contentsline {section}{\numberline {2}Part II: Algorithms}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}A1. Five-year real-data return analysis}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}A2. Lognormal densities and exact terminal simulation}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}A3. Coupled discretizations and vanishing noise}{14}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Part III: AI interaction}{17}{section.3}%
+\contentsline {subsection}{\numberline {3.1}I1. Two-session audit}{17}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}I2. Repair of the instructor terminal-price routine}{18}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Part IV: Reading notes and cross-book comparison}{20}{section.4}%

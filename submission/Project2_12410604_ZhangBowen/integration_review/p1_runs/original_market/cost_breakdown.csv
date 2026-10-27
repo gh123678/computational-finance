@@ -1,0 +1,3 @@
+role,orders,notional,fees,slippage,total_cost,cost_share
+buy,215,1.000000000019558,0,0,0,0
+sell,138,1.469299822227753e-11,0,0,0,0

@@ -1,0 +1,21 @@
+{
+  "archive": "12410604_ZhangBowen_HW-03.zip",
+  "layout": "Files at ZIP root; English PDF at root; report sources under report/",
+  "preserved_incomplete_requirements": [
+    "Student pre-AI independent attempt chronology and personal reading attestation",
+    "Hull 11th-edition chapter text was not lawfully accessible; R1 uses a disclosed 9th-edition course copy and labels all pages/equations accordingly",
+    "I1 used two independently prompted DeepSeek sessions; distinct backend model variants were not exposed"
+  ],
+  "excluded": "Python caches; TeX build auxiliaries; duplicate build PDF; private vendor raw data retained outside package",
+  "included_categories": [
+    "English PDF",
+    "Chinese worked solutions",
+    "code/tests",
+    "results/figures",
+    "AI logs and declaration",
+    "reading notes/access record",
+    "instructor originals",
+    "provenance",
+    "reproduction instructions"
+  ]
+}

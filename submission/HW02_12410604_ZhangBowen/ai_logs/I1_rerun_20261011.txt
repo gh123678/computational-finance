@@ -1,0 +1,51 @@
+======================================================================
+Claim (a): nonnegative butterfly payoff vs. financed profit
+======================================================================
+net premium cost = 4.0000, financed to T = 4.2051
+max payoff = 10.0 at S_T = 50
+  S_T=   0.0  payoff=  0.0  financed profit= -4.2051
+  S_T=  40.0  payoff=  0.0  financed profit= -4.2051
+  S_T=  45.0  payoff=  5.0  financed profit= +0.7949
+  S_T=  50.0  payoff= 10.0  financed profit= +5.7949
+  S_T=  55.0  payoff=  5.0  financed profit= +0.7949
+  S_T=  60.0  payoff=  0.0  financed profit= -4.2051
+  S_T= 100.0  payoff=  0.0  financed profit= -4.2051
+break-even prices: 44.2051 and 55.7949
+=> payoff >= 0 everywhere, but profit < 0 outside [44.21, 55.79]. Claim (a) is INVALID.
+
+======================================================================
+Claim (b): statement D0(1+rc*t/m)^m vs correct D0(1+rc/m)^(m*t), t=2
+======================================================================
+  m=  1  stated=  11000.0000  correct=  11025.0000  exact(cont.)=  11051.7092  stated-correct= -25.0000
+  m=  2  stated=  11025.0000  correct=  11038.1289  exact(cont.)=  11051.7092  stated-correct= -13.1289
+  m=  4  stated=  11038.1289  correct=  11044.8610  exact(cont.)=  11051.7092  stated-correct=  -6.7321
+  m= 12  stated=  11047.1307  correct=  11049.4134  exact(cont.)=  11051.7092  stated-correct=  -2.2827
+  m= 52  stated=  11050.6479  correct=  11051.1782  exact(cont.)=  11051.7092  stated-correct=  -0.5303
+  m=365  stated=  11051.5578  correct=  11051.6335  exact(cont.)=  11051.7092  stated-correct=  -0.0757
+At t=1 the stated form coincides with the correct one (mt = m):
+  t=1, m=12: stated = 10511.6190  correct = 10511.6190
+Both forms also converge to the continuous limit D0*exp(rc*t) as m -> inf,
+which is why the stated form looks plausible. Claim (b) is INVALID for t != 1.
+
+======================================================================
+Claim (c): fixed n, increasing M -- does the distribution become
+exactly Gaussian?
+======================================================================
+  n=5, M=    1,000: sample skewness = +0.8897 (theory +0.8944, approx SE 0.0775)
+  n=5, M=   10,000: sample skewness = +0.8835 (theory +0.8944, approx SE 0.0245)
+  n=5, M=  100,000: sample skewness = +0.8806 (theory +0.8944, approx SE 0.0077)
+  n=5, M=1,000,000: sample skewness = +0.8884 (theory +0.8944, approx SE 0.0024)
+Skewness stays near 2/sqrt(n) = 0.894 as M grows: larger M estimates the
+TRUE (non-normal) distribution more precisely; it does not make it normal.
+Claim (c) is INVALID (also: a bell-shaped histogram is only a diagnostic).
+
+======================================================================
+Claim (d): -log(U)/lam and -log(1-U)/lam from the SAME U stream
+======================================================================
+  KS(-log(1-U)/lam vs Exp(2)) = 0.00155  (5% crit 0.00304)
+  KS(-log(U)/lam   vs Exp(2)) = 0.00155  (5% crit 0.00304)
+  mean: 0.50096 vs 0.50107 (theory 0.50000)
+  fraction of pointwise-equal values from the same U: 0.000010
+  log1p vs naive near U=0: max |X1b-X1| = 0.000e+00
+Both transforms are Exp(2) marginally but differ pointwise.
+Claim (d) is VALID (with endpoint care: U=0 must not reach log).

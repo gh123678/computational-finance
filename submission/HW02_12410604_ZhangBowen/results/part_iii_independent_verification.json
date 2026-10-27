@@ -1,0 +1,129 @@
+{
+  "I1_compounding": {
+    "assigned_wrong_formula": 11047.130674412969,
+    "earlier_logged_formula_before_revision": 10511.61897881733,
+    "correct_annual_formula": 11049.413355583269
+  },
+  "I1_two_sided_KS_fresh_stream": {
+    "X": 0.0019064416230480385,
+    "Y": 0.001906441623048094,
+    "exact_pointwise_equal_fraction": 0.0,
+    "sample_covariance": -0.16156707088317096,
+    "population_covariance": -0.1612335167120566
+  },
+  "I1_support_normal_probability_below_minus_sqrt5": 0.012673659338734126,
+  "I2_additional_findings": [
+    {
+      "module": "I2_repaired_pricer",
+      "check": "one path",
+      "observed": "ACCEPTED: {'price': 19.02458849001428, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "boolean path count",
+      "observed": "Other error: TypeError"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "NaN spot",
+      "observed": "ACCEPTED: {'price': nan, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "infinite spot",
+      "observed": "ACCEPTED: {'price': inf, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "zero maturity",
+      "observed": "ACCEPTED: {'price': 10.046, 'se': 0.10000394231653013, 'ci_low': 9.8499922730596, 'ci_high': 10.242007726940399, 'p_star': 0.5}"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "negative maturity",
+      "observed": "ACCEPTED: {'price': 9.857162804589004, 'se': 0.10048775050077402, 'ci_low': 9.660206813607488, 'ci_high': 10.05411879557052, 'p_star': 0.4875311979817058}"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "zero strike",
+      "observed": "REJECTED with ValueError"
+    },
+    {
+      "module": "I2_repaired_pricer",
+      "check": "invalid option kind",
+      "observed": "ACCEPTED price 7.0737654700428365"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "one path",
+      "observed": "ACCEPTED: {'price': 19.02458849001428, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "boolean path count",
+      "observed": "Other error: TypeError"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "NaN spot",
+      "observed": "ACCEPTED: {'price': nan, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "infinite spot",
+      "observed": "ACCEPTED: {'price': inf, 'se': nan, 'ci_low': nan, 'ci_high': nan, 'p_star': 0.6281777409400603}"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "zero maturity",
+      "observed": "ACCEPTED: {'price': 10.046, 'se': 0.10000394231653013, 'ci_low': 9.8499922730596, 'ci_high': 10.242007726940399, 'p_star': 0.5}"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "negative maturity",
+      "observed": "ACCEPTED: {'price': 9.857162804589004, 'se': 0.10048775050077402, 'ci_low': 9.660206813607488, 'ci_high': 10.05411879557052, 'p_star': 0.4875311979817058}"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "zero strike",
+      "observed": "REJECTED with ValueError"
+    },
+    {
+      "module": "I2_repaired_pricer_modelB",
+      "check": "invalid option kind",
+      "observed": "ACCEPTED price 7.0737654700428365"
+    }
+  ],
+  "I3_replication": [
+    {
+      "question": "A-i",
+      "probability": 0.34343240007644504,
+      "delta": 0.8928571428571429,
+      "bank": -58.1117784889005,
+      "price": 13.316792939670933,
+      "real_world_discounted_expectation": 19.603973466135105
+    },
+    {
+      "question": "B-i",
+      "probability": 0.7061218218178656,
+      "delta": 0.5555555555555557,
+      "bank": -53.36665690310743,
+      "price": 13.300009763559252,
+      "real_world_discounted_expectation": 9.417645335842487
+    }
+  ],
+  "I3_beta": {
+    "variance": 0.0375,
+    "N_for_SE_0_005": 1500,
+    "population_skewness": -0.8606629658238705,
+    "mean_skewness_N10": -0.2721655269759087
+  },
+  "I3_logistic": {
+    "variance_quadrature": 3.2898681336964537,
+    "variance_analytical": 3.289868133696453,
+    "fourth_moment_quadrature": 45.45757581586781,
+    "population_excess_kurtosis": 1.1999999999999993,
+    "mean_excess_kurtosis_N10": 0.11999999999999993,
+    "N_for_SE_0_02": 8225
+  }
+}

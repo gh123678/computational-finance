@@ -1,0 +1,142 @@
+Actual execution began: 2026-10-21T20:13:51.979402+08:00
+{
+  "run_started_China_Standard_Time": "2026-10-21T20:13:51.979402+08:00",
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Admin\\anaconda3\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.4.6",
+  "scipy": "1.16.3",
+  "matplotlib": "3.10.6",
+  "master_seed": 21603,
+  "generator": "numpy.random.default_rng / PCG64",
+  "seed_sequence_spawn_keys": {
+    "A2": [
+      2
+    ],
+    "A3": [
+      3
+    ],
+    "stress": [
+      4
+    ]
+  },
+  "A2_parameters": {
+    "S0": 100,
+    "mu": 0.08,
+    "sigma": 0.3,
+    "T": 2,
+    "M": 100000
+  },
+  "A3_parameters": {
+    "S0": 100,
+    "mu": 0.08,
+    "sigma": 0.3,
+    "T": 1,
+    "M": 20000,
+    "steps": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "batch_size": 1000
+  },
+  "variance_divisor": "n-1",
+  "source_sha256": {
+    "gbm.py": "9f244586926a003e2bf0b428b8d4b1b7452c99dea5d26a5fd84d7c3ac7af53cc",
+    "experiments_gbm.py": "06bc7342adfc12528599809f3ac1e6777a62f8a9efd45db328bbefcbf153bd0e",
+    "test_gbm.py": "4a9e34f4e3e027921855ccd197345a6fa4f9df82eb517f9fcbb66b7d24823146"
+  },
+  "invocation": [
+    "C:\\Users\\Admin\\anaconda3\\python.exe",
+    "submission/HW03_12410604_ZhangBowen/code/experiments_gbm.py",
+    "--run-tests"
+  ]
+}
+.....................                                                    [100%]
+21 passed in 0.57s
+
+C:\Users\Admin\anaconda3\Lib\site-packages\pytest_asyncio\plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+
+Actual pytest exit status: 0
+A2: exact terminal sampling, M=100000, SeedSequence(21603, spawn_key=(2,)).
+{
+  "moments": {
+    "M": 100000,
+    "S0": 100.0,
+    "mu_per_year": 0.08,
+    "sigma_per_sqrt_year": 0.3,
+    "T_years": 2.0,
+    "sample_mean": 117.18851015526066,
+    "sample_variance_n_minus_1": 2707.881389013636,
+    "mean_mcse": 0.16455641552408815,
+    "variance_mcse_plugin": 21.302004202671345,
+    "analytical_mean": 117.35108709918103,
+    "analytical_variance": 2715.935063641711,
+    "mean_error_in_mcse": -0.9879708633819411,
+    "mean_ci95_lower": 116.86597958083344,
+    "mean_ci95_upper": 117.51104072968788,
+    "fixed_prediction95_lower": 46.69385686207214,
+    "fixed_prediction95_upper": 246.34371117703844
+  },
+  "coverage": {
+    "M": 100000,
+    "inside_count": 95060,
+    "empirical_fraction": 0.9506,
+    "model_fraction_using_z1_96": 0.950004209703559,
+    "binomial_mcse_model": 0.000689174950568252,
+    "binomial_mcse_plugin": 0.000685271041267614,
+    "fraction_error_in_mcse": 0.8644978984649908,
+    "mc_interval95_lower": 0.9492492170968863,
+    "mc_interval95_upper": 0.9519507829031137
+  }
+}
+A3: M=20000, n=16,32,64,128,256, batch=1000, spawn_key=(3,).
+{
+  "euler_observed_slope": 0.4992432973129758,
+  "exact_reference": {
+    "sample_mean": 108.11230822513853,
+    "sample_variance_n_minus_1": 1098.8548568769666,
+    "mean_mcse": 0.23439868353693527,
+    "variance_mcse_plugin": 14.254737903314698
+  },
+  "max_abs_cross_moment_z": 0.9215329991552202,
+  "max_abs_mse_z": 1.1622681421110357,
+  "stress": {
+    "M": 100000,
+    "S0": 100,
+    "mu_per_year": 0.08,
+    "sigma_per_sqrt_year": 1,
+    "T_years": 1,
+    "h_years": 1,
+    "threshold_Y": -1.08,
+    "analytical_nonpositive_probability": 0.140071090088769,
+    "nonpositive_count": 14178,
+    "observed_fraction": 0.14178,
+    "binomial_mcse_model": 0.0010975025276058045,
+    "binomial_mcse_plugin": 0.0011030794694853131,
+    "fraction_error_in_mcse": 1.5570897271270665,
+    "clipped_or_discarded": false
+  },
+  "complexity": {
+    "batch_size_paths": 1000,
+    "fine_grid_per_batch_bytes": 2048000,
+    "dominant_working_arrays_upper_estimate_bytes": 4192000,
+    "retained_terminal_arrays_bytes": 1760000,
+    "saved_csv_rows": {
+      "convergence": 10,
+      "coupled_checks": 10,
+      "stress": 1
+    },
+    "time_complexity": "O(M * (n_max + sum(n))); geometric resolutions make sum(n) < 2*n_max.",
+    "peak_working_array_complexity": "O(B*n_max); B <= 1000. Excludes retained terminal outputs.",
+    "retained_output_complexity": "O(M*K) terminal arrays for K resolutions; no full paths saved.",
+    "memory_scope": "Array estimate excludes Python, plotting, RNG overhead, and figure buffers; not a measured process RSS.",
+    "independent_paths_warning": "Independent reference paths add physical path variation and do not measure pathwise discretization error."
+  }
+}
+Actual execution completed in 2.500 seconds.

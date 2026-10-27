@@ -1,0 +1,51 @@
+{
+  "name": "original_managed",
+  "backend": "monthly_factor",
+  "months": 1065,
+  "target_rows": 1065,
+  "result_tables": [
+    "nav",
+    "orders",
+    "holdings",
+    "corporate_events"
+  ],
+  "p1_functions_executed_in_this_run": [
+    "summarize (period-free metrics only)",
+    "monthly_returns",
+    "cost_breakdown"
+  ],
+  "legacy_period_free_summary": {
+    "total_return": 21936.77283035941,
+    "max_drawdown": 0.5444084503901169,
+    "final_equity": 21937.77283035941,
+    "total_fees": 0.0,
+    "total_slippage": 0.0,
+    "gross_turnover": 807.4516144990156,
+    "average_cash_weight": -0.27746693827142466,
+    "average_positions": 1.0,
+    "filled_orders": 1065,
+    "rejected_orders": 0
+  },
+  "monthly_metrics": {
+    "months": 1065,
+    "start": "1926-08",
+    "end": "2015-04",
+    "periods_per_year": 12,
+    "total_return": 21936.77283035941,
+    "cagr_total": 0.11921841056999538,
+    "max_drawdown_total": 0.5444084503901169,
+    "final_nav": 21937.77283035941,
+    "annualized_mean_excess": 0.09651113231928982,
+    "annualized_volatility_excess": 0.18708227076765419,
+    "sharpe": 0.5158753521820958,
+    "monthly_return_reconciliation_max_abs_error": 2.220446049250313e-16,
+    "average_weight": 1.2866455407845698,
+    "minimum_weight": 0.01664063356113015,
+    "maximum_weight": 17.033149442995626,
+    "average_gross_exposure": 1.2866455407845698,
+    "total_turnover": 807.4516144990156,
+    "average_monthly_turnover": 0.7581705300460241,
+    "annualized_turnover": 9.098046360552289
+  },
+  "limitations": "Fractional research index, RF borrowing; stock rules and industry limits not applicable. Legacy 252 annual metrics discarded."
+}

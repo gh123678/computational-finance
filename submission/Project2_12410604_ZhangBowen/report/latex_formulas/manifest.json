@@ -1,0 +1,82 @@
+{
+  "variance": {
+    "title": "Realized variance",
+    "latex": "\\bar f_t=\\frac{1}{n_t}\\sum_{d\\in\\mathcal D_t}f_d,\\qquad RV_t=\\sum_{d\\in\\mathcal D_t}\\left(f_d-\\bar f_t\\right)^2",
+    "tex_sha256": "d58e01c3f107195cc45a874323efaa0d3388fc2d4707ae41946071388b61e8b4",
+    "pdf_sha256": "be3032d6c97c5b56b18ba15213ec5fc7a62c6a5aedff6ecff81d52d466401b58",
+    "width": 202.034,
+    "height": 33.836
+  },
+  "weights": {
+    "title": "Portfolio formation",
+    "latex": "w_{t+1}=\\frac{c}{RV_t},\\qquad f^{\\mathrm{VM}}_{t+1}=w_{t+1}f_{t+1}",
+    "tex_sha256": "66261889306ba53c1f8d4c1866eda2b328ee5520b8ddc68a10dfe240524d013a",
+    "pdf_sha256": "9ebdd5f472c87df0d1da426ea5226f8322da3b95e52cbe8e6a240d9315aea6f3",
+    "width": 165.623,
+    "height": 25.182
+  },
+  "scale": {
+    "title": "Equal-volatility normalization",
+    "latex": "c=\\frac{s_{\\mathcal T}(f_t)}{s_{\\mathcal T}\\!\\left(f_t/RV_{t-1}\\right)},\\qquad s_{\\mathcal T}(x)=\\sqrt{\\frac{1}{T-1}\\sum_{t\\in\\mathcal T}(x_t-\\bar x)^2}",
+    "tex_sha256": "433cacc7e508d6d1aa7a01bde73ea8e8bc8f1906be095f1e8c7a1e95b6cc74a0",
+    "pdf_sha256": "2f15895f0542dc507a22eed8d9d0723e6af63c61baee8e08011e1c30add008b5",
+    "width": 258.353,
+    "height": 37.149
+  },
+  "regression": {
+    "title": "Univariate regression",
+    "latex": "f_t^{\\mathrm{VM}}=\\alpha_m+\\beta f_t+\\varepsilon_t",
+    "tex_sha256": "a79c38f0b0d468a71087627dc3cc4f602782562565d64a9f76b4c012882699be",
+    "pdf_sha256": "fb3e9ba644dea6cc8419d280e425db1b583faf449e9e8cb0c3bacd128ecf1b8f",
+    "width": 105.561,
+    "height": 16.632
+  },
+  "annualization": {
+    "title": "Annual alpha and its standard error",
+    "latex": "\\alpha_{\\mathrm{ann},\\%}=1200\\alpha_m,\\qquad \\operatorname{SE}(\\alpha_{\\mathrm{ann},\\%})=1200\\operatorname{SE}(\\alpha_m)",
+    "tex_sha256": "a6a4544880c3f3010fe3d6b5a8a78e6d7e10af4917273c4f4bb7b8c711580dcb",
+    "pdf_sha256": "5511ab7317a0752c09c6ebdf55c0404cef5da5312d33b7385bd6e162dc9117e5",
+    "width": 240.13,
+    "height": 15.937
+  },
+  "metrics": {
+    "title": "Sharpe ratio and original-table RMSE units",
+    "latex": "\\mathrm{SR}_{\\mathrm{ann}}=\\sqrt{12}\\,\\frac{\\bar f^{\\mathrm{VM}}}{s_{\\mathcal T}(f^{\\mathrm{VM}})},\\qquad \\mathrm{RMSE}_{\\mathrm{paper}}=1200\\sqrt{\\frac{\\sum_{t\\in\\mathcal T}\\hat\\varepsilon_t^2}{T-2}}",
+    "tex_sha256": "a4c7958753160ee028dd94422f52d46b2f7da2a62e73de54bac1704fd735fac5",
+    "pdf_sha256": "7c225c2c8b288aa86c2923dfb552af1c1f548f0881bd3431f72f7bb798e4a874",
+    "width": 281.301,
+    "height": 37.149
+  },
+  "wealth": {
+    "title": "Total-return wealth and risk",
+    "latex": "\\begin{aligned}R_t^{\\mathrm{gross}}&=r_t^f+w_tf_t,&V_t&=V_{t-1}(1+R_t),\\quad V_0=1,\\\\ \\mathrm{CAGR}&=\\left(\\frac{V_T}{V_0}\\right)^{12/T}-1,&\\mathrm{MDD}&=\\max_{0\\leq t\\leq T}\\left(1-\\frac{V_t}{\\max_{0\\leq s\\leq t}V_s}\\right).\\end{aligned}",
+    "tex_sha256": "daea97d9ea345930fe1966b0d29c6876ed25db8648fc001f5ca8ed9e92094519",
+    "pdf_sha256": "667e4ecf8440f7e01d1a751b92dcad611d2ba9d3cdbc5a610e3bd41833916649",
+    "width": 302.854,
+    "height": 51.981
+  },
+  "cap": {
+    "title": "Leverage cap",
+    "latex": "w_t^{\\mathrm{cap}}=\\min\\!\\left\\{\\frac{c}{RV_{t-1}},\\,2\\right\\}",
+    "tex_sha256": "cd0dcdfa3ca20416c762a2a9acf581866c9886f5281c20b5081d584d98cc94d6",
+    "pdf_sha256": "fdcf03c0ed199e72c27bf79e76e7c99838dcfa2fe55cd2e09593f39e279a7ac0",
+    "width": 118.0,
+    "height": 30.167
+  },
+  "fees": {
+    "title": "Exact proportional trading cost",
+    "latex": "\\phi_t=k\\left|w_t(1-\\phi_t)-d_t\\right|=\\begin{cases}\\displaystyle\\frac{k(w_t-d_t)}{1+kw_t},&w_t\\geq d_t,\\\\[5pt]\\displaystyle\\frac{k(d_t-w_t)}{1-kw_t},&w_t<d_t.\\end{cases}",
+    "tex_sha256": "41ae5008694aa33db371277f49d5a2c79823bca2b01d1aebce7ab4beff526041",
+    "pdf_sha256": "bd42ac72ab6faa215014c8ed0e1ba88a4c94f1e7b2722de0ec20faa3b3ea8b9e",
+    "width": 242.136,
+    "height": 54.087
+  },
+  "net_return": {
+    "title": "Financing and net total return",
+    "latex": "R_t^{\\mathrm{net}}=(1-\\phi_t)\\left[1+r_t^f+w_tf_t-\\frac{\\lambda}{12}\\max(w_t-1,0)\\right]-1,\\qquad f_t^{\\mathrm{net}}=R_t^{\\mathrm{net}}-r_t^f",
+    "tex_sha256": "e05662588d280c6466b8e717a2721f24676fd15daf22823381e065c24ce0039e",
+    "pdf_sha256": "9bc97d0b1dd65246c46ca54ea73d7fa5d7a021a05f1b1591a31e393416e0e5d4",
+    "width": 373.975,
+    "height": 30.167
+  }
+}

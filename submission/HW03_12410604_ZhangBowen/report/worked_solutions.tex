@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=23mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,array,longtable,float}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,xurl}
+\usepackage{hyperref,fancyhdr}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={MA216 HW03 Worked Solutions}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{MA216 Computational Finance}\fancyhead[R]{HW03 Worked Solutions}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\setlength{\emergencystretch}{3em}
+\newcommand{\E}{\mathbb E}\newcommand{\Pp}{\mathbb P}
+\DeclareMathOperator{\Var}{Var}\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\fig}[3]{\begin{figure}[H]\centering\includegraphics[width=#3\linewidth]{../figures/#1.pdf}\caption{#2}\end{figure}}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Homework 3: Worked Solutions}\par
+{\large Asset Returns and Geometric Brownian Motion}\par
+Prepared for Zhang Bowen (12410604)\par
+MA216 Computational Finance, Fall 2026\par
+21 October 2026
+\end{center}
+\textbf{Purpose and current status.} This is the requested question-by-question worked solution. T1--T8 and A1--A3 include derivations, implemented code and actual final-count outputs. I1 contains two independently prompted DeepSeek audit sessions with the same-provider limitation disclosed, plus genuine follow-ups. The supplied I2 original is preserved and actual repairs/tests are documented. R1 contains source-based notes on two different books, Tsay and Hull, with independent reconstructions, checked examples, and a cross-book comparison; the AI-assisted source consultation and the edition handling are disclosed in the notes.
+
+\textbf{AI disclosure.} The student reported having no earlier independent attempt, pre-AI debugging record or reading record. These solutions are AI-assisted; no independent student authorship, prior chronology, personal reading, or invented conversations are asserted. Mathematical/numerical cross-checks were performed in this session, and actual outputs, original files and model replies are retained. The student must study the arguments and complete the source reading personally before making any corresponding submission declaration.
+
+\textbf{Conventions.} Time is in years; $S_0>0$, $\mu$ is physical annual arithmetic drift, and $\sigma\geq0$ is annual volatility. Sample variances use divisor $n-1$ unless an explicitly labelled population/moment calculation says otherwise. Master seed 21603 uses separate PCG64/SeedSequence child streams: A1 permutation $(1,)$, A2 $(2,)$, A3 $(3,)$, stress $(4,)$. The I2 standalone API uses its documented seed argument separately.
+\clearpage
+\tableofcontents
+\clearpage
+\section{Part I: Theory}
+\input{theory.tex}
+\clearpage
+\section{Part II: Algorithms}
+\input{algorithms.tex}
+\clearpage
+\section{Part III: AI interaction}
+\input{ai_interaction.tex}
+\clearpage
+\section{Part IV: Reading notes and cross-book comparison}
+{\small
+\input{reading.tex}
+}
+\end{document}

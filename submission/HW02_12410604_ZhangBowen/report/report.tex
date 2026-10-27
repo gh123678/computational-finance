@@ -1,0 +1,340 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,array,longtable}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={MA216 HW-02 - Zhang Bowen 12410604}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{MA216 Computational Finance}\fancyhead[R]{HW-02}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\E}{\mathbb E}\newcommand{\Pp}{\mathbb P}
+\DeclareMathOperator{\Var}{Var}\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\fig}[3]{\begin{figure}[!htbp]\centering\includegraphics[width=#3\linewidth]{../figures/#1.pdf}\caption{#2}\end{figure}}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Homework 2}\par
+{\large Options, Probability, Simulation, and AI Verification}\par
+Zhang Bowen \quad Student ID: 12410604\par
+MA216 Computational Finance, Fall 2026\par
+Updated on October 11, 2026
+\end{center}
+\textbf{Status and disclosure.} This is an AI-assisted report. T1--T15 and A1--A5 are completed with actual computational outputs. Supplied Part III records were integrated and independently audited on October 11. Numeric scripts reproduce their outputs, but I1(b) was subsequently corrected and re-derived with that provenance explicitly disclosed, I2 now includes its code exchanges, and the student has confirmed the I3 pre-feedback attempts and reflection. Part III records the revision provenance and corrects observed mathematical and code defects. It does not assert that these derivations or implementations were the student's unaided work.
+
+\textbf{Conventions.} All option prices are per unit; the asset is nonnegative, options are European with matching expiry, and the asset pays no dividends. Trading is frictionless with borrowing, lending and short selling permitted. Unless expressly discussing rate conversion, $r\geq0$. Let $R=e^{rT}$, $D=e^{-rT}$, and $x^+=\max(x,0)$. Financed terminal profit is payoff minus the signed initial cost multiplied by $R$.
+
+\clearpage
+\tableofcontents
+\clearpage
+\section{Theory}
+\subsection{T1. Contracts and positions}
+A call holder has the right to buy one unit at strike $E$; a put holder has the right to sell it at $E$. The writer must perform when exercise occurs. The holder may decline exercise. The strike is the contractual exchange price and expiry is the last contractual exercise date. A European option permits exercise at expiry only; an American option permits exercise on the allowed dates up to expiry.
+
+A long call can provide upside participation with a limited premium outlay or protect against a future purchase-price increase. A short call can collect premium against stock already held, giving a covered-call position that exchanges some upside for income. An uncovered short call bears unbounded loss. A long put can insure a stock holding against a fall. A short put can collect premium while committing to purchase the stock at the strike if exercised; a cash reserve can fund that obligation. These motives do not imply that the positions guarantee profits.
+
+\subsection{T2. Payoffs and financed profit}
+If $S_T>E$, exercise of a call exchanges $E$ for an asset worth $S_T$, giving $S_T-E$; otherwise it is left unexercised. If $S_T<E$, exercise of a put exchanges the asset for $E$, giving $E-S_T$; otherwise it is left unexercised. At equality exercise has zero intrinsic value. Writers have the opposite cash flow:
+\begin{center}\begin{tabular}{lll}\toprule
+Position & Payoff & Financed profit\\\midrule
+Long call & $(S_T-E)^+$ & $(S_T-E)^+-C_0R$\\
+Short call & $-(S_T-E)^+$ & $C_0R-(S_T-E)^+$\\
+Long put & $(E-S_T)^+$ & $(E-S_T)^+-P_0R$\\
+Short put & $-(E-S_T)^+$ & $P_0R-(E-S_T)^+$\\\bottomrule
+\end{tabular}\end{center}
+For $C_0>0$ the long-call break-even is $E+C_0R$. For $P_0>0$ the long-put break-even is $E-P_0R$, provided it is nonnegative. If $P_0R>E$, the long put loses for every admissible $S_T$. If a premium is zero, all prices in the unexercised region also give zero profit; the usual break-even formula identifies its boundary rather than a unique root.
+
+The largest financed loss of a long call or put is its premium times $R$, since the minimum payoff is zero. An uncovered short call has no finite maximum loss because $S_T$ has no upper bound. A short put has minimum profit $P_0R-E$ at $S_T=0$, so its maximum possible loss is $\max(E-P_0R,0)$, bounded by $E$. This discussion concerns financed profit; the contractual short-put payment itself is bounded by $E$.
+
+\subsection{T3. Call butterfly}
+Let $h=E_2-E_1=E_3-E_2>0$. The long-low, short-two-middle, long-high portfolio has payoff
+\[
+B_T=(S_T-E_1)^+-2(S_T-E_2)^++(S_T-E_3)^+
+=\begin{cases}
+0,&0\leq S_T\leq E_1,\\
+S_T-E_1,&E_1<S_T\leq E_2,\\
+E_3-S_T,&E_2<S_T<E_3,\\
+0,&S_T\geq E_3.
+\end{cases}
+\]
+For the last branch the stock terms cancel and $-E_1+2E_2-E_3=0$. The strictly positive region is $(E_1,E_3)$; the closed support is $[E_1,E_3]$. Its maximum payoff is $h$ at $S_T=E_2$. With initial cost $B_0=C_0(E_1)-2C_0(E_2)+C_0(E_3)$, profit is $B_T-B_0R$. A positive cost makes profit negative wherever payoff is zero. Nonnegative payoff alone therefore neither establishes arbitrage nor guarantees positive net profit.
+
+\subsection{T4. Compounding conventions}
+With $m$ periods per year and $mt$ an integer, matching the continuously compounded amount requires
+\[
+(1+r_c/m)^{mt}=e^{rt},\quad
+\log(1+r_c/m)=r/m,\quad r_c=m(e^{r/m}-1).
+\]
+Since $e^x=1+x+O(x^2)$, $r_c=r+r^2/(2m)+O(m^{-2})\to r$.
+With $N$ total equal periods on $[0,t]$, each period has duration $t/N$. Matching gives
+\[
+(1+\widetilde r_ct/N)^N=e^{rt},\qquad
+\widetilde r_c=\frac Nt(e^{rt/N}-1)=r+\frac{r^2t}{2N}+O(N^{-2}).
+\]
+Putting $N=mt$ gives $\widetilde r_c=r_c$. Conversely, if the base is positive,
+$r=m\log(1+r_c/m)$. The expression $(1+r_ct/m)^m$ describes $m$ total periods, each lasting $t/m$ years. It does not describe $m$ periods per year unless $t=1$. Testing only $t=1$ makes the two formulas identical and cannot expose this convention error.
+
+\subsection{T5. European option bounds and arbitrage}
+Write $D=e^{-rT}$. A bond paying $E$ at expiry costs $ED$. Negative option prices violate the zero lower bound: buy the option, invest the positive initial receipt, and receive its nonnegative payoff plus the positive bank balance at $T$. The following portfolios establish the other bounds. Every positive time-zero receipt can be invested in the bank; this converts a nonnegative terminal portfolio into a strictly positive terminal gain with zero net initial investment.
+
+\textbf{Call upper bound.} If $C_0>S_0$, buy one stock and short one call, receiving $C_0-S_0>0$. Their terminal value is
+$S_T-(S_T-E)^+=\min(S_T,E)\geq0$: it is $S_T$ for $S_T<E$ and $E$ otherwise. Thus $C_0\leq S_0$.
+
+\textbf{Put upper bound.} If $P_0>ED$, buy a bond paying $E$ and short the put, receiving $P_0-ED>0$. The terminal value is
+$E-(E-S_T)^+=\min(S_T,E)\geq0$. Thus $P_0\leq ED$.
+
+\textbf{Call lower bound.} If $C_0<S_0-ED$, buy a call and the strike bond, and short one stock. The initial receipt is $S_0-C_0-ED>0$. Its expiry value is
+$(S_T-E)^++E-S_T=(E-S_T)^+$: $E-S_T$ below $E$, zero at or above $E$. Hence $C_0\geq S_0-ED$.
+
+\textbf{Put lower bound.} If $P_0<ED-S_0$, buy a put and one stock and short the strike bond. The initial receipt is $ED-P_0-S_0>0$. At expiry the value is
+$(E-S_T)^++S_T-E=(S_T-E)^+$: zero below $E$, $S_T-E$ above it. Thus $P_0\geq ED-S_0$. Combining all cases gives
+\[
+\max(S_0-ED,0)\leq C_0\leq S_0,\qquad
+\max(ED-S_0,0)\leq P_0\leq ED.
+\]
+The violations produce strict initial receipts, so these arguments do not depend on whether a state with a strictly positive option payoff is possible.
+
+\subsection{T6. Parity and the put butterfly}
+Call plus strike bond pays $(S_T-E)^++E=\max(S_T,E)$. Put plus stock pays $(E-S_T)^++S_T=\max(S_T,E)$. Buying the cheaper and selling the dearer yields a strict initial receipt and zero net terminal payoff. Therefore
+\[C_0+ED=P_0+S_0.\]
+The instruments must have the same underlying, strike and maturity to match their statewise cash flows. Exercise styles must match; the European identity need not hold for American premiums because early exercise changes the cash-flow opportunities.
+
+For strikes $E-h,E,E+h$, buy the low and high puts and sell two middle puts. Using $x^+-(-x)^+=x$,
+\[
+P_T(K)=(K-S_T)^+=(S_T-K)^++K-S_T.
+\]
+The weighted linear terms cancel:
+$(E-h)-2E+(E+h)=0$ and $-S_T+2S_T-S_T=0$.
+The put butterfly is consequently the same triangular payoff as T3, with maximum $h$ at $E$ and positive region $(E-h,E+h)$. At time zero parity gives $P_0(K)=C_0(K)-S_0+KD$. In the combination $1,-2,1$, the stock contributions are $-S_0+2S_0-S_0=0$ and the bond contributions are $D[(E-h)-2E+(E+h)]=0$. Hence call and put butterflies have equal initial costs.
+
+\subsection{T7. Forward delivery price and value}
+A long forward receives the stock and pays $K$ at expiry; its payoff is $S_T-K$, including negative outcomes. A call gives $(S_T-E)^+$ because the holder may decline to exercise.
+
+If a zero-cost forward has $K>S_0R$, borrow $S_0$, buy the stock and short the forward. At $T$ deliver the stock, collect $K$, and repay $S_0R$, retaining $K-S_0R>0$. All time-zero cash flows cancel. If $K<S_0R$, short the stock, invest $S_0$, and take a long forward. At expiry use $K$ to receive stock and return it to the stock lender, retaining $S_0R-K>0$. Thus a fair new delivery price is $F_{0,T}=S_0R$.
+
+At time $t$, stock plus borrowing a present value $Ke^{-r(T-t)}$ replicates an existing long forward's payoff. Consequently
+\[
+V_t=S_t-Ke^{-r(T-t)}
+=e^{-r(T-t)}(F_{t,T}-K),\qquad F_{t,T}=S_te^{r(T-t)}.
+\]
+$K$ is fixed at initiation, $F_{t,T}$ is the delivery price for a new zero-value contract, and $V_t$ is the current value of the existing contract, which can have either sign.
+
+\subsection{T8. Uniform distribution}
+Constant density on $(\alpha,\beta)$ must satisfy
+$c(\beta-\alpha)=1$, so $f(x)=1/(\beta-\alpha)$ there and zero elsewhere. Endpoint choices for a continuous density do not change probabilities. For an interval inside the support,
+\[
+\Pp(x_1\leq X\leq x_2)=\int_{x_1}^{x_2}\frac{dx}{\beta-\alpha}
+=\frac{x_2-x_1}{\beta-\alpha}.
+\]
+Equal-length intervals have equal probability; the probability is their fraction of the support's length. For $x_1\leq x_2$ anywhere on the real line, the general formula is
+\[
+\frac{[\min(x_2,\beta)-\max(x_1,\alpha)]^+}{\beta-\alpha}.
+\]
+Integration also gives $\E X=(\alpha+\beta)/2$ and $\E X^2=(\alpha^2+\alpha\beta+\beta^2)/3$, hence $\Var(X)=(\beta-\alpha)^2/12$.
+
+\subsection{T9. Variance and covariance}
+Let $\mu=\E X$. Expanding the square and using linearity,
+\[
+\Var(X)=\E[(X-\mu)^2]=\E X^2-2\mu\E X+\mu^2
+=\E X^2-\mu^2.
+\]
+Since $aX+b-\E(aX+b)=a(X-\mu)$,
+$\Var(aX+b)=a^2\Var(X)$. Define
+$\Cov(X,Y)=\E[(X-\E X)(Y-\E Y)]=\E(XY)-\E X\E Y$.
+Expanding the centered square of $X+Y$ yields
+\[
+\Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X,Y).
+\]
+Independence factors $\E(XY)=\E X\E Y$, implying zero covariance. For the converse take $X\sim U(-1,1)$ and $Y=X^2$. Symmetry gives $\E X=\E X^3=0$ and therefore $\Cov(X,Y)=0$, but $Y$ is determined by $X$. Explicitly, the events $|X|\leq1/2$ and $Y\leq1/4$ coincide and each has probability $1/2$; their joint probability $1/2$ differs from the product $1/4$. Thus they are dependent.
+
+\subsection{T10. Exponential moments}
+For $\lambda>0$, $\int_0^\infty\lambda e^{-\lambda x}dx=[-e^{-\lambda x}]_0^\infty=1$.
+For the first moment, integration by parts with $u=x$ and $dv=\lambda e^{-\lambda x}dx$ gives
+\[
+\E X=[-xe^{-\lambda x}]_0^\infty+\int_0^\infty e^{-\lambda x}dx=\frac1\lambda.
+\]
+For the second moment,
+\begin{align*}
+\E X^2&=[-x^2e^{-\lambda x}]_0^\infty+2\int_0^\infty xe^{-\lambda x}dx,\\
+\int_0^\infty xe^{-\lambda x}dx
+&=[-xe^{-\lambda x}/\lambda]_0^\infty+
+\frac1\lambda\int_0^\infty e^{-\lambda x}dx=\frac1{\lambda^2}.
+\end{align*}
+All terms $x^k e^{-\lambda x}$ with fixed $k$ tend to zero at infinity because exponential decay dominates polynomial growth; at zero the factors $x$ or $x^2$ vanish. Hence $\E X^2=2/\lambda^2$ and $\Var(X)=1/\lambda^2$.
+
+\subsection{T11. Standard normal moments}
+The density $\phi(z)$ is even. The integrands $z\phi(z)$ and $z^3\phi(z)$ are odd and absolutely integrable, so their integrals on the symmetric real line are zero. Thus $\E Z=\E Z^3=0$.
+Since $\phi'(z)=-z\phi(z)$, integration by parts gives
+\[
+\E Z^2=-\int_{-\infty}^\infty z\phi'(z)dz
+=[-z\phi(z)]_{-\infty}^{\infty}+\int_{-\infty}^\infty\phi(z)dz=1.
+\]
+The boundary term vanishes by Gaussian decay, and the allowed Gaussian integral normalizes the density. Therefore $\Var(Z)=1$. The same integration by parts gives $\E Z^4=3\E Z^2=3$; distributions sharing mean and variance may still have different fourth moments and tail behavior.
+
+\subsection{T12. Inverse-transform sampling}
+For a continuous strictly increasing CDF on its support, monotonicity gives
+\[
+\Pp(F^{-1}(U)\leq x)=\Pp(U\leq F(x))=F(x).
+\]
+Outside the support the probability is zero or one, consistent with the CDF. Thus $F^{-1}(U)$ has distribution $F$.
+The exponential CDF is
+\[
+F(x)=\begin{cases}0,&x\leq0,\\1-e^{-\lambda x},&x>0.\end{cases}
+\]
+Solving $p=1-e^{-\lambda x}$ gives $F^{-1}(p)=-\log(1-p)/\lambda$ for $0<p<1$. Applying it to a uniform draw generates an exponential variable. Because $1-U$ is also uniform, $-\log U/\lambda$ has the same distribution, although its value on a particular draw generally differs. For CDFs with jumps or flat portions the generalized inverse $\inf\{x:F(x)\geq p\}$ provides the suitable inverse-transform construction.
+
+\subsection{T13. Quantiles and endpoints}
+\[
+z_\lambda(p)=-\frac{\log(1-p)}\lambda,\qquad
+z_1(1/2)=\log2\approx0.693147,\qquad
+z_1(0.95)=\log20\approx2.995732.
+\]
+For a general rate, divide these values by $\lambda$. As $p\downarrow0$, $z_\lambda(p)\downarrow0$; as $p\uparrow1$, $z_\lambda(p)\to\infty$. Passing $p=1$ takes the logarithm of zero and produces an infinite value rather than a finite sample. The implementation deliberately returns zero at $p=0$, rejects $p=1$ and all inputs outside $[0,1)$, and evaluates $-\mathrm{log1p}(-p)/\lambda$ for accuracy at small $p$.
+
+\subsection{T14. LLN, CLT and Monte Carlo uncertainty}
+Linearity and independence give
+\[
+\E\overline X_n=\mu,\quad \Var(\overline X_n)=\frac{\sigma^2}n,
+\qquad \E Z_n=0,\quad \Var(Z_n)=1.
+\]
+The weak LLN states that for every $\epsilon>0$,
+$\Pp(|\overline X_n-\mu|>\epsilon)\to0$. Here it follows from Chebyshev's bound $\sigma^2/(n\epsilon^2)$. The i.i.d. finite-variance CLT states $Z_n\Rightarrow N(0,1)$, namely $\Pp(Z_n\leq x)\to\Phi(x)$ for each real $x$. Convergence in probability controls deviation from the fixed mean; convergence in distribution concerns CDFs of scaled fluctuations. The non-AI statement checked in \cite{clt} supports this distinction.
+
+Increasing $n$ changes the underlying distribution of the standardized sum and improves its limiting approximation. Increasing the independent replication count $M$ estimates the fixed-$n$ distribution more precisely. It cannot change that distribution or make it exactly normal. For exponential summands, $Z_n\geq-\sqrt n$ and its population skewness is $2/\sqrt n$, so it is not exactly Gaussian for any finite $n$.
+
+For i.i.d. discounted payoffs $Y_i$, define
+\[
+\widehat V_N=\frac1N\sum_{i=1}^NY_i,\quad
+\E\widehat V_N=V,\quad
+\Var(\widehat V_N)=\frac{\Var(Y_1)}N.
+\]
+With $s_Y^2=(N-1)^{-1}\sum(Y_i-\widehat V_N)^2$, the estimated standard error is $s_Y/\sqrt N$. The asymptotic normal confidence interval is
+$[\widehat V_N-1.96s_Y/\sqrt N,\widehat V_N+1.96s_Y/\sqrt N]$.
+It has approximately 95\% repeated-sampling coverage under the stated assumptions, rather than a guarantee for one run. The $N^{-1/2}$ scale means four times as many samples are needed to halve typical error.
+
+A histogram uses a finite sample and a choice of bins; a normal Q-Q plot emphasizes selected sample quantiles. Neither proves exact normality, including in unobserved tails. Dependence or infinite variance prevents use of this particular i.i.d. finite-variance theorem without additional justification. The diagnostic interpretation of approximate linearity was checked against NIST \cite{qq}.
+
+\subsection{T15. Replication and risk-neutral valuation}
+Let $R=e^{rT}$. If $R\leq d$, borrow $S_0$ and buy one stock, with zero initial cost. Terminal wealth is $S_0(u-R)$ in the up state and $S_0(d-R)$ in the down state: nonnegative in both, strictly positive in the up state. If $R\geq u$, short one stock and invest $S_0$; terminal wealth is $S_0(R-u)$ up and $S_0(R-d)$ down, strictly positive in the down state. Both states have positive real-world probability, so equality cases also admit arbitrage. Thus $d<R<u$ is required.
+
+Solve the two replication equations
+\[
+\Delta uS_0+B_0R=H_u,\qquad \Delta dS_0+B_0R=H_d.
+\]
+Subtracting and substituting gives
+\[
+\Delta=\frac{H_u-H_d}{S_0(u-d)},\qquad
+B_0=D\frac{uH_d-dH_u}{u-d},\qquad V_0=\Delta S_0+B_0.
+\]
+Collecting the coefficients of the two payoffs,
+\[
+V_0=D[p^*H_u+(1-p^*)H_d],\qquad
+p^*=\frac{R-d}{u-d},\quad1-p^*=\frac{u-R}{u-d}.
+\]
+Both probabilities lie strictly between zero and one. They make the discounted stock a martingale, $D[p^*uS_0+(1-p^*)dS_0]=S_0$. The price is fixed by statewise replication; $p^*$ is therefore a valuation probability, not generally the real-world up probability. Positive state weights and attainable replication also establish sufficiency of the no-arbitrage inequalities in this two-asset, two-state market.
+
+For the specified data, $R=1.0512710964$ and $p^*=0.6281777409$. The call payoffs are $(20,0)$ and the put payoffs $(0,20)$:
+\[
+C_0=11.9508230200,\quad P_0=7.0737654700,\quad
+\Delta_C=0.5,\quad B_{0,C}=-38.0491769800.
+\]
+The bank debt at expiry is $-40$, giving $0.5(120)-40=20$ and $0.5(80)-40=0$. For the put, $\Delta_P=-0.5$ and $B_{0,P}=57.0737654700$, with terminal bank value $60$; replication gives $0$ and $20$. Finally
+\[
+C_0-P_0=4.8770575499=100-100e^{-0.05}.
+\]
+Both option bounds from T5 hold, and these identities are tested automatically.
+
+\clearpage
+\section{Algorithms and actual results}
+\subsection*{Reproducibility and validation}
+The implementations are in \texttt{code/student\_tasks.py}; \texttt{code/experiments.py} generates the tables and figures in this report. All experiments use the assigned final sizes, not the supplied uniform-sum examples. The master seed is 20260927. Nine child streams from \texttt{SeedSequence.spawn(9)} separate the A3 rate experiments, A4 single sum and four histograms, A5 price estimates and A5 RMSE repetitions. The last two streams continue between runs; no seed is reset inside the replication loop. The exact mapping and software versions are saved in \texttt{results/environment.json}.
+
+The supplied test suite and additional tests gave \textbf{37 passed, zero skipped} on this actual run. Tests cover shape preservation, strikes, continuity, financed break-even prices, rate round trips, endpoints, generator consumption, batch invariance, theoretical scaling, replication, bounds, pairing, discounted standard errors, statistical scaling and invalid model inputs. Full actual output is in \texttt{results/tests.txt}. An initial added test used erroneous hard-coded benchmark numbers; it failed, and its benchmark was corrected to the independently derived replication formulas $50-40D$ and $-50+60D$. The implementation did not change to fit that incorrect benchmark.
+
+\subsection{A1. Payoffs and financed-profit visualizer}
+Positive-part payoffs are computed with vectorized maximum operations. Short positions are their negatives. The butterfly uses weights $(1,-2,1)$ at strikes $(40,50,60)$. The grid has 1,001 points on $[0,100]$. The maximum absolute call/put butterfly discrepancy across the entire grid was exactly zero in this run.
+\input{table_A1.tex}
+Continuity was tested at each strike using perturbations of $10^{-7}$; the change is at most the perturbation magnitude. Initial cost is $12-2(5)+2=4$; financed cost is $4e^{0.05}=4.2050843855$. Thus profit is $B_T-4.2050843855$, the break-even prices are $44.2050843855$ and $55.7949156145$, and the maximum profit is $5.7949156145$. The maximum payoff remains 10. The profit's horizontal tails are negative because the premium must be financed.
+\fig{A1_basic_payoffs}{A1: Long and short call and put payoffs; strike 50.}{0.9}
+\fig{A1_butterfly_payoff}{A1: Equal call and put butterfly payoffs. Strike labels and the maximum refer to payoff.}{0.85}
+\fig{A1_butterfly_profit}{A1: Financed profit $B_T-B_0e^{rT}$ with $B_0=4$, $r=0.05$, $T=1$. Both break-even prices are marked.}{0.85}
+\clearpage
+
+\subsection{A2. Rate conversion and compounding}
+Implement $m\operatorname{expm1}(r/m)$, $m\operatorname{log1p}(r_c/m)$ and $(N/t)\operatorname{expm1}(rt/N)$. Counts must be positive integers; the inverse conversion requires a positive compounding base. Rate conversion functions permit negative finite rates with a valid base, although the financial examples use $r=0.05$.
+For $t=2$, $N=2m$ the two matched rates agree. Both matched amounts equal $10{,}000e^{0.1}=11{,}051.7091808$ to floating-point precision. Full amounts under both conventions and relative discrepancies are saved in the A2 CSV; the essential results appear below.
+\input{table_A2.tex}
+With fixed nominal $r_c=0.05$, the logarithm of wealth relative to continuous wealth is
+$mt\log(1+r/m)-rt=-r^2t/(2m)+O(m^{-2})$.
+Thus the signed error is negative and its magnitude decreases roughly as $1/m$. This is a compounding limit at a fixed nominal rate; matching conversions instead change the nominal rate for each $m$ and remove the economic discrepancy. Tests include $r=0$, $t=1$, $t=2$, tiny and negative rates, invalid counts and nonpositive bases.
+\fig{A2_error}{A2: Logarithmic axes show the magnitude of relative error for fixed nominal rate 0.05 and two-year maturity.}{0.85}
+\clearpage
+
+\subsection{A3. Exponential inverse-transform sampler}
+Uniform draws from the explicitly passed generator are transformed by $-\operatorname{log1p}(-U)/\lambda$. No exponential-library sampler is used. The actual run generated 100,000 draws at each rate. All reported sample variances use divisor $N-1$, and empirical quantiles use linear interpolation.
+\input{table_A3_moments.tex}
+\input{table_A3_quantiles.tex}
+For a bin with count $c_j$ and width $w_j$, the density height is $c_j/(Nw_j)$, so total area is $\sum_j[c_j/(Nw_j)]w_j=1$. Both measured areas equal one to floating-point precision. Counts would not have units of density and could not be directly compared to $\lambda e^{-\lambda x}$. A histogram allocates observations into bins; it is not a smooth kernel density estimator. No KDE is used here.
+
+Boundary checks include $p=0$, $10^{-16}$ and the largest representable float below one, invalid $p=1$, negative/nonfinite probabilities and nonpositive/nonfinite rates. At $p=0$ the output is deliberately zero. The NumPy documentation confirms that \texttt{Generator.random} uses $[0,1)$ \cite{rng}; thus the finite-sample transform does not receive one from this generator. Returning zero for the representable zero endpoint is consistent with the inverse CDF at its lower boundary. Tests reconstruct the uniforms independently and verify that generator state advances without an internal reseed.
+\fig{A3_exponential_rate1}{A3: Rate-one exponential sample; theoretical density overlay; $N=100{,}000$.}{0.85}
+\fig{A3_exponential_rate2}{A3: Rate-two exponential sample; theoretical density overlay; $N=100{,}000$.}{0.85}
+\clearpage
+
+\subsection{A4. Exponential CLT simulation}
+The separately generated first standardized sum with $n=1000$ is $-0.2156300411$, saved in \texttt{A4\_single\_sum.csv}. Each final histogram uses $M=10{,}000$ independent sums. The sampler forms a batch of at most $b=250$ rows, transforms uniforms and sums each row. For general rate $\lambda$, the standardized sum is $(\lambda\sum X_i-n)/\sqrt n$; the actual assessed experiment has $\lambda=1$.
+
+Time complexity is $O(Mn)$; simulation working memory is $O(bn+M)$ including output storage. For $n=1000$, one float64 batch is 250,000 entries, about 2 MB, and 10,000 outputs occupy 80 KB; simultaneous temporary arrays add constant factors. It never requires an $M\times n$ simulation array. Q-Q sorting adds $O(M\log M)$ time and $O(M)$ memory.
+\input{table_A4.tex}
+At $n=1$ the distribution is shifted exponential with lower bound $-1$ and pronounced right skew. At $n=5$ the skew remains visible, while $n=30$ is closer to symmetric. At $n=1000$ the observed skew is 0.08439 versus population skew $2/\sqrt{1000}=0.06325$, with mean $-0.01221$ and variance 1.01925. The deviation of these estimates from their population values reflects finite-$M$ variability; the nonzero population skew at fixed $n$ is finite-$n$ approximation error.
+
+The $n=1000$ values are saved in \texttt{A4\_standardized\_sums\_n1000.csv}, then read back to construct both its final histogram and Q-Q plot. Normal plotting positions are $(i-1/2)/M$, never zero or one; the line is $y=x$. In the center $|q|\leq2$, the maximum absolute quantile discrepancy was 0.07917. The lowest sample quantile is $-4.07468$ versus normal $-3.89059$; the highest is $3.73519$ versus $3.89059$. These few extremes show noticeable sampling variability and should not be interpreted as proof of particular population tail behavior. Overall central agreement supports a useful approximation, without establishing exact normality.
+\fig{A4_hist_n1}{A4: $n=1$, $M=10{,}000$; the shifted exponential differs strongly from the normal density.}{0.79}
+\fig{A4_hist_n5}{A4: $n=5$, $M=10{,}000$; residual right skew.}{0.79}
+\fig{A4_hist_n30}{A4: $n=30$, $M=10{,}000$; improved central normal approximation.}{0.79}
+\fig{A4_hist_n1000}{A4: $n=1000$, $M=10{,}000$; histogram of the saved assessed sample.}{0.79}
+\fig{A4_qq_n1000}{A4: Normal Q-Q plot from that same saved sample with $y=x$, including extreme observations.}{0.8}
+\clearpage
+
+\subsection{A5. Exact and Monte Carlo pricing}
+The exact implementation solves the replication equations directly and returns time-zero bank investment. The Monte Carlo implementation independently samples the terminal state using $p^*$, then averages discounted positive-part payoffs. It uses the same states for call and put. Model validation rejects $d\leq0$, nonpositive maturity or spot, negative strike, nonfinite parameters and any failure of $d<e^{rT}<u$; it never clips an invalid risk-neutral probability.
+\input{table_A5_exact.tex}
+Replication, parity and the bounds are exact model properties. Automated tests verify both call replication equations and parity to numerical precision. Zero-strike calls equal the stock price, and a strike above both terminal prices gives zero call payoff and zero standard error.
+\input{table_A5_mc.tex}
+\input{table_A5_parity.tex}
+For paired samples, $Y_C-Y_P=D(S_T-E)$ identically. Hence the appropriate parity residual is the sample mean of this difference minus $S_0-ED$, and its standard error is the sample standard deviation of the differences divided by $\sqrt N$. It is not the square root of the sum of separate sample variances unless covariance is zero. In this specific tree, $Y_C+Y_P=20D$ for every observation, so the two estimates are perfectly negatively related and parity SE is twice call SE. All three observed parity $z$-scores have magnitude below 1.96. Exact-model parity is a deterministic identity; Monte Carlo parity has random error, and a missed 95\% interval alone would not establish a defect.
+\input{table_A5_rmse.tex}
+Fifty independent repetitions at each size gave RMSE ratio $0.22869$; the population ratio predicted by $N^{-1/2}$ is $0.31623$. For the two-point call payoff, exact population RMSE is $20D\sqrt{p^*(1-p^*)/N}$, which appears in the table. With only 50 repetitions the empirical squared-error average itself is noisy, and this run's ratio need not equal the theoretical one. Raw repetition prices and errors are saved rather than selectively discarded. A single realized absolute error is not required to decrease as $N$ increases because independent errors can differ in sign and magnitude.
+
+Replication validates the price state by state without sampling uncertainty. Monte Carlo tests validate a stochastic implementation statistically and by reconstructing actual draws; agreement with one interval alone is less decisive than the combination of mathematical identities, draw reconstruction and domain tests.
+
+\bigskip
+\input{part_iii_verified.tex}
+
+\section{Reproduction and submission status}
+From the package root run:
+\begin{verbatim}
+python -m pip install -r requirements.txt
+python -m pytest code/ -v
+python code/experiments.py
+python code/debug_checks.py ai_debug_exercise
+python code/debug_checks.py ai_debug_repaired
+python code/verify_part_iii.py
+python code/build_report_tables.py
+cd report
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+\end{verbatim}
+The original debug check intentionally exits with a failure status; the repaired check exits successfully. PDF compilation needs a local LaTeX installation; all experiment figures are already included. The report source and generated table fragments are editable. Full reproduction instructions, software versions, source references, checksums and outstanding AI-record requirements are supplied locally.
+
+The PDF name is \texttt{12410604\_ZhangBowen\_HW-02.pdf}. The ZIP contains completed code/tests, assigned parameters, generated results and figures, the report source and the English PDF, plus AI-use disclosure and the Part III revision record. The supplied records are now included with an independent audit. The student confirmed the I3 personal chronology and reflection on October 11. The I1(b) post-session re-derivation remains explicitly disclosed rather than labeled an unchanged original exchange.
+
+\begin{thebibliography}{9}
+\bibitem{handout} J. Li. MA216 Homework 2: Options, Probability, Simulation, and AI Verification. Supplied Fall 2026 handout and Python scaffold. Assignment parameters and problem statements were consulted directly.
+\bibitem{clt} H. Pishro-Nik. Introduction to Probability, Statistics, and Random Processes, Section 7.1.2, Central Limit Theorem. Consulted October 10, 2026. \url{https://www.probabilitycourse.com/chapter7/7_1_2_central_limit_theorem.php}.
+\bibitem{qq} NIST/SEMATECH. e-Handbook of Statistical Methods, Section 1.3.3.21, Normal Probability Plot. Consulted October 10, 2026. \url{https://www.itl.nist.gov/div898/handbook/eda/section3/normprpl.htm}.
+\bibitem{rng} NumPy documentation. Generator.random. Consulted October 10, 2026. \url{https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.random.html}.
+\end{thebibliography}
+\end{document}

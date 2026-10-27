@@ -1,0 +1,1663 @@
+{
+  "status": "PASS",
+  "implementation": "stdlib + NumPy; no engine, pandas, statsmodels, or P1 imports",
+  "source_vintage": "French December 2024 FIZ pair",
+  "original_sample": {
+    "start": "1926-08",
+    "end": "2015-04",
+    "n": 1065,
+    "scale": 0.0009282707853812769
+  },
+  "fixed_training_sample": {
+    "start": "1926-08",
+    "end": "2015-04",
+    "n": 1065,
+    "scale": 0.0009282707853812769
+  },
+  "holdout_sample": {
+    "start": "2016-01",
+    "end": "2024-12",
+    "n": 108
+  },
+  "checks_passed": 331,
+  "checks": [
+    {
+      "check": "source SHA256 fiz_monthly.zip",
+      "passed": true
+    },
+    {
+      "check": "source SHA256 fiz_daily.zip",
+      "passed": true
+    },
+    {
+      "check": "source SHA256 ciz_monthly.zip",
+      "passed": true
+    },
+    {
+      "check": "source SHA256 ciz_daily.zip",
+      "passed": true
+    },
+    {
+      "check": "original exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "original market_excess",
+      "observations": 1065,
+      "maximum_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "check": "original rf",
+      "observations": 1065,
+      "maximum_absolute_error": 1.734723475976807e-18
+    },
+    {
+      "check": "original rv",
+      "observations": 1065,
+      "maximum_absolute_error": 1.3877787807814457e-17
+    },
+    {
+      "check": "original lag_rv",
+      "observations": 1065,
+      "maximum_absolute_error": 1.3877787807814457e-17
+    },
+    {
+      "check": "original daily_count",
+      "observations": 1065,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "original inverse variance weights",
+      "observations": 1065,
+      "maximum_absolute_error": 8.881784197001252e-15
+    },
+    {
+      "check": "original managed excess return",
+      "observations": 1065,
+      "maximum_absolute_error": 2.7755575615628914e-16
+    },
+    {
+      "check": "original equal volatility normalization",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "original regression n",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "original regression alpha_annual_pct",
+      "observations": 1,
+      "maximum_absolute_error": 2.6645352591003757e-15
+    },
+    {
+      "check": "original regression alpha_se_annual_pct",
+      "observations": 1,
+      "maximum_absolute_error": 1.1102230246251565e-15
+    },
+    {
+      "check": "original regression alpha_t",
+      "observations": 1,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "original regression beta",
+      "observations": 1,
+      "maximum_absolute_error": 5.551115123125783e-16
+    },
+    {
+      "check": "original regression beta_se",
+      "observations": 1,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "original regression r_squared",
+      "observations": 1,
+      "maximum_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "check": "original regression rmse_paper_units",
+      "observations": 1,
+      "maximum_absolute_error": 2.842170943040401e-14
+    },
+    {
+      "check": "calibration strictly precedes holdout",
+      "passed": true
+    },
+    {
+      "check": "saved calibration scale",
+      "observations": 1,
+      "maximum_absolute_error": 5.421010862427522e-19
+    },
+    {
+      "check": "holdout_market_0bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_market_0bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_0bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_market_0bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_0bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "check": "holdout_market_0bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 2.247919855798439e-16
+    },
+    {
+      "check": "holdout_market_0bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_0bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_0bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_0bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "holdout_market_0bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "holdout_market_0bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 4.884981308350689e-15
+    },
+    {
+      "check": "holdout_market_10bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_market_10bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_10bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_market_10bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_10bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "check": "holdout_market_10bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 2.205736518523814e-16
+    },
+    {
+      "check": "holdout_market_10bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 2.205736518523814e-19
+    },
+    {
+      "check": "holdout_market_10bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_10bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_10bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.255140518769849e-16
+    },
+    {
+      "check": "holdout_market_10bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 2.255140518769849e-16
+    },
+    {
+      "check": "holdout_market_10bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 8.881784197001252e-15
+    },
+    {
+      "check": "holdout_market_30bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_market_30bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_30bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_market_30bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_30bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "check": "holdout_market_30bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 2.254663615365835e-16
+    },
+    {
+      "check": "holdout_market_30bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_market_30bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_market_30bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_market_30bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.255140518769849e-16
+    },
+    {
+      "check": "holdout_market_30bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 2.255140518769849e-16
+    },
+    {
+      "check": "holdout_market_30bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 3.9968028886505635e-15
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 3.3306690738754696e-16
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 6.670011765130823e-16
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 6.661338147750939e-16
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 3.552713678800501e-15
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 7.806255641895632e-18
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 3.3306690738754696e-16
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-16
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-16
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 6.661338147750939e-15
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 7.105427357601002e-15
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 7.105427357601002e-15
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 1.9081958235744878e-17
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 3.3306690738754696e-16
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 6.661338147750939e-16
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 6.661338147750939e-16
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 8.659739592076221e-15
+    },
+    {
+      "check": "holdout_cap2_0bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_cap2_0bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_cap2_0bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_cap2_0bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.5543122344752192e-15
+    },
+    {
+      "check": "holdout_cap2_0bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.9984014443252818e-15
+    },
+    {
+      "check": "holdout_cap2_0bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 1.7763568394002505e-15
+    },
+    {
+      "check": "holdout_cap2_0bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_cap2_0bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_cap2_0bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "check": "holdout_cap2_0bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 4.371503159461554e-16
+    },
+    {
+      "check": "holdout_cap2_0bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "holdout_cap2_0bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 2.6645352591003757e-15
+    },
+    {
+      "check": "holdout_cap2_10bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_cap2_10bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_cap2_10bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_cap2_10bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.5543122344752192e-15
+    },
+    {
+      "check": "holdout_cap2_10bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.9984014443252818e-15
+    },
+    {
+      "check": "holdout_cap2_10bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 1.7763568394002505e-15
+    },
+    {
+      "check": "holdout_cap2_10bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 1.734723475976807e-18
+    },
+    {
+      "check": "holdout_cap2_10bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_cap2_10bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "check": "holdout_cap2_10bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "holdout_cap2_10bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "holdout_cap2_10bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "holdout_cap2_30bp.csv exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "holdout_cap2_30bp.csv market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "holdout_cap2_30bp.csv rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "holdout_cap2_30bp.csv weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.5543122344752192e-15
+    },
+    {
+      "check": "holdout_cap2_30bp.csv pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.7763568394002505e-15
+    },
+    {
+      "check": "holdout_cap2_30bp.csv one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 1.9984014443252818e-15
+    },
+    {
+      "check": "holdout_cap2_30bp.csv fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 5.204170427930421e-18
+    },
+    {
+      "check": "holdout_cap2_30bp.csv financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "holdout_cap2_30bp.csv gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "check": "holdout_cap2_30bp.csv net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 4.40619762898109e-16
+    },
+    {
+      "check": "holdout_cap2_30bp.csv total_return",
+      "observations": 108,
+      "maximum_absolute_error": 4.475586568020162e-16
+    },
+    {
+      "check": "holdout_cap2_30bp.csv nav",
+      "observations": 108,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "uncapped financing exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "uncapped financing market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "uncapped financing rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "uncapped financing weight",
+      "observations": 108,
+      "maximum_absolute_error": 3.1086244689504383e-15
+    },
+    {
+      "check": "uncapped financing pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 7.105427357601002e-15
+    },
+    {
+      "check": "uncapped financing one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 7.105427357601002e-15
+    },
+    {
+      "check": "uncapped financing fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 6.071532165918825e-18
+    },
+    {
+      "check": "uncapped financing financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 6.938893903907228e-18
+    },
+    {
+      "check": "uncapped financing gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 3.3306690738754696e-16
+    },
+    {
+      "check": "uncapped financing net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 1.1379786002407855e-15
+    },
+    {
+      "check": "uncapped financing total_return",
+      "observations": 108,
+      "maximum_absolute_error": 1.1657341758564144e-15
+    },
+    {
+      "check": "uncapped financing nav",
+      "observations": 108,
+      "maximum_absolute_error": 4.6629367034256575e-15
+    },
+    {
+      "check": "cap2 financing exact monthly sample",
+      "passed": true
+    },
+    {
+      "check": "cap2 financing market_excess",
+      "observations": 108,
+      "maximum_absolute_error": 2.7755575615628914e-17
+    },
+    {
+      "check": "cap2 financing rf",
+      "observations": 108,
+      "maximum_absolute_error": 8.673617379884035e-19
+    },
+    {
+      "check": "cap2 financing weight",
+      "observations": 108,
+      "maximum_absolute_error": 1.5543122344752192e-15
+    },
+    {
+      "check": "cap2 financing pretrade_weight",
+      "observations": 108,
+      "maximum_absolute_error": 2.220446049250313e-15
+    },
+    {
+      "check": "cap2 financing one_way_turnover",
+      "observations": 108,
+      "maximum_absolute_error": 1.7763568394002505e-15
+    },
+    {
+      "check": "cap2 financing fee_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 1.951563910473908e-18
+    },
+    {
+      "check": "cap2 financing financing_fraction",
+      "observations": 108,
+      "maximum_absolute_error": 3.0357660829594124e-18
+    },
+    {
+      "check": "cap2 financing gross_excess",
+      "observations": 108,
+      "maximum_absolute_error": 5.551115123125783e-17
+    },
+    {
+      "check": "cap2 financing net_excess",
+      "observations": 108,
+      "maximum_absolute_error": 4.510281037539698e-16
+    },
+    {
+      "check": "cap2 financing total_return",
+      "observations": 108,
+      "maximum_absolute_error": 4.440892098500626e-16
+    },
+    {
+      "check": "cap2 financing nav",
+      "observations": 108,
+      "maximum_absolute_error": 4.884981308350689e-15
+    },
+    {
+      "check": "metrics market 0bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 3.8054004392051866e-12
+    },
+    {
+      "check": "metrics market 0bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.756750549006483e-13
+    },
+    {
+      "check": "metrics market 0bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.0980773502164993e-13
+    },
+    {
+      "check": "metrics market 0bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 3.8054004392051866e-12
+    },
+    {
+      "check": "metrics market 0bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.1138312494551883e-13
+    },
+    {
+      "check": "metrics market 0bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 8.484879465697759e-14
+    },
+    {
+      "check": "metrics market 0bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 5.750955267558311e-14
+    },
+    {
+      "check": "metrics market 0bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 0bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 9.992007221626409e-15
+    },
+    {
+      "check": "metrics market 0bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 6.47051856539349e-16
+    },
+    {
+      "check": "metrics market 0bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.1222967000179551e-13
+    },
+    {
+      "check": "metrics uncapped 0bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 0bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 0bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 2.027711332175386e-12
+    },
+    {
+      "check": "metrics uncapped 0bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 2.6617597015388128e-14
+    },
+    {
+      "check": "metrics uncapped 0bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 1.5354384430565915e-13
+    },
+    {
+      "check": "metrics uncapped 0bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 2.027711332175386e-12
+    },
+    {
+      "check": "metrics uncapped 0bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 3.1433189384699745e-14
+    },
+    {
+      "check": "metrics uncapped 0bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.3318126863312045e-13
+    },
+    {
+      "check": "metrics uncapped 0bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 2.83550960489265e-13
+    },
+    {
+      "check": "metrics uncapped 0bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 0bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics uncapped 0bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 5.941913627793838e-13
+    },
+    {
+      "check": "metrics uncapped 0bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 0bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 4.2092551666428335e-11
+    },
+    {
+      "check": "metrics uncapped 0bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.9317880628477724e-14
+    },
+    {
+      "check": "metrics uncapped 0bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.3092638912203256e-13
+    },
+    {
+      "check": "metrics cap2 0bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 0bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 0bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 1.134425886561985e-12
+    },
+    {
+      "check": "metrics cap2 0bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.744815651491763e-14
+    },
+    {
+      "check": "metrics cap2 0bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 2.844391389089651e-13
+    },
+    {
+      "check": "metrics cap2 0bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 1.13464793116691e-12
+    },
+    {
+      "check": "metrics cap2 0bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.559863349598345e-14
+    },
+    {
+      "check": "metrics cap2 0bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.569122857844832e-13
+    },
+    {
+      "check": "metrics cap2 0bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 3.816946758661288e-13
+    },
+    {
+      "check": "metrics cap2 0bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 0bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics cap2 0bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 0bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 0bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 3.40349970429088e-12
+    },
+    {
+      "check": "metrics cap2 0bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.2776225350185086e-13
+    },
+    {
+      "check": "metrics cap2 0bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 7.327471962526033e-13
+    },
+    {
+      "check": "metrics market 10bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 3.4665603720895888e-12
+    },
+    {
+      "check": "metrics market 10bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 2.715605518233133e-13
+    },
+    {
+      "check": "metrics market 10bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.101408019290375e-13
+    },
+    {
+      "check": "metrics market 10bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 3.4665603720895888e-12
+    },
+    {
+      "check": "metrics market 10bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 2.8219093728409916e-13
+    },
+    {
+      "check": "metrics market 10bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 2.6434410216324977e-13
+    },
+    {
+      "check": "metrics market 10bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 3.552713678800501e-15
+    },
+    {
+      "check": "metrics market 10bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 10bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 7.993605777301127e-15
+    },
+    {
+      "check": "metrics market 10bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 6.661338147750939e-16
+    },
+    {
+      "check": "metrics market 10bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.1200762539687048e-13
+    },
+    {
+      "check": "metrics uncapped 10bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 10bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 10bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 1.7528201112781971e-12
+    },
+    {
+      "check": "metrics uncapped 10bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 8.0629947163402e-15
+    },
+    {
+      "check": "metrics uncapped 10bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.148592497836944e-13
+    },
+    {
+      "check": "metrics uncapped 10bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 1.7528201112781971e-12
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.8433479449272454e-14
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.88414864108222e-13
+    },
+    {
+      "check": "metrics uncapped 10bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 2.169375790117556e-13
+    },
+    {
+      "check": "metrics uncapped 10bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 10bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics uncapped 10bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 5.941913627793838e-13
+    },
+    {
+      "check": "metrics uncapped 10bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 10bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.715694336075103e-11
+    },
+    {
+      "check": "metrics uncapped 10bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 7.771561172376096e-15
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.9060308886764687e-12
+    },
+    {
+      "check": "metrics cap2 10bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 2.8597124668294782e-12
+    },
+    {
+      "check": "metrics cap2 10bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.08006961549745e-15
+    },
+    {
+      "check": "metrics cap2 10bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.106437412332298e-13
+    },
+    {
+      "check": "metrics cap2 10bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 2.859490422224553e-12
+    },
+    {
+      "check": "metrics cap2 10bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 2.961519918187605e-14
+    },
+    {
+      "check": "metrics cap2 10bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.595351876801601e-13
+    },
+    {
+      "check": "metrics cap2 10bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 6.217248937900877e-15
+    },
+    {
+      "check": "metrics cap2 10bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 10bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics cap2 10bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 10bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.5205614545266144e-12
+    },
+    {
+      "check": "metrics cap2 10bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 3.1924463073096376e-13
+    },
+    {
+      "check": "metrics cap2 10bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.6964207816272392e-13
+    },
+    {
+      "check": "metrics market 30bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 1.7639223415244487e-12
+    },
+    {
+      "check": "metrics market 30bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 2.4233393070005604e-13
+    },
+    {
+      "check": "metrics market 30bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.0991875732411245e-13
+    },
+    {
+      "check": "metrics market 30bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 1.7639223415244487e-12
+    },
+    {
+      "check": "metrics market 30bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.8840484727888906e-13
+    },
+    {
+      "check": "metrics market 30bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 2.1188606424971113e-13
+    },
+    {
+      "check": "metrics market 30bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 3.4505731605349865e-13
+    },
+    {
+      "check": "metrics market 30bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics market 30bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.332578574737454e-13
+    },
+    {
+      "check": "metrics market 30bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.6558616417204917e-15
+    },
+    {
+      "check": "metrics market 30bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.481487237915303e-13
+    },
+    {
+      "check": "metrics uncapped 30bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 30bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 30bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 2.1382895454280515e-13
+    },
+    {
+      "check": "metrics uncapped 30bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.259892356055616e-14
+    },
+    {
+      "check": "metrics uncapped 30bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.2282843892849087e-13
+    },
+    {
+      "check": "metrics uncapped 30bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 2.213784711102562e-12
+    },
+    {
+      "check": "metrics uncapped 30bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 6.245004513516506e-16
+    },
+    {
+      "check": "metrics uncapped 30bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.634903572053872e-13
+    },
+    {
+      "check": "metrics uncapped 30bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 1.605937605120289e-13
+    },
+    {
+      "check": "metrics uncapped 30bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 30bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics uncapped 30bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 5.941913627793838e-13
+    },
+    {
+      "check": "metrics uncapped 30bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 30bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.673061771929497e-11
+    },
+    {
+      "check": "metrics uncapped 30bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 3.0808688933348094e-13
+    },
+    {
+      "check": "metrics uncapped 30bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 3.696598582791921e-12
+    },
+    {
+      "check": "metrics cap2 30bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 30bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 30bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 1.3433698597964394e-14
+    },
+    {
+      "check": "metrics cap2 30bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 1.0241807402167069e-14
+    },
+    {
+      "check": "metrics cap2 30bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 6.783462680459706e-14
+    },
+    {
+      "check": "metrics cap2 30bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 1.3322676295501878e-14
+    },
+    {
+      "check": "metrics cap2 30bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.2823075934420558e-14
+    },
+    {
+      "check": "metrics cap2 30bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.7041923427996153e-13
+    },
+    {
+      "check": "metrics cap2 30bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 2.545741395465484e-13
+    },
+    {
+      "check": "metrics cap2 30bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 30bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics cap2 30bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 30bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 30bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.5631940186722204e-13
+    },
+    {
+      "check": "metrics cap2 30bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 2.5779378631796135e-13
+    },
+    {
+      "check": "metrics cap2 30bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.0933476346508542e-12
+    },
+    {
+      "check": "metrics uncapped 10bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 10bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics uncapped 10bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 3.930855640987829e-12
+    },
+    {
+      "check": "metrics uncapped 10bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 3.927413949611491e-14
+    },
+    {
+      "check": "metrics uncapped 10bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.657385588302532e-14
+    },
+    {
+      "check": "metrics uncapped 10bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 3.930633596382904e-12
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.4349632593280148e-14
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 1.18849374786123e-13
+    },
+    {
+      "check": "metrics uncapped 10bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 7.693845560652335e-14
+    },
+    {
+      "check": "metrics uncapped 10bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 10bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics uncapped 10bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 5.941913627793838e-13
+    },
+    {
+      "check": "metrics uncapped 10bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 2.7824409443155673e-12
+    },
+    {
+      "check": "metrics uncapped 10bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 3.2244429348793346e-11
+    },
+    {
+      "check": "metrics uncapped 10bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 4.4220183070819985e-13
+    },
+    {
+      "check": "metrics uncapped 10bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 4.693134769695462e-12
+    },
+    {
+      "check": "metrics cap2 10bp months",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp periods_per_year",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp total_return",
+      "observations": 1,
+      "maximum_absolute_error": 1.1906031716080179e-12
+    },
+    {
+      "check": "metrics cap2 10bp cagr_total",
+      "observations": 1,
+      "maximum_absolute_error": 4.704570066849101e-14
+    },
+    {
+      "check": "metrics cap2 10bp max_drawdown_total",
+      "observations": 1,
+      "maximum_absolute_error": 9.020562075079397e-15
+    },
+    {
+      "check": "metrics cap2 10bp final_nav",
+      "observations": 1,
+      "maximum_absolute_error": 1.1906031716080179e-12
+    },
+    {
+      "check": "metrics cap2 10bp annualized_mean_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.6976311729451936e-14
+    },
+    {
+      "check": "metrics cap2 10bp annualized_volatility_excess",
+      "observations": 1,
+      "maximum_absolute_error": 4.96339080946484e-13
+    },
+    {
+      "check": "metrics cap2 10bp sharpe",
+      "observations": 1,
+      "maximum_absolute_error": 3.1530333899354446e-13
+    },
+    {
+      "check": "metrics cap2 10bp average_weight",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 10bp minimum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 2.318284453295405e-14
+    },
+    {
+      "check": "metrics cap2 10bp maximum_weight",
+      "observations": 1,
+      "maximum_absolute_error": 0.0
+    },
+    {
+      "check": "metrics cap2 10bp average_gross_exposure",
+      "observations": 1,
+      "maximum_absolute_error": 1.5987211554602254e-13
+    },
+    {
+      "check": "metrics cap2 10bp total_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 6.281197784119286e-12
+    },
+    {
+      "check": "metrics cap2 10bp average_monthly_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 1.6403545188836688e-13
+    },
+    {
+      "check": "metrics cap2 10bp annualized_turnover",
+      "observations": 1,
+      "maximum_absolute_error": 4.0314418470188684e-12
+    }
+  ]
+}

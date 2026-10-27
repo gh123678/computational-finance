@@ -1,0 +1,394 @@
+<html>
+	<head>
+		<title>Kenneth R. French - Description of Fama/French Factors</title>
+		<META NAME="keywords" CONTENT="Monthly, Annual, Series, Stocks, Portfolio, Formation, Detail, NYSE, AMEX, NASDAQ, Fama/French, SMB, HML, value-weight, book-to-market">
+		<META NAME="description" CONTENT="Rm-Rf includes all NYSE, AMEX, and NASDAQ firms. SMB and HML for July of year t to June of t+1 include all NYSE, AMEX, and NASDAQ stocks for which we have market equity data for December of t-1 and June of t, and (positive) book equity data for t-1.">
+		<!-----------------------------------------------------------------------------------
+--
+-- Site Developed by Dimensional Fund Advisors Web Team (http://www.dfafunds.com).
+-- Web Producer: Robert Dintzner
+-- Webmaster: Keith J. Hasely
+-- Graphic Artist: Dan Searle
+-- Jr. Developer/Jr. Graphic Artist: Hiroshi Nakahara
+--
+-- All images and code are property of Ken French. Use in part or whole is illegal
+-- except by permission of Ken French or Dimensional Fund Advisors
+--
+------------------------------------------------------------------------------------>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	</head>
+	<body bgcolor="#ffffff" link="#000000" vlink="#000000" alink="#000000">
+		<br>
+		<br>
+		<center>
+			<script language="JavaScript">
+
+<!--
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+//		Script written by Keith J. Hasely
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Constants
+
+
+var INT_VERSION = parseInt(navigator.appVersion);
+
+var STRING_BROWSER = navigator.appName;
+
+
+// Variable
+var
+ bool_finished_loading = 0;
+var bool_browser_scriptable = 0;
+
+
+// Checks for browsers that supports the image object
+
+if ((INT_VERSION >= 3) && (STRING_BROWSER == "Netscape")){bool_browser_scriptable = 1}
+if ((INT_VERSION >= 4) && (STRING_BROWSER == "Microsoft Internet Explorer")) {bool_browser_scriptable = 1}
+
+
+// If the browser supports the image object
+
+if (bool_browser_scriptable){
+// Image Object Creation
+
+	var kf_hi_lo = new Image(108, 65);
+	kf_hi_lo.src = "../images/Board_HiLoSm.jpg";
+
+	var kf_bio = new Image(108, 65);
+	kf_bio.src = "../images/Board_BiographySm.jpg";
+
+	var kf_curriculum = new Image(108, 65);
+	kf_curriculum.src = "../images/Board_CurriculumSm.jpg";
+
+	var kf_working = new Image(108, 65);
+	kf_working.src = "../images/Board_WorkingSm.jpg";
+
+	var kf_data = new Image(108, 65);
+	kf_data.src = "../images/Board_DataSm.jpg";
+
+	var kf_consulting = new Image(108, 65);
+	kf_consulting.src = "../images/Board_ConsultingSm.jpg";
+
+	var kf_fff = new Image(108, 65);
+	kf_fff.src = "../images/Board_fffSm.jpg"
+
+	var kf_contact = new Image(108, 65);
+	kf_contact.src = "../images/Board_ContactSm.jpg";
+
+
+	bool_finished_loading = 1;
+
+} // END if (bool_browser_scriptable)
+
+
+	function kf_on_image(object_name){
+
+		if (bool_finished_loading){
+			self.document.kf_blackboard.src = object_name.src;
+		} // END if
+	} // END function on_image
+
+
+	function kf_off_imag(){
+		if (bool_finished_loading){
+			self.document.kf_blackboard.src = kf_data.src
+		} // END if
+	} // END function off_imag
+
+
+
+//-->
+			</script>
+			<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-6277349-16', 'auto');
+	ga('send', 'pageview');
+	</script>
+
+			<table width="650" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td valign="top" width="140"><img src="../images/Board_DataSm.jpg" width="108" height="65" name="kf_blackboard" border="0"><br>
+						<br>
+						<table width="140" border="0" cellspacing="0" cellpadding="0">
+							<tr valign="top">
+								<td colspan="3"><a href="../index.html" onMouseOver="kf_on_image(kf_hi_lo)" onMouseOut="kf_off_imag()"><img src="../images/Home_nav.gif" width="42" height="16" alt="Home" border="0"></a></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="../biography.html" onMouseOver="kf_on_image(kf_bio)" onMouseOut="kf_off_imag()"><img src="../images/Biography_nav.gif" width="81" height="20" alt="Biography" border="0"></a></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="../curriculum_vitae.html" onMouseOver="kf_on_image(kf_curriculum)" onMouseOut="kf_off_imag()"><img src="../images/Curriculum_nav.gif" width="123" height="16" border="0" alt="Curriculum Vitae"></a></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="http://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=1455" target="_blank"
+										onMouseOver="kf_on_image(kf_working)" onMouseOut="kf_off_imag()"><img src="../images/Working_nav.gif" width="113" height="15" border="0" alt="Working Papers"></a></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3" height="2"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="../data_library.html"><img src="../images/Data_blue_nav.gif" width="99" height="19" border="0" alt="Data Library"></a></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"> <!-- Begin nested table for the Data Library Section -->
+									<table cellpadding="0" cellspacing="2">
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td colspan="3"><a href="../data_library.html#Research"><img src="../images/Research_returns_blue_nav.gif" alt="U.S. Research Returns" width="133"
+														height="14" border="0"></a></td>
+										</tr>
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td colspan="3"><a href="../data_library.html#Benchmarks"><img src="../images/Benchmarks_nav.gif" width="97" height="16" border="0" alt="Benchmarks"></a></td>
+										</tr>
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td colspan="3"><a href="../data_library.html#Breakpoints"><img src="../images/Research_breakpoints_nav.gif" width="150" height="14" border="0"
+														alt="U.S. Research Breakpoints"></a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td colspan="3"><a href="../data_library.html#BookEquity"><img src="../images/US_Book_Equity_Data_nav.gif" width="116" height="14" border="0" alt="U.S. Book Equity Data"></a></td>
+										</tr>
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td colspan="3"><a href="../data_library.html#International"><img src="../images/Int_research_returns_nav.gif" alt="International Research Returns"
+														width="112" height="29" border="0"></a></td>
+										</tr>
+									</table>
+									<!-- End nested table for the Data Library Section -->
+								</td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><img src="../images/blank.gif" width="100" height="7" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="../consul_rel.html" onMouseOver="kf_on_image(kf_consulting)" onMouseOut="kf_off_imag()"><img src="../images/Consulting_nav.gif" width="88" height="31" border="0" alt="Consulting Relationship"></a></td>
+							</tr>
+							<tr valign="top">
+            <td colspan="3"><img src="../images/blank.gif" width="100" height="9" alt=""></td>
+          </tr>
+          <tr valign="top">
+            <td colspan="3"><a href="http://www.dimensional.com/famafrench/" onMouseOver="kf_on_image(kf_fff)" onMouseOut="kf_off_imag()"><img src="../images/fff_nav.gif" alt="Fama / French Forum" border="0" id="fff"></a></td>
+          </tr>
+							<tr valign="top">
+								<td colspan="3"><img src="../images/blank.gif" width="100" height="20" alt=" "></td>
+							</tr>
+							<tr valign="top">
+								<td colspan="3"><a href="../contact_Information.html" onMouseOver="kf_on_image(kf_contact)" onMouseOut="kf_off_imag()"><img src="../images/Contact_nav.gif" width="138" height="17" border="0" alt="Contact Information"></a></td>
+							</tr>
+						</table>
+					</td>
+					<td width="20" rowspan="2">&nbsp;</td>
+					<td valign="top" align="left" width="470" rowspan="3">
+						<font face="Courier New, Courier, mono" size="2" color="#336699"><b>Description of
+								Fama/French Factors</b></font>
+						<br>
+						<br>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr valign="top">
+								<td width="24%"><font face="Times New Roman, Times, serif" size="2"><b>Daily Returns:</b></font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%"><font face="Times New Roman, Times, serif" size="2">July 1, 1926 - August 31, 2026</font></td>
+							</tr>
+							<tr valign="top">
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr valign="top">
+								<td width="24%"><font face="Times New Roman, Times, serif" size="2"><b>Weekly Returns:</b></font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%"><font face="Times New Roman, Times, serif" size="2"> July 2, 1926 - August 31, 2026</font></td>
+							</tr>
+							<tr valign="top">
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr valign="top">
+								<td width="24%"><font face="Times New Roman, Times, serif" size="2"><b>Monthly Returns:</b></font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%"><font face="Times New Roman, Times, serif" size="2">July 1926 - August 2026</font></td>
+							</tr>
+							<tr valign="top">
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr valign="top">
+								<td width="24%"><font face="Times New Roman, Times, serif" size="2"><b>Annual Returns:</b></font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%"><font face="Times New Roman, Times, serif" size="2">1927 - 2025</font></td>
+							</tr>
+							<tr valign="top">
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%" valign="top"><font face="Times New Roman, Times, serif" size="2"><b>Construction:</b></font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top"><font face="Times New Roman, Times, serif" size="2">The
+										Fama/French factors are constructed using the 6 value-weight portfolios formed
+										on size and book-to-market. (See the description of the 6 size/book-to-market
+										portfolios.) </font>
+								</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%" valign="top"><font face="Times New Roman, Times, serif" size="2">&nbsp;</font></td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top"><font face="Times New Roman, Times, serif" size="2">SMB
+										(Small Minus Big) is the average return on the three small portfolios minus the
+										average return on the three big portfolios, </font>
+								</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">
+									<!-- Begin nested table for formatting -->
+									<table cellpadding="0" cellspacing="0" border="0">
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td valign="top">
+												<font face="Times New Roman, Times, serif" size="2"><i>SMB =<br>
+														<br>
+													</i></font>
+											</td>
+											<td valign="top"><font face="Times New Roman, Times, serif" size="2"><i> 1/3 (Small Value +
+														Small Neutral + Small Growth)<br>
+														&nbsp;- 1/3 (Big Value + Big Neutral + Big Growth).</i></font></td>
+											<td width="10">&nbsp;</td>
+										</tr>
+									</table>
+									<!-- End nested table for formatting -->
+								</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top"><font size="2" face="Times New Roman, Times, serif">HML
+										(High Minus Low) is the average return on the two value portfolios minus the
+										average return on the two growth portfolios, </font>
+								</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">
+									<!-- Begin nested table for formatting -->
+									<table cellpadding="0" cellspacing="0" border="0">
+										<tr>
+											<td width="10">&nbsp;</td>
+											<td valign="top">
+												<font face="Times New Roman, Times, serif" size="2"><i>HML =<br>
+														<br>
+													</i></font>
+											</td>
+											<td valign="top"><font face="Times New Roman, Times, serif" size="2"><i>1/2 (Small Value +
+														Big Value)<br>
+														&nbsp;- 1/2 (Small Growth + Big Growth).</i></font></td>
+											<td width="10">&nbsp;</td>
+										</tr>
+									</table>
+									<!-- End nested table for formatting -->
+								</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top"><font face="Times New Roman, Times, serif" size="2" color="#000000">R<font size="1">m</font>-R<font size="1">f</font>,
+										the excess return on the market, value-weight return of all CRSP firms
+                                    incorporated in the US and listed on the NYSE, AMEX, or NASDAQ that have a CRSP
+                                    share code of 10 or 11 at the beginning of month t, good shares and price data
+                                    at the beginning of t, and good return data for t minus the one-month Treasury bill rate.
+									The one-month Treasury bill rate data through May 2024 are from Ibbotson Associates. 
+									Starting from June 2024, the one-month Treasury bill rate is from ICE BofA US 1-Month Treasury Bill Index.</font></td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top"><font face="Times New Roman, Times, serif" size="2">See
+										Fama and French, 1993, "Common Risk Factors in the Returns on Stocks and
+										Bonds,"<i> Journal of Financial Economics</i>, for a complete description of
+										the factor returns.</font></td>
+							</tr>
+							<tr>
+								<td width="24%">&nbsp;</td>
+								<td width="2%">&nbsp;</td>
+								<td width="75%" valign="top">&nbsp;</td>
+							</tr>
+							<tr>
+								<td valign="top"><font face="Times New Roman, Times, serif" size="2"><b>Stocks:</b></font></td>
+								<td>&nbsp;</td>
+								<td valign="top"><font face="Times New Roman, Times, serif" size="2">Rm-Rf includes all
+										NYSE, AMEX, and NASDAQ firms. SMB and HML for July of year t to June of t+1
+										include all NYSE, AMEX, and NASDAQ stocks for which we have market equity data
+										for December of t-1 and June of t, and (positive) book equity data for t-1.</font></td>
+							</tr>
+						</table>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<td valign="top" width="140">
+						<p>&nbsp;</p>
+					</td>
+				</tr>
+			</table>
+		</center>
+	</body>
+</html>
+

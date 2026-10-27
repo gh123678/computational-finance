@@ -1,0 +1,99 @@
+{
+  "A2": {
+    "normalization": [
+      {
+        "S0": 1,
+        "mu_per_year": 0.05,
+        "sigma_per_sqrt_year": 0.4,
+        "T_years": 1,
+        "density_integral_0_infinity": 1.0000000000000007,
+        "quadrature_error_estimate": 4.0352285327272134e-09,
+        "mean": 1.0512710963760241,
+        "median": 0.9704455335485082
+      },
+      {
+        "S0": 1,
+        "mu_per_year": 0.2,
+        "sigma_per_sqrt_year": 0.4,
+        "T_years": 1,
+        "density_integral_0_infinity": 1.0000000000000002,
+        "quadrature_error_estimate": 5.690850341681252e-10,
+        "mean": 1.2214027581601699,
+        "median": 1.1274968515793757
+      }
+    ],
+    "terminal": {
+      "M": 100000,
+      "S0": 100.0,
+      "mu_per_year": 0.08,
+      "sigma_per_sqrt_year": 0.3,
+      "T_years": 2.0,
+      "sample_mean": 117.18851015526066,
+      "sample_variance_n_minus_1": 2707.881389013636,
+      "mean_mcse": 0.16455641552408815,
+      "variance_mcse_plugin": 21.302004202671345,
+      "analytical_mean": 117.35108709918103,
+      "analytical_variance": 2715.935063641711,
+      "mean_error_in_mcse": -0.9879708633819411,
+      "mean_ci95_lower": 116.86597958083344,
+      "mean_ci95_upper": 117.51104072968788,
+      "fixed_prediction95_lower": 46.69385686207214,
+      "fixed_prediction95_upper": 246.34371117703844
+    },
+    "coverage": {
+      "M": 100000,
+      "inside_count": 95060,
+      "empirical_fraction": 0.9506,
+      "model_fraction_using_z1_96": 0.950004209703559,
+      "binomial_mcse_model": 0.000689174950568252,
+      "binomial_mcse_plugin": 0.000685271041267614,
+      "fraction_error_in_mcse": 0.8644978984649908,
+      "mc_interval95_lower": 0.9492492170968863,
+      "mc_interval95_upper": 0.9519507829031137
+    }
+  },
+  "A3": {
+    "euler_observed_slope": 0.4992432973129758,
+    "exact_reference": {
+      "sample_mean": 108.11230822513853,
+      "sample_variance_n_minus_1": 1098.8548568769666,
+      "mean_mcse": 0.23439868353693527,
+      "variance_mcse_plugin": 14.254737903314698
+    },
+    "max_abs_cross_moment_z": 0.9215329991552202,
+    "max_abs_mse_z": 1.1622681421110357,
+    "stress": {
+      "M": 100000,
+      "S0": 100,
+      "mu_per_year": 0.08,
+      "sigma_per_sqrt_year": 1,
+      "T_years": 1,
+      "h_years": 1,
+      "threshold_Y": -1.08,
+      "analytical_nonpositive_probability": 0.140071090088769,
+      "nonpositive_count": 14178,
+      "observed_fraction": 0.14178,
+      "binomial_mcse_model": 0.0010975025276058045,
+      "binomial_mcse_plugin": 0.0011030794694853131,
+      "fraction_error_in_mcse": 1.5570897271270665,
+      "clipped_or_discarded": false
+    },
+    "complexity": {
+      "batch_size_paths": 1000,
+      "fine_grid_per_batch_bytes": 2048000,
+      "dominant_working_arrays_upper_estimate_bytes": 4192000,
+      "retained_terminal_arrays_bytes": 1760000,
+      "saved_csv_rows": {
+        "convergence": 10,
+        "coupled_checks": 10,
+        "stress": 1
+      },
+      "time_complexity": "O(M * (n_max + sum(n))); geometric resolutions make sum(n) < 2*n_max.",
+      "peak_working_array_complexity": "O(B*n_max); B <= 1000. Excludes retained terminal outputs.",
+      "retained_output_complexity": "O(M*K) terminal arrays for K resolutions; no full paths saved.",
+      "memory_scope": "Array estimate excludes Python, plotting, RNG overhead, and figure buffers; not a measured process RSS.",
+      "independent_paths_warning": "Independent reference paths add physical path variation and do not measure pathwise discretization error."
+    }
+  },
+  "elapsed_seconds": 2.4995996999787167
+}

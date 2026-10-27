@@ -1,0 +1,18 @@
+{
+  "original_managed_minus_market": {
+    "difference": 0.09782623858158435,
+    "ci95_low": -0.0982061003980045,
+    "ci95_high": 0.2926260720500802,
+    "seed": 20261020,
+    "repetitions": 2000,
+    "block_months": 12
+  },
+  "holdout_cap2_minus_uncapped_10bp": {
+    "difference": 0.11402800637721222,
+    "ci95_low": -0.08611082083825605,
+    "ci95_high": 0.27206715582321345,
+    "seed": 20261021,
+    "repetitions": 2000,
+    "block_months": 12
+  }
+}

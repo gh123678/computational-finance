@@ -1,0 +1,162 @@
+\subsection{T1. Weak-form efficiency and empirical evidence}
+\paragraph{(a)} Let $\mathcal F_t^{\rm hist}$ contain the prices and trading volumes available by time $t$. Weak-form efficiency means that this information is already reflected in current prices: a feasible strategy based only on $\mathcal F_t^{\rm hist}$ should not systematically earn positive expected abnormal returns. ``Abnormal'' requires a specified equilibrium expected-return model or an appropriate passive benchmark, with comparable market and other risk exposures. Performance should be evaluated after commissions, the bid--ask spread, financing, borrowing fees, and other implementation costs. A return above the risk-free rate is not by itself abnormal; it can compensate for risk. The claim concerns persistent expected performance, not every realized trade or a guaranteed outcome in every sample.
+\paragraph{(b)} A non-Gaussian marginal return distribution is compatible with informational efficiency; neither Gaussianity nor independent, identically distributed returns is part of its definition. A profitable realized trade may be luck or compensation for bearing risk. A small sample autocorrelation measures only one form of linear dependence and is uncertain in finite samples. It neither proves independence nor excludes conditional variance dependence, nonlinear predictability, or an economically useful strategy after costs. Conversely, detectable dependence need not imply exploitable risk-adjusted profits. An empirical efficiency test also tests the chosen expected-return benchmark.
+
+\subsection{T2. Five-sigma events and observation frequency}
+\paragraph{(a)} Under independent, identical Bernoulli trials with event probability $p_5=5.733\times10^{-7}$, the waiting time $N$ in observations has
+\[
+ \Pp(N=k)=(1-p_5)^{k-1}p_5,\qquad \E N=\frac1{p_5}.
+\]
+With $252q$ observations per year, the expected waiting time in years is
+\[
+ \E\tau=\frac1{252q p_5}.
+\]
+The rounded statement of $7{,}000$ years implies
+\[
+ q=\frac1{7000\cdot252\cdot5.733\times10^{-7}}
+   =0.988825\ldots,
+\]
+which is approximately one observation per trading day. Exactly one daily observation gives $\E\tau=6921.776$ years. Increasing the number of genuinely comparable independent observations per day reduces this waiting time proportionally; overlapping or dependent observations do not automatically create independent trials.
+\paragraph{(b)} Five years contain $1260$ daily trials, so
+\[
+ \Pp(\hbox{at least one event})=1-(1-p_5)^{1260}
+ =0.0007220974\approx0.07221\%.
+\]
+An empirical frequency of one event every three to four years is much larger than this fixed i.i.d.-Gaussian benchmark predicts. It suggests checking the benchmark, the volatility estimate, the sampling frequency, and possible regime changes. It does not identify a particular alternative distribution, establish a mathematical tail class, prove independence or dependence, or by itself reject weak-form efficiency. A short record also estimates rare-event frequencies imprecisely.
+
+\subsection{T3. Trading assumptions and feasible strategies}
+\paragraph{No transaction costs.} In practice commissions, exchange fees, price impact, and financing expenses reduce realized returns. If a strategy turns over $V$ dollars and incurs an effective proportional cost $c$, its approximate net trading gain is its gross gain minus $cV$. Frequent rebalancing can therefore erase a small theoretical advantage. This mainly changes execution cost and profitability; replacing discrete costly rebalancing with a frictionless hedge also introduces model risk when assessing its real performance.
+\paragraph{Unrestricted short selling.} A desired short may be unavailable, limited by a borrowing constraint, subject to a borrowing fee, recalled, or affected by a short-sale restriction. An unavailable borrow changes the feasible set: a mathematically specified position cannot necessarily be entered or maintained. For an available borrow, fees change its cost. An analyst who assumes unlimited stable borrowing can overstate arbitrage opportunities and understate hedging risk; a price discrepancy may persist because the proposed trade cannot be implemented at the modeled scale.
+
+\subsection{T4. Return aggregation and distributional diagnostics}
+\paragraph{(a)} For positive prices,
+\[
+ 1+R_i=\frac{S_i}{S_{i-1}}=e^{r_i},\qquad
+ r_i=\log(1+R_i),\qquad R_i=e^{r_i}-1.
+\]
+Telescoping gives the exact aggregation rules
+\[
+ 1+R_{0:n}=\frac{S_n}{S_0}=\prod_{i=1}^n(1+R_i),
+ \qquad r_{0:n}=\log\frac{S_n}{S_0}=\sum_{i=1}^n r_i.
+\]
+For two periods, $R_{0:2}=R_1+R_2+R_1R_2$. Adding simple returns omits the compounding term. For example, gains of $10\%$ followed by losses of $10\%$ produce $1.1(0.9)-1=-1\%$, whereas their sum is zero.
+\paragraph{(b)} If the observed returns have sample mean $\bar r$ and positive sample standard deviation $s_r$, use $z_i=(r_i-\bar r)/s_r$. Compare the sorted $z_i$ with $\Phi^{-1}((i-1/2)/n)$ and draw $y=x$. A density histogram has total area one. A count histogram has a different vertical scale; a density overlay must either accompany density normalization or be multiplied by the sample size and bin width when equal-width count bins are used. An unnormalized count curve cannot be compared directly with a density histogram.
+\paragraph{(c)} Permutation preserves the multiset of returns, the empirical marginal distribution, sample mean, variance, skewness, kurtosis, and standardized tail counts. It can change adjacency, clusters, autocorrelations, and their squared-return counterparts. Small return autocorrelations do not exclude dependence of squares. For an explicit stationary example, let $Z_t$ be independent $N(0,1)$ and put $r_t=Z_tZ_{t-1}$. Then $\E r_t=0$, $\Var(r_t)=1$, and $\Cov(r_t,r_{t-1})=0$, but
+\[
+ \Cov(r_t^2,r_{t-1}^2)
+ =\E[Z_t^2Z_{t-1}^4Z_{t-2}^2]-1=3-1=2>0.
+\]
+A single permutation is a diagnostic comparison, not a significance test.
+
+\subsection{T5. Why diffusion noise scales as the square root of time}
+\paragraph{(a)} With $n=T/h$ independent standard normal variables, the accumulated noise $U_n=\sum_{i=1}^n\sigma h^\alpha Y_i$ satisfies
+\[
+ \E U_n=0,\qquad \Var(U_n)=n\sigma^2h^{2\alpha}
+ =\sigma^2T h^{2\alpha-1}.
+\]
+As $h\downarrow0$, a finite nonzero variance requires $2\alpha-1=0$, hence $\alpha=1/2$. For $\alpha>1/2$ the variance vanishes; for $\alpha<1/2$ it diverges.
+\paragraph{(b)} The following is a local Taylor heuristic on paths whose multipliers remain positive, not an unconditional finite-$h$ real-log moment calculation. For the Euler multiplier, write $\epsilon_i=\mu h+\sigma\sqrt hY_i$. In
+\[
+ \sum_i\log(1+\epsilon_i)
+ \simeq\sum_i\epsilon_i-\frac12\sum_i\epsilon_i^2,
+\]
+the noise sum has variance $\sigma^2T$, and the leading quadratic correction is $\sigma^2T/2$. Thus the leading log mean and variance are $(\mu-\sigma^2/2)T$ and $\sigma^2T$. Terms involving $\mu^2h^2$ vanish after summation in this heuristic.
+
+For the incorrect multiplier, $\widetilde\epsilon_i=h(\mu+\sigma Y_i)$. Its noise sum has variance $\sigma^2Th$, and the mean quadratic contribution is $(\mu^2+\sigma^2)Th/2$. Its formal leading log mean and variance are consequently
+\[
+ \mu T-\tfrac12(\mu^2+\sigma^2)Th+o(h),\qquad
+ \sigma^2Th+o(h).
+\]
+The stochastic contribution disappears as the grid is refined, so the second scheme loses the diffusion term rather than approximating GBM.
+\paragraph{(c)} At every fixed $h>0$, normal noise has an unbounded lower tail. For $\sigma>0$, the probabilities of a nonpositive one-step multiplier are respectively
+\[
+ p_E=\Phi\!\left(-\frac{1+\mu h}{\sigma\sqrt h}\right)>0,
+ \qquad
+ p_W=\Phi\!\left(-\frac{1+\mu h}{\sigma h}\right)>0.
+\]
+Therefore real logarithms can fail; conditioning on positive multipliers would change the distribution and its moments. A rigorous argument for the wrong scheme uses products directly. Put $a_h=1+\mu h$ and $A_i=a_h+\sigma hY_i$. Independence yields
+\[
+ \E\widetilde S_n=S_0a_h^n,\qquad
+ \E\widetilde S_n^2=S_0^2(a_h^2+\sigma^2h^2)^n.
+\]
+Since $n=T/h$, these converge to $S_0e^{\mu T}$ and $S_0^2e^{2\mu T}$: for the second limit, its base is $1+2\mu h+(\mu^2+\sigma^2)h^2$. If $c=S_0e^{\mu T}$, then
+\[
+ \E[(\widetilde S_n-c)^2]
+ =\E\widetilde S_n^2-2c\E\widetilde S_n+c^2\longrightarrow0.
+\]
+Thus the terminal value converges to $c$ in mean square and hence in probability, without any logarithms or positivity conditioning.
+
+\subsection{T6. GBM moments and a terminal prediction interval}
+\paragraph{(a)} Set $m=\mu-\sigma^2/2$. The model gives $\log(S_T/S_0)=mT+\sigma\sqrt T Z$ for $Z\sim N(0,1)$. Using the stated normal exponential moment,
+\[
+ \E S_T^k=S_0^k\exp\!\left(k\mu T+\tfrac12k(k-1)\sigma^2T\right).
+\]
+Taking $k=1,2$ and subtracting the squared mean gives
+\[
+ \E S_T=S_0e^{\mu T},\qquad
+ \Var(S_T)=S_0^2e^{2\mu T}(e^{\sigma^2T}-1),\qquad
+ \operatorname{median}(S_T)=S_0e^{mT}.
+\]
+The median follows because $Z$ has median zero and the exponential is increasing. For $S_0=100$, $\mu=0.08$, $\sigma=0.30$, and $T=2$, $m=0.035$ and
+\[
+ \E S_T=117.3510871,\quad \Var(S_T)=2715.9350636,
+ \quad \operatorname{median}(S_T)=107.2508181.
+\]
+The price standard deviation is $52.1146339$ price units; the variance has squared price units.
+\paragraph{(b)} A central $95\%$ model prediction interval is
+\[
+ \left[S_0e^{mT-1.96\sigma\sqrt T},\ S_0e^{mT+1.96\sigma\sqrt T}\right]
+ =[46.6938569,\ 246.3437112].
+\]
+It is obtained by transforming the standard-normal quantiles monotonically. The use of $1.96$ makes the coverage approximately $95\%$.
+\paragraph{(c)} This interval describes the randomness of one future price under fixed known model parameters. It is not an interval estimating a population mean or an unknown parameter. For $M$ independent Monte Carlo terminal draws, the estimated mean instead has standard error $\operatorname{sd}(S_T)/\sqrt M$, estimated by $s_{S}/\sqrt M$. Its approximate $95\%$ mean confidence interval is $\bar S\pm1.96s_S/\sqrt M$. Increasing $M$ reduces this simulation uncertainty; it does not narrow the fixed-model prediction interval or eliminate parameter/model uncertainty.
+
+\subsection{T7. Long-run growth versus expectation}
+\paragraph{(a)} Divide the exact logarithmic solution by $t$:
+\[
+ \frac1t\log\frac{S_t}{S_0}
+ =\mu-\frac{\sigma^2}{2}+\sigma\frac{W_t}{t}
+ \longrightarrow g:=\mu-\frac{\sigma^2}{2}\quad\hbox{almost surely}.
+\]
+If $g<0$, eventually the logarithm is bounded above by a negative constant times $t$, so $S_t\to0$ almost surely. If $g>0$, it grows at least as a positive constant times $t$, so $S_t\to\infty$ almost surely.
+\paragraph{(b)} Stock A has $g_A=0.10-0.50^2/2=-0.025$ and tends to zero almost surely. Stock B has $g_B=0.06-0.30^2/2=0.015$ and tends to infinity almost surely. A has the higher arithmetic drift but lower typical compound growth. Random percentage losses and gains compound asymmetrically; the quadratic volatility correction reduces long-run log growth. These are conclusions of the perpetual constant-parameter teaching model.
+\paragraph{(c)} For A, $\E S_t=S_0e^{0.10t}$ still grows. For any fixed finite $t$, rare very large prices can contribute strongly to the mean while most paths eventually become small. Almost-sure convergence alone does not justify interchanging expectation and an infinite-time limit; the relevant family is not uniformly integrable in this case.
+
+At the critical value $\mu=\sigma^2/2$ with $\sigma>0$, $S_t=S_0e^{\sigma W_t}$ and the asymptotic log growth is zero. A zero rate says only that the logarithm grows sublinearly in $t$; it does not say the logarithm converges. Indeed, for every fixed $K>0$,
+\[
+ \Pp(S_t\le K)=\Phi\!\left(\frac{\log(K/S_0)}{\sigma\sqrt t}\right)
+ \longrightarrow\frac12.
+\]
+This rules out convergence in probability, and therefore almost-sure convergence, to any finite deterministic constant: for a proposed constant $c\ge0$, choose $K>c$, for which such convergence would require the probability to tend to one. Brownian randomness remains at the critical drift even though its contribution divided by $t$ vanishes.
+
+\subsection{T8. Calibrating a constant-parameter return model}
+\paragraph{(a)} The model implies $\E r_i=mh$ and $\Var(r_i)=\sigma^2h$, where $m=\mu-\sigma^2/2$. Matching these moments to $\bar r$ and the sample variance with divisor $n-1$ gives, for $n\ge2$,
+\[
+ \widehat m=\frac{\bar r}{h},\qquad
+ \widehat{\sigma^2}=\frac{s_r^2}{h},\qquad
+ \widehat\sigma=\frac{s_r}{\sqrt h},\qquad
+ \widehat\mu=\frac{\bar r}{h}+\frac{s_r^2}{2h}.
+\]
+For $h=1/252$, these become $252\bar r$, $252s_r^2$, $\sqrt{252}s_r$, and $252\bar r+126s_r^2$, respectively. Returns are dimensionless; $m$ and $\mu$ are rates per year, $\sigma$ is per square root of a year, and $\sigma^2$ is per year. A daily mean should therefore be multiplied by $252$, whereas a daily standard deviation is multiplied by $\sqrt{252}$.
+
+These are moment estimators using an unbiased sample variance. In the i.i.d.-normal model, the MLE of $m$ is still $\bar r/h$, but the variance MLE is
+\[
+ \widehat{\sigma^2}_{\rm ML}
+ =\frac1{nh}\sum_{i=1}^n(r_i-\bar r)^2
+ =\frac{n-1}{n}\widehat{\sigma^2}.
+\]
+The volatility and arithmetic-drift MLEs use that variance MLE, so the displayed moment estimators should not all be labeled MLEs.
+\paragraph{(b)} Independence gives
+\[
+ \Var(\widehat m)=\frac1{h^2}\Var(\bar r)
+ =\frac{\sigma^2}{nh},\qquad
+ \operatorname{SE}(\widehat m)=\frac{\sigma}{\sqrt{nh}}.
+\]
+With $H=nh$ observed years, the plug-in standard error is
+\[
+ \widehat{\operatorname{SE}}(\widehat m)
+ =\frac{\widehat\sigma}{\sqrt H}
+ =\frac{s_r}{h\sqrt n}.
+\]
+Increasing observation frequency at fixed $H$ does not reduce the model's drift standard error $\sigma/\sqrt H$. Each shorter increment supplies a smaller drift signal; more observations are not equivalent to observing more years. This result assumes exact nonoverlapping observations from the stated model; market microstructure can make very high-frequency observations depart from it.
+\paragraph{(c)} First, parameters or the data-generating mechanism can change after the calibration period. Second, a marginal Q--Q plot does not check serial independence, constant conditional variance, or the absence of jumps and other dynamics. Finite-sample estimates, the selected adjustment field, and data errors introduce further uncertainty. A fitted plot is a diagnostic for a historical sample, not proof of the law of future returns.

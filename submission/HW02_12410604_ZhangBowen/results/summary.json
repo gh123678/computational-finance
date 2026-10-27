@@ -1,0 +1,21 @@
+{
+  "A1": {
+    "max_call_put_discrepancy": 0.0,
+    "cost": 4.0,
+    "break_even_low": 44.205084385504094,
+    "break_even_high": 55.794915614495906,
+    "max_profit": 5.7949156144959035
+  },
+  "A4": {
+    "single_sum": -0.2156300410501795,
+    "center_max_abs_difference": 0.07916670664742997,
+    "lower_extreme_sample": -4.074683692851309,
+    "lower_extreme_normal": -3.890591886413094,
+    "upper_extreme_sample": 3.7351892264148527,
+    "upper_extreme_normal": 3.8905918864131204
+  },
+  "A5": {
+    "rmse_ratio": 0.22868718950548833,
+    "predicted_ratio": 0.31622776601683794
+  }
+}

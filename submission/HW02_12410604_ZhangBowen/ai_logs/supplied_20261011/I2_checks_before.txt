@@ -1,0 +1,21 @@
+C:\Users\Admin\Desktop\CF2026_HW02\ai_logs\ai_debug_exercise.py:18: RuntimeWarning: Mean of empty slice
+  price = np.exp(rate * maturity) * payoff.mean()
+C:\Users\Admin\anaconda3\Lib\site-packages\numpy\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+C:\Users\Admin\anaconda3\Lib\site-packages\numpy\_core\_methods.py:219: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+C:\Users\Admin\anaconda3\Lib\site-packages\numpy\_core\_methods.py:178: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean,
+C:\Users\Admin\anaconda3\Lib\site-packages\numpy\_core\_methods.py:211: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+--- checks on: ai_debug_exercise ---
+C1 benchmark: price=-13.7071 exact=11.9508 |diff|=25.6579 vs 4*se=0.0004 -> FAIL
+C2 bounds: [4.8771, 100.0000] contains -13.7071 -> FAIL
+C3 invalid input {'up': 1.01, 'down': 0.99}: no error raised -> FAIL
+C3 invalid input {'up': 1.2, 'down': 1.3}: no error raised -> FAIL
+C3 invalid input {'paths': 0}: no error raised -> FAIL
+C3 invalid input {'paths': -5}: raised ValueError -> PASS
+C4 rate=0: price=-12.9748 vs E[payoff]=10.0000 -> FAIL
+C5 SE scaling: SEs=['0.00384', '0.00095', '0.00024'], ratios=['4.03', '4.00'] (expect ~2) -> FAIL
+overall: FAILURES PRESENT

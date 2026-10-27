@@ -1,0 +1,124 @@
+\section{AI interaction: supplied records and independent audit}
+\subsection*{Setup and provenance}
+On October 11 the student supplied six formatted I1--I3 logs, two proposed repair files, numerical scripts, output files, an English Part III draft and a declaration. They are preserved without edits in \texttt{ai\_logs/supplied\_20261011/}. The student directly confirmed that Model A ran through Claude Code connected to the Kimi API; the original Model A headers instead say Anthropic/Claude. This is recorded as a provenance discrepancy, not silently changed in the originals. Model B is described in the supplied records as DeepSeek through CC Switch. Exact model versions are not independently established; the records include a \texttt{deepseek-flash} tag in one header, but do not consistently report a version.
+
+The supplied session dates are October 10 and 11, 2026, UTC+8, with local execution and no browsing. Codex/OpenAI also assisted T1--T15, A1--A5 and this independent audit. Part III numeric reruns use Python 3.13.9, NumPy 2.4.6 and SciPy 1.16.3. The seed is 20260927 unless an individual test specifies another seed.
+
+\textbf{Provenance update.} The updated supplied declaration describes the logs as records of real sessions, with one disclosed exception: I1(b) was corrected after the original formula transcription and its responses were re-derived and numerical tests rerun. The current I2 logs now include the full code prompts and repaired code responses. Re-derived material is distinguished from an unchanged original exchange. I3's formatted attempts and reflection were prepared with AI assistance; on October 11 the student directly confirmed that the recorded attempts were completed before feedback and that the reflection represents their own experience. Earlier snapshots are retained locally outside the submission archive. The private Chinese note is excluded, while AI-use disclosure and substantive correction history remain in the package.
+
+\subsection{I1. Cross-model audit}
+\begin{center}\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{.08\linewidth}p{.16\linewidth}p{.16\linewidth}p{.16\linewidth}p{.33\linewidth}}
+\toprule Claim & A: supplied log & B: supplied log & Final judgment & Independent evidence\\\midrule
+(a) & Invalid & Invalid & Invalid & At $S_T=0$, payoff 0, financed profit $-4e^{.05}<0$.\\
+(b) & Invalid; revised derivation & Invalid; revised derivation & Invalid as annual-frequency formula & Revised statement uses $(1+r_ct/m)^m$; correct annual form is $(1+r_c/m)^{mt}$.\\
+(c) & Invalid & Invalid & Invalid & For exponential summands $Z_n\geq-\sqrt n$ and skewness $2/\sqrt n$, independently of $M$.\\
+(d) & Valid with endpoint caveats & Valid with endpoint caveats & Valid for continuous uniforms; some follow-up claims incorrect & Both CDFs equal $1-e^{-\lambda x}$, but the two outputs on one draw are antithetic.\\\bottomrule
+\end{tabular}\end{center}
+The positions are extracted from the supplied records. Row (b) describes the explicitly disclosed post-session re-derivation; it is not labeled an unchanged original model response. See \texttt{ai\_logs/claim\_audit.csv} for locations and qualifications.
+
+\textbf{Hand derivations.} The butterfly with premiums 12, 5, 2 costs 4. Its zero-payoff states give $\Pi_T=-4e^{.05}=-4.205084$. Nonnegative payoff therefore does not imply positive profit. A strictly positive price is forced by no arbitrage only if a positive payoff has positive probability; being a nonzero function somewhere does not establish that support assumption. Similarly, neither tail-loss event is guaranteed positive probability without an underlying distribution. The logs' assertion that risk-neutral expectation was checked ``numerically'' has no specified terminal distribution or expectation calculation and is not independently established.
+
+For $x\geq0$, $\Pp(-\log U/\lambda\leq x)=\Pp(U\geq e^{-\lambda x})=1-e^{-\lambda x}$, and $\Pp(-\log(1-U)/\lambda\leq x)=\Pp(U\leq1-e^{-\lambda x})$ gives the same expression. Both CDFs vanish for $x<0$. At $U=.2$, rate one, the outputs are 1.609438 and 0.223144. They agree only at $U=1/2$ in the open interval. Writing $g(u)=-\log(1-u)/\lambda$, the pair is $g(U),g(1-U)$: it is precisely an antithetic pair. The Model B follow-up's initial denial is incorrect; the later passage partly contradicts that denial. Marginal distributional equality remains correct.
+
+\textbf{Numerical checks rerun on October 11.}
+\begin{enumerate}
+\item At $D_0=10000$, $r_c=.05$, $t=2$, $m=12$, the \emph{assigned} wrong formula $D_0(1+r_ct/m)^m$ gives 11047.130674, versus the correct annual formula 11049.413355. The earlier snapshot omitted $t$ and instead gave 10511.618979. The revised script now evaluates the assigned formula and reproduces 11047.130674. The supplied declaration identifies the revision as post-session re-derivation; that disclosure is retained rather than claiming that a fresh model exchange occurred.
+\item The supplied fixed-$n=5$ skewness experiment reproduces 0.8897, 0.8835, 0.8806 and 0.8884 as $M$ increases from $10^3$ to $10^6$. These estimate population skewness $2/\sqrt5=0.894427$, not zero. The normal law assigns probability $\Phi(-\sqrt5)>0$ below the sum's lower support, proving finite-$n$ nonnormality. The script's $\sqrt{6/M}$ is a normal-theory skewness SE, not justified as the actual SE for this skewed gamma distribution.
+\item The original two-transform output reproduces its approximate KS-style distances. Its implementation compares only the right empirical-CDF limit, rather than both sides, and its ``pointwise equal'' fraction uses \texttt{isclose}, not exact equality. A separate fresh-stream test in \texttt{verify\_part\_iii.py} computes the true two-sided one-sample KS distance, exact equality fraction and negative paired covariance. These results are saved separately and do not claim to reproduce unspecified original draws. Neither a non-rejection nor rounded equality proves the distributional identity; the CDF derivation does.
+\end{enumerate}
+\texttt{results/part\_iii\_independent\_verification.json} contains unrounded numerical results. The CLT statement and normal-plot interpretation were independently checked against the non-AI sources \cite{clt,qq}; NumPy's documented $[0,1)$ convention is cited in \cite{rng}. A zero-endpoint guard is needed for $-\log U$; replacing zero by the smallest subnormal is not the same as redrawing it. Floating-point maps approximate a continuous law and endpoint choices must be stated. At the largest float64 uniform below one, the inverse-CDF result is $53\log2/\lambda$; this is not a claim about arbitrary generators or the probability of hitting a non-grid threshold.
+
+\subsubsection*{Comparison of supplied model responses (150--250 words)}
+Both supplied logs classify the butterfly-profit claim as invalid, the altered compounding claim as invalid except at one year, the fixed-summand Gaussian claim as invalid, and the two exponential transforms as marginally equivalent. Agreement on these basic judgments is supported by independent algebra, rather than being evidence that either response is automatically reliable.
+
+Model A stresses financed profit, while Model B develops a zero-cost arbitrage argument. Both arguments need a support qualification: a payoff that is positive somewhere need not be positive with positive probability. Neither log establishes the claimed probabilities of the butterfly's loss states. The earlier compounding records omitted the maturity factor inside the base. The revised derivations correct this, but are explicitly disclosed as post-session revisions rather than new original exchanges.
+
+For the CLT, both models correctly distinguish summand count from replication count. Model B's quoted skewness uncertainty uses a normal-distribution approximation that is not justified for the skewed gamma experiment. For inverse transforms, the marginal CDF reasoning is correct, but Model B initially denies that the shared-uniform pair is antithetic, then partly reverses itself. Independent covariance and the identity pairing the inverse CDF at complementary uniforms resolve that inconsistency.
+
+The appropriate disposition is to retain correct conclusions, qualify unsupported assumptions, and identify observed mistakes without manufacturing additional errors. The original supplied logs remain unchanged; corrections and new tests are recorded separately.
+
+\subsection{I2. AI-assisted debugging and remaining defects}
+The supplied records list pre-AI hypotheses about the hard-coded probability, inverted event, negative-part payoff, incorrect discounting, $1/N$ standard-error scaling and missing validation. They also list analytical, financial-bound, input-domain, zero-rate and SE-scaling checks. Their chronology is reported by the records; it is not independently authenticated by this report. The actual original teaching file is preserved, and its defects are not attributed to a real model output.
+
+\begin{center}\small\begin{tabular}{llll}\toprule
+Check & Original & Supplied A repair & Supplied B repair\\\midrule
+Benchmark (100,000 paths) & $-13.7071$, fail & $11.9775$, pass & $11.9775$, pass\\
+Option bounds & Fail & Pass & Pass\\
+Four invalid inputs & Three fail & All reject & All reject\\
+Zero-rate benchmark & $-12.9748$, fail & $9.9731$, pass & $9.9731$, pass\\
+SE ratios, fourfold $N$ & About 4, fail & 2.01, 2.00 & 2.01, 2.00\\\bottomrule
+\end{tabular}\end{center}
+These outputs were reproduced from copies of the supplied scripts. The five-check suite does not stop with a failure exit status, so its printed ``PASS'' or ``FAIL'' text must be read rather than inferring success from process completion.
+
+\begin{center}\small\begin{tabular}{p{.29\linewidth}p{.43\linewidth}p{.2\linewidth}}\toprule
+Defect & Supplied repair & Audit disposition\\\midrule
+Fixed .65 probability & $(e^{rT}-d)/(u-d)$ & Accepted\\
+Inverted up event & $U\leq p^*$ & Direction accepted; use $<$ in final code\\
+Negative-part payoff & Positive-part payoff & Accepted\\
+Accumulation sign & Discount with $e^{-rT}$ & Accepted\\
+Raw SD divided by $N$ & Discounted sample SD divided by $\sqrt N$ & Accepted\\
+Missing input validation & Partial positivity and tree checks & Revised: incomplete\\\bottomrule
+\end{tabular}\end{center}
+The supplied repairs match A5's independently implemented seed-matched call estimates and standard errors. However, new tests show both accept NaN/infinite spot, zero or negative maturity, and a single path, producing nonfinite estimates or an undefined sample SE. They reject zero strike even though the assigned domain permits it and treat an unknown option kind as a put. Count validation is not an explicit integer check. These are observed defects, not hypothetical ones. The final \texttt{code/ai\_debug\_repaired.py} and \texttt{student\_tasks.py} enforce finite data, positive spot/maturity, nonnegative strike, strict tree consistency and integer path count at least two; the exact pricer validates kind. New regression tests exercise these cases. Supplied patches remain unchanged as proposed artifacts.
+
+\textbf{Advanced checks.} The supplied extra script reproduces a paired parity estimate 4.9047 with 95\% half-width about 0.0806, exact call replication, and 47 of 50 interval coverings. These are actual checks, not guarantees about later runs. In this tree, discounted call and put payoffs sum to a constant and are negatively correlated. Thus the paired difference SE is twice the call SE, larger than an independence-based combination. The logs' claim that pairing removes the common randomness is incorrect here. Approximate normal intervals have approximate coverage; the count need not be exactly Binomial$(50,.95)$ unless the actual coverage probability is .95. Also, at rate zero, positive and negative discounting exponents coincide, so the zero-rate check cannot isolate the exponent-sign defect. The positive-rate draw reconstruction provides that check.
+
+The statement that float path counts flow through NumPy's size argument successfully is incorrect. The statement that $\leq$ matches a continuous-uniform probability exactly also does not transfer literally to a finite random grid. A stable expression using \texttt{expm1} can help some small-argument calculations, but it is not a universal repair for near-boundary subtraction. No arbitrary clipping is used.
+
+\subsection{I3. Supplied rehearsal questions and verified solutions}
+The following questions, attempts and feedback appear in the supplied logs. On October 11 the student explicitly confirmed that the attempts were completed before feedback and that the reflection represents their real experience. The presentation was organized with AI assistance, which remains disclosed. The options/replication and probability/sampling groups are both represented; the four questions provide additional practice. Independently verified final answers follow.
+
+\textbf{A-i.} $S_0=80$, $u=1.25$, $d=.9$, $r=.04$, $T=.5$, derivative payoffs $(30,5)$. Since $.9<e^{.02}<1.25$, the tree is valid. Solving replication gives
+\[
+\Delta=25/28=0.892857143,\quad B_0=-58.111778489,\quad
+V_0=13.316792940,\quad p^*=0.343432400.
+\]
+Both terminal equations hold. The discounted real-world expectation with up probability .6 is 19.603973466. Replication, rather than a chosen physical probability, fixes the price; short a derivative priced at that larger amount and buy the replicating portfolio to obtain a positive initial receipt and zero net terminal payoff.
+
+\textbf{A-ii.} For $f(x)=3x^2$ on $[0,1]$, $F(x)=x^3$ on the support, with CDF zero below it and one above it. Generate $X=U^{1/3}$. Integration gives $\E X=3/4$, $\E X^2=3/5$, $\Var(X)=3/80$. The sample mean SE is $\sqrt{3/(80N)}$; an approximate interval is $\bar X\pm1.96\sqrt{3/(80N)}$, or use the sample SD for an estimated SE. The smallest $N$ for the \emph{theoretical} SE target .005 is 1500. Since $\E X^3=1/2$, the central third moment is $-1/160$ and
+\[
+\gamma_1=-0.860662966,\qquad \gamma_1(\bar X_{10})=-0.272165527.
+\]
+The supplied Model A feedback's values $-0.639$ and approximately $-0.20$ are incorrect. Its asymptotic-CLT point remains valid. A reported single-run sample SE below .005 is not a guarantee of the theoretical target. ``Basically normal'' is ambiguous: exact finite-$N$ normality is false, while the adequacy of an approximation depends on the requested accuracy and use.
+
+\textbf{B-i.} $S_0=120$, $u=1.15$, $d=.85$, $r=.03$, $T=2$, digital payoffs $(20,0)$. The no-arbitrage inequalities hold. Independent calculation gives
+\[
+p^*=0.706121822,\quad\Delta=5/9,\quad B_0=-53.366656903,
+\quad V_0=13.300009764.
+\]
+Both replication equations hold. The physical up-probability .5 gives discounted expectation 9.417645336, which differs from price. Buying the derivative at that lower amount and selling its replicating portfolio gives arbitrage; changing that physical probability cannot change the replication price.
+
+\textbf{B-ii.} The logistic CDF is $F(x)=1/(1+e^{-x})$; differentiating recovers the density. Its inverse is $\log[p/(1-p)]$, so sample using $\log U-\log(1-U)$ with endpoints strictly excluded. Symmetry gives mean zero, and the question permits using variance $\pi^2/3$. The theoretical SE is $\pi/\sqrt{3N}$ and an approximate interval is $\bar X\pm1.96\pi/\sqrt{3N}$. The smallest $N$ at target .02 is 8225. Independent quadrature verifies variance 3.289868134 and fourth moment 45.457575816, giving parent excess kurtosis $6/5$ and mean excess kurtosis $(6/5)/10=.12$ at $N=10$. Symmetry removes skewness, not excess kurtosis or all approximation error.
+
+\textbf{Feedback disposition.} Accept the replication-first argument and the distinction between symmetry and normality. Correct the observed Beta skewness mistake and qualify unsupported claims about CI coverage and the adequacy of small-$N$ approximations. The original I3 verification output files are preserved, but their generating scripts were not supplied; the placeholder reproduction command in the draft is not executable. This package adds actual independent analytical and quadrature verification instead of inventing the missing scripts or claiming to reproduce unknown random streams.
+
+\subsubsection*{Reflection: confirmed by the student}
+The student confirmed the factual basis of the following AI-assisted reflection on October 11, 2026.
+
+This rehearsal shows what I can now do unaided: check the no-arbitrage
+condition $d<e^{rT}<u$; solve the two-state replication system for any
+terminal payoff (call, put, or digital); convert between the replication price
+and the discounted risk-neutral expectation and argue why the real-world
+probability does not enter the price; invert a CDF to build a sampler for a
+non-textbook density; and size a Monte-Carlo run from $\mathrm{SE}=\sigma/\sqrt N$, including
+inverting it to $N\geq\sigma^2/\mathrm{target}^2$.
+
+The most useful correction was on normality at finite N. I had implicitly
+treated "symmetric, so the CLT converges fast" as sufficient; the models
+showed that symmetry only kills skewness, while the finite-N error of the mean
+appears in the excess kurtosis -- confirmed by simulation (skewness $\approx$ 0,
+excess kurtosis 0.12 at N = 10). This is a sharper mental model than "the CLT
+makes it normal".
+
+What remains uncertain: choosing N when the estimand is a quantile or a
+coverage probability rather than a mean; handling near-arbitrage parameters
+where p* suffers catastrophic cancellation; and executing all of the above
+under exam time pressure. The AI was useful as an examiner that forced precise
+language, but every generated question and every code patch was independently
+checked before I relied on it.
+
+\subsection*{Part III reproduction and revision disclosure}
+From the package root run \texttt{python code/verify\_part\_iii.py} and the regression tests. From \texttt{ai\_logs/supplied\_20261011/}, run the original I1 numerical script, I2 checks for each of the three original/proposed modules, and the extra-test script. Rerun outputs are stored separately in \texttt{ai\_logs/}; the source files and their previous outputs are unchanged. Versions, seeds and independent verification results are in \texttt{results/}.
+
+I2's previously omitted code exchanges are now included. I1(b)'s re-derived passages are explicitly disclosed. The student has confirmed the genuine pre-feedback work and final reflection; any assessment requirement for an original exact-wording exchange must be supported by the actual conversation rather than by the revised text alone.

@@ -1,0 +1,16 @@
+{
+  "batch_size_paths": 1000,
+  "fine_grid_per_batch_bytes": 2048000,
+  "dominant_working_arrays_upper_estimate_bytes": 4192000,
+  "retained_terminal_arrays_bytes": 1760000,
+  "saved_csv_rows": {
+    "convergence": 10,
+    "coupled_checks": 10,
+    "stress": 1
+  },
+  "time_complexity": "O(M * (n_max + sum(n))); geometric resolutions make sum(n) < 2*n_max.",
+  "peak_working_array_complexity": "O(B*n_max); B <= 1000. Excludes retained terminal outputs.",
+  "retained_output_complexity": "O(M*K) terminal arrays for K resolutions; no full paths saved.",
+  "memory_scope": "Array estimate excludes Python, plotting, RNG overhead, and figure buffers; not a measured process RSS.",
+  "independent_paths_warning": "Independent reference paths add physical path variation and do not measure pathwise discretization error."
+}

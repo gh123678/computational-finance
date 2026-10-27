@@ -1,0 +1,51 @@
+C:\Users\Admin\anaconda3\Lib\site-packages\pytest_asyncio\plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.3.0, pluggy-1.5.0 -- C:\Users\Admin\anaconda3\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Admin\Documents\ChatGPT\�������\submission\HW02_12410604_ZhangBowen
+plugins: anyio-4.14.0, asyncio-0.24.0
+asyncio: mode=Mode.STRICT, default_loop_scope=None
+collecting ... collected 37 items
+
+code/test_student_tasks.py::test_basic_payoffs PASSED                    [  2%]
+code/test_student_tasks.py::test_butterfly_replication PASSED            [  5%]
+code/test_student_tasks.py::test_profit_financing PASSED                 [  8%]
+code/test_student_tasks.py::test_compounding_roundtrip PASSED            [ 10%]
+code/test_student_tasks.py::test_exponential_quantile PASSED             [ 13%]
+code/test_student_tasks.py::test_sampler_reproducibility PASSED          [ 16%]
+code/test_student_tasks.py::test_clt_shape_and_random_state PASSED       [ 18%]
+code/test_student_tasks.py::test_normal_qq_positions PASSED              [ 21%]
+code/test_student_tasks.py::test_binomial_replication_and_parity PASSED  [ 24%]
+code/test_student_tasks.py::test_invalid_tree PASSED                     [ 27%]
+code/test_student_tasks.py::test_mc_uncertainty_and_pairing PASSED       [ 29%]
+code/test_extended.py::test_bad_assets[-1] PASSED                        [ 32%]
+code/test_extended.py::test_bad_assets[nan] PASSED                       [ 35%]
+code/test_extended.py::test_bad_assets[inf] PASSED                       [ 37%]
+code/test_extended.py::test_period_domain[0] PASSED                      [ 40%]
+code/test_extended.py::test_period_domain[-1] PASSED                     [ 43%]
+code/test_extended.py::test_period_domain[1.5] PASSED                    [ 45%]
+code/test_extended.py::test_period_domain[True] PASSED                   [ 48%]
+code/test_extended.py::test_strikes_and_shapes PASSED                    [ 51%]
+code/test_extended.py::test_butterfly_continuity_and_financed_break_even PASSED [ 54%]
+code/test_extended.py::test_rate_limits_and_conventions[1-0] PASSED      [ 56%]
+code/test_extended.py::test_rate_limits_and_conventions[1-1e-12] PASSED  [ 59%]
+code/test_extended.py::test_rate_limits_and_conventions[1-0.05] PASSED   [ 62%]
+code/test_extended.py::test_rate_limits_and_conventions[1--0.03] PASSED  [ 64%]
+code/test_extended.py::test_rate_limits_and_conventions[2-0] PASSED      [ 67%]
+code/test_extended.py::test_rate_limits_and_conventions[2-1e-12] PASSED  [ 70%]
+code/test_extended.py::test_rate_limits_and_conventions[2-0.05] PASSED   [ 72%]
+code/test_extended.py::test_rate_limits_and_conventions[2--0.03] PASSED  [ 75%]
+code/test_extended.py::test_inverse_endpoints_and_generator_consumption PASSED [ 78%]
+code/test_extended.py::test_batching_invariance_and_theoretical_scaling PASSED [ 81%]
+code/test_extended.py::test_tree_benchmarks_bounds_and_limit PASSED      [ 83%]
+code/test_extended.py::test_mc_against_hand_reconstructed_draws PASSED   [ 86%]
+code/test_extended.py::test_standard_error_scale_over_independent_repetitions PASSED [ 89%]
+code/test_extended.py::test_mc_bad_count[0] PASSED                       [ 91%]
+code/test_extended.py::test_mc_bad_count[1] PASSED                       [ 94%]
+code/test_extended.py::test_mc_bad_count[2.5] PASSED                     [ 97%]
+code/test_extended.py::test_mc_bad_count[True] PASSED                    [100%]
+
+============================= 37 passed in 0.67s ==============================

@@ -1,0 +1,101 @@
+{
+  "status": "PASS",
+  "previous_zip": "12410604_ZhangBowen_Project2.zip",
+  "previous_zip_sha256": "184aff2d3df536c65604398b8cd587904c3a64d4391daf794ff0ad8b0e814545",
+  "scope": "All v1 research configuration entries and raw inputs unchanged; core and all 11 holdout accounts numerically equivalent",
+  "checks": [
+    {
+      "check": "all original configuration entries unchanged",
+      "entries": 23
+    },
+    {
+      "check": "all four original raw inputs unchanged",
+      "files": 4
+    },
+    {
+      "check": "comparison.csv",
+      "rows": 8,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_cap2_0bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_cap2_10bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_cap2_10bp_spread200.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_cap2_30bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_market_0bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_market_10bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_market_30bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_metrics.csv",
+      "rows": 11,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_uncapped_0bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_uncapped_10bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_uncapped_10bp_spread200.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "holdout_uncapped_30bp.csv",
+      "rows": 108,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "original_account.csv",
+      "rows": 1065,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "original_market_account.csv",
+      "rows": 1065,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "original_monthly.csv",
+      "rows": 1065,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "check": "sensitivities.csv",
+      "rows": 10,
+      "maximum_absolute_numeric_difference": 0.0
+    }
+  ]
+}

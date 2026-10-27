@@ -1,0 +1,31 @@
+{
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "delivery_version": 2,
+  "entrypoint": "python -m p1_platform",
+  "source_files_sha256": {
+    "run_project.py": "6d16ddebdb1595d5a0a87d67d80242cf8a969646f122f4b5ca1c9f53490df793",
+    "src/__init__.py": "3a2b846b0777c43a4633e4ddfe3dfc5918c4a76c1215c3de32c25baab49637cc",
+    "src/data.py": "1b2fe1846e18f233ebbecd92c0160acb8097fc28aae71ec4fd3936900da58321",
+    "src/engine.py": "eb636e8830a74affca3631a4da7b9cab8bf71684e6730dc4d195cca0741f89ae",
+    "p1_platform/__init__.py": "3c8c7f4d96c3111ae37feab1a386fdbed1d926653d7ef2818f86323aa87ec67d",
+    "p1_platform/__main__.py": "d3df957c0ee181d8849ac932d9da484f05a2fb4f04008e1042c21e9450ebfd16",
+    "p1_platform/attribution.py": "304cb7e7710fb4bb00d5544073ed00450aba669acf542b198a6422a37ffb87a9",
+    "p1_platform/legacy.py": "e828c72868aa866620c688ffe6ad725fdd91439ea6fa705dc7d37dd002aa19e6",
+    "p1_platform/performance.py": "81a22de8f13044f70efa0c28bec47e5c8c87deb0fe8e146ea14441cd56d0c854",
+    "p1_platform/pipeline.py": "c9dd51524ca5a5848591dd8fd5558d51ee9c54f867d3fef3fe27dd6a10154855",
+    "p1_platform/test_performance.py": "3005583a91180765c9e6fff92d0403950e46e3eb4cb3fee0a9f7bd7837ff8d87"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.5",
+    "matplotlib": "3.10.6",
+    "reportlab": "5.0.0",
+    "pytest": "8.3.0",
+    "requests": "2.32.5"
+  },
+  "created_at_utc": "2026-10-20T00:49:46.849608+00:00",
+  "config_sha256": "760b1887cc72fa03651f1a6ecd139596c743fc879fb179cdfa14f80b38d71df5"
+}

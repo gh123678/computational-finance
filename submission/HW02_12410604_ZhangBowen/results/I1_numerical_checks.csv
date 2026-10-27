@@ -1,0 +1,5 @@
+check,value,comparison
+butterfly_profit_at_S0,-4.2050843855040965,0
+wrong_annual_compounding_t2_m12,11047.130674412969,11049.413355583269
+two_exponential_transforms_U_0.2_rate1,1.6094379124341003,0.22314355131420976
+fixed_n1_standardized_sum_lower_bound,-1,normal has positive probability below -1

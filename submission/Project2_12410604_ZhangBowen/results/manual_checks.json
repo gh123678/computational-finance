@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "cases": 4,
+  "daily_observations": 90,
+  "method": "Explicit Python scalar sum of centered squared daily returns; previous calendar month",
+  "maximum_absolute_return_error": 1.734723475976807e-18
+}
